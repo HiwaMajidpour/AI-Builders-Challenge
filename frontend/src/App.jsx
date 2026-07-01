@@ -6,7 +6,8 @@
 import { ThemeProvider }   from './contexts/ThemeContext';
 import { AuthProvider }    from './contexts/AuthContext';
 import { AIProvider }      from './contexts/AIContext';
-import { ProjectProvider } from './contexts/ProjectContext';
+import { ProjectProvider }  from './contexts/ProjectContext';
+import { TemplateProvider } from './contexts/TemplateContext';
 import AppRouter from './routes/AppRouter';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import { Toaster } from 'sonner';
@@ -18,18 +19,20 @@ export default function App() {
         <AuthProvider>
           <AIProvider>
             <ProjectProvider>
-              <AppRouter />
-              <Toaster
-                position="top-right"
-                richColors
-                closeButton
-                toastOptions={{
-                  style: {
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: 'var(--text-sm)',
-                  },
-                }}
-              />
+              <TemplateProvider>
+                <AppRouter />
+                <Toaster
+                  position="top-right"
+                  richColors
+                  closeButton
+                  toastOptions={{
+                    style: {
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'var(--text-sm)',
+                    },
+                  }}
+                />
+              </TemplateProvider>
             </ProjectProvider>
           </AIProvider>
         </AuthProvider>

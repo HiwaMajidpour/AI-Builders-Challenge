@@ -17,6 +17,7 @@ export const ROUTES = {
   DASHBOARD:  '/dashboard',
   AI_STUDIO:  '/dashboard/ai-studio',
   PROJECTS:   '/dashboard/projects',
+  TEMPLATES:  '/dashboard/templates',
 
   // ── Misc ────────────────────────────────────────────────
   NOT_FOUND: '*',
