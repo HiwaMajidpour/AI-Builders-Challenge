@@ -16,6 +16,7 @@ export const ROUTES = {
   // ── Protected ───────────────────────────────────────────
   DASHBOARD:  '/dashboard',
   AI_STUDIO:  '/dashboard/ai-studio',
+  PROJECTS:   '/dashboard/projects',
 
   // ── Misc ────────────────────────────────────────────────
   NOT_FOUND: '*',
