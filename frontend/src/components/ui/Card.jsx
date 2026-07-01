@@ -1,37 +1,48 @@
-/**
- * components/ui/Card.jsx
- * Surface container with optional header and footer slots.
- */
 import { cn } from '../../utils/cn';
 
-export default function Card({ children, className, as: Tag = 'div', ...props }) {
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+export function CardHeader({ children, className }) {
+  return (
+    <div className={cn('mb-4 flex items-start justify-between gap-3', className)}>
+      {children}
+    </div>
+  );
+}
+
+export function CardTitle({ children, className, as: Tag = 'h3' }) {
   return (
     <Tag
       className={cn(
-        'rounded-[var(--radius-lg)] border border-[var(--color-border)]',
-        'bg-[var(--color-bg-surface)] p-5 shadow-[var(--shadow-sm)]',
+        'text-[var(--text-base)] font-[var(--weight-semibold)]',
+        'text-[var(--color-text-primary)] leading-[var(--leading-snug)]',
         className,
       )}
-      {...props}
     >
       {children}
     </Tag>
   );
 }
 
-export function CardHeader({ children, className }) {
+export function CardDescription({ children, className }) {
   return (
-    <div className={cn('mb-4 flex items-center justify-between', className)}>
+    <p
+      className={cn(
+        'text-[var(--text-sm)] text-[var(--color-text-secondary)]',
+        'leading-[var(--leading-normal)]',
+        className,
+      )}
+    >
       {children}
-    </div>
+    </p>
   );
 }
 
-export function CardTitle({ children, className }) {
+export function CardContent({ children, className }) {
   return (
-    <h3 className={cn('text-base font-semibold text-[var(--color-text-primary)]', className)}>
+    <div className={cn('text-[var(--text-sm)] text-[var(--color-text-secondary)]', className)}>
       {children}
-    </h3>
+    </div>
   );
 }
 
@@ -39,11 +50,76 @@ export function CardFooter({ children, className }) {
   return (
     <div
       className={cn(
-        'mt-4 border-t border-[var(--color-border)] pt-4 flex items-center justify-between',
+        'mt-4 flex items-center justify-between gap-3',
+        'border-t border-[var(--color-border)] pt-4',
         className,
       )}
     >
       {children}
     </div>
+  );
+}
+
+// ── Variant map ───────────────────────────────────────────────────────────────
+const variantStyles = {
+  default: [
+    'bg-[var(--color-bg-elevated)]',
+    'border border-[var(--color-border)]',
+    'shadow-[var(--shadow-sm)]',
+  ],
+  surface: [
+    'bg-[var(--color-bg-surface)]',
+    'border border-[var(--color-border-subtle)]',
+  ],
+  brand: [
+    'bg-[var(--color-brand-subtle)]',
+    'border border-[var(--color-brand-border)]',
+  ],
+  ai: [
+    'bg-[var(--color-bg-ai)]',
+    'border border-[var(--color-brand-border)]',
+    'shadow-[var(--shadow-sm)]',
+  ],
+  ghost: [
+    'bg-transparent',
+    'border border-transparent',
+    'hover:bg-[var(--color-bg-surface)] hover:border-[var(--color-border)]',
+  ],
+  outline: [
+    'bg-transparent',
+    'border border-[var(--color-border-strong)]',
+  ],
+};
+
+// ── Card ──────────────────────────────────────────────────────────────────────
+export default function Card({
+  children,
+  variant = 'default',
+  padding = 'md',
+  className,
+  as: Tag = 'div',
+  ...props
+}) {
+  const paddingStyles = {
+    none: '',
+    sm:   'p-3',
+    md:   'p-5',
+    lg:   'p-6',
+    xl:   'p-8',
+  };
+
+  return (
+    <Tag
+      className={cn(
+        'rounded-[var(--radius-xl)]',
+        'transition-[border-color,box-shadow] duration-[var(--duration-fast)]',
+        variantStyles[variant],
+        paddingStyles[padding],
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Tag>
   );
 }

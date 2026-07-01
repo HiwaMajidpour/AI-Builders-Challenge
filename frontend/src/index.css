@@ -1,10 +1,94 @@
+/* =============================================================================
+   STORYFORGE AI — GLOBAL BASE STYLES
+   Layer order (Tailwind v4):
+     1. @import "tailwindcss"   — Tailwind preflight + utilities
+     2. tokens.css              — CSS custom properties (design tokens)
+     3. animations.css          — Keyframes + animation utilities
+     4. This file               — Base element resets + utility extensions
+   ============================================================================= */
+
 @import "tailwindcss";
 @import "./styles/tokens.css";
 @import "./styles/animations.css";
 
-/*
- * Base resets layered on top of Tailwind's preflight.
- */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TAILWIND v4 THEME BRIDGE
+   Expose design tokens as Tailwind theme values so arbitrary-value syntax
+   like bg-[var(--color-brand)] can be shortened to bg-brand.
+   ───────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Fonts */
+  --font-sans:    var(--font-sans);
+  --font-mono:    var(--font-mono);
+  --font-display: var(--font-display);
+
+  /* Brand colours — available as bg-brand, text-brand, etc. */
+  --color-brand:         var(--color-brand);
+  --color-brand-hover:   var(--color-brand-hover);
+  --color-brand-subtle:  var(--color-brand-subtle);
+  --color-brand-muted:   var(--color-brand-muted);
+  --color-brand-text:    var(--color-brand-text);
+  --color-brand-border:  var(--color-brand-border);
+
+  --color-accent:        var(--color-accent);
+  --color-accent-hover:  var(--color-accent-hover);
+  --color-accent-subtle: var(--color-accent-subtle);
+
+  --color-success:        var(--color-success);
+  --color-success-subtle: var(--color-success-subtle);
+  --color-success-text:   var(--color-success-text);
+
+  --color-warning:        var(--color-warning);
+  --color-warning-subtle: var(--color-warning-subtle);
+  --color-warning-text:   var(--color-warning-text);
+
+  --color-error:          var(--color-error);
+  --color-error-subtle:   var(--color-error-subtle);
+  --color-error-text:     var(--color-error-text);
+
+  /* Semantic surface colours */
+  --color-bg-base:     var(--color-bg-base);
+  --color-bg-subtle:   var(--color-bg-subtle);
+  --color-bg-surface:  var(--color-bg-surface);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-ai:       var(--color-bg-ai);
+
+  --color-border:        var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-strong: var(--color-border-strong);
+
+  --color-text-primary:   var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary:  var(--color-text-tertiary);
+  --color-text-muted:     var(--color-text-muted);
+  --color-text-inverse:   var(--color-text-inverse);
+
+  /* Border radius */
+  --radius-xs:   var(--radius-xs);
+  --radius-sm:   var(--radius-sm);
+  --radius-md:   var(--radius-md);
+  --radius-lg:   var(--radius-lg);
+  --radius-xl:   var(--radius-xl);
+  --radius-2xl:  var(--radius-2xl);
+  --radius-3xl:  var(--radius-3xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadows */
+  --shadow-xs:    var(--shadow-xs);
+  --shadow-sm:    var(--shadow-sm);
+  --shadow-md:    var(--shadow-md);
+  --shadow-lg:    var(--shadow-lg);
+  --shadow-xl:    var(--shadow-xl);
+  --shadow-2xl:   var(--shadow-2xl);
+  --shadow-brand: var(--shadow-brand);
+  --shadow-error: var(--shadow-error);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BASE RESETS
+   ───────────────────────────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -13,28 +97,154 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  text-size-adjust:         100%;
+  scroll-behavior:          smooth;
+  /* Paint the scrollbar gutter immediately — avoids layout shift on open/close */
+  scrollbar-gutter:         stable;
 }
 
 body {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  line-height: var(--leading-normal);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-base);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family:                var(--font-sans);
+  font-size:                  var(--text-base);
+  line-height:                var(--leading-normal);
+  color:                      var(--color-text-primary);
+  background-color:           var(--color-bg-base);
+  -webkit-font-smoothing:     antialiased;
+  -moz-osx-font-smoothing:    grayscale;
+  text-rendering:             optimizeLegibility;
+  /* Prevent text inflation on mobile orientation change */
+  -webkit-text-size-adjust:   none;
 }
 
-/* Focus ring — globally consistent */
+/* Images / media ─────────────────────────────────────────────────────────── */
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Interactive elements ───────────────────────────────────────────────────── */
+button,
+[role='button'] {
+  cursor: pointer;
+}
+
+/* Consistent focus ring — WCAG 2.1 §2.4.7 ──────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline:        2px solid var(--color-border-focus);
   outline-offset: 2px;
+  border-radius:  var(--radius-sm);
 }
 
-/* Scrollbar — subtle */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--color-bg-surface); }
-::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+/* Remove focus ring for mouse users while keeping for keyboard users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Typography baseline ────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family:  var(--font-display);
+  font-weight:  var(--weight-semibold);
+  line-height:  var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color:        var(--color-text-primary);
+}
+
+p {
+  color:       var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+a {
+  color:           var(--color-accent);
+  text-decoration: none;
+  transition:      color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size:   0.9em;
+}
+
+pre {
+  overflow-x:    auto;
+  background:    var(--color-bg-surface);
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding:       var(--space-4);
+}
+
+/* Selection ─────────────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-brand-muted);
+  color:            var(--color-text-primary);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SCROLLBAR  (WebKit — Blink/Safari)
+   ───────────────────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar              { width: 5px; height: 5px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        { background: var(--color-border-strong); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover  { background: var(--color-text-muted); }
+::-webkit-scrollbar-corner       { background: transparent; }
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY LAYER EXTENSIONS
+   Small helper classes that Tailwind doesn't ship out of the box.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Skeleton loader base */
+.skeleton {
+  border-radius: var(--radius-md);
+  background:    var(--color-bg-surface);
+}
+.skeleton.animate-shimmer {
+  border-radius: var(--radius-md);
+}
+
+/* Brand gradient — AI creative elements */
+.gradient-brand {
+  background: linear-gradient(
+    135deg,
+    var(--palette-violet-600) 0%,
+    var(--palette-violet-400) 50%,
+    var(--palette-blue-500)   100%
+  );
+}
+
+.gradient-brand-text {
+  background: linear-gradient(
+    135deg,
+    var(--palette-violet-600) 0%,
+    var(--palette-blue-500)   100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip:         text;
+}
+
+/* Glass surface — frosted card / navbar in dark mode */
+.glass {
+  background:        var(--color-bg-elevated);
+  backdrop-filter:   blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border:            1px solid var(--color-border);
+}
+
+/* Inset focus ring for form fields */
+.ring-brand {
+  box-shadow: var(--shadow-brand);
+}
+.ring-error {
+  box-shadow: var(--shadow-error);
+}

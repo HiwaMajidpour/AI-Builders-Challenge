@@ -1,13 +1,11 @@
-/**
- * components/ui/Spinner.jsx
- * Accessible loading spinner.
- */
 import { cn } from '../../utils/cn';
 
-const sizes = {
-  sm: 'h-4 w-4 border-2',
-  md: 'h-6 w-6 border-2',
-  lg: 'h-9 w-9 border-[3px]',
+// ── Size map ──────────────────────────────────────────────────────────────────
+const sizeStyles = {
+  sm: 'h-4 w-4 border-[1.5px]',
+  md: 'h-5 w-5 border-2',
+  lg: 'h-7 w-7 border-[2.5px]',
+  xl: 'h-9 w-9 border-[3px]',
 };
 
 export default function Spinner({ size = 'md', className }) {
@@ -16,8 +14,9 @@ export default function Spinner({ size = 'md', className }) {
       role="status"
       aria-label="Loading"
       className={cn(
-        'inline-block rounded-full border-current border-r-transparent animate-spin-smooth',
-        sizes[size],
+        'inline-block shrink-0 rounded-full animate-spin-smooth',
+        'border-[var(--color-border-strong)] border-t-[var(--color-brand)]',
+        sizeStyles[size],
         className,
       )}
     />
