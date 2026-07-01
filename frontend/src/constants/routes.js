@@ -14,7 +14,8 @@ export const ROUTES = {
   FORGOT_PASSWORD:  '/forgot-password',
 
   // ── Protected ───────────────────────────────────────────
-  DASHBOARD: '/dashboard',
+  DASHBOARD:  '/dashboard',
+  AI_STUDIO:  '/dashboard/ai-studio',
 
   // ── Misc ────────────────────────────────────────────────
   NOT_FOUND: '*',

@@ -21,7 +21,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Outlet, Link }   from 'react-router-dom';
 import { useAuth }        from '../../hooks/useAuth';
-import { ROUTES }         from '../../constants/routes';
 import Sidebar            from './Sidebar';
 import Avatar             from '../ui/Avatar';
 import ThemeToggle        from '../common/ThemeToggle';

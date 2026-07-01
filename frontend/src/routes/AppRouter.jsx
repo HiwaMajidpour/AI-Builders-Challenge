@@ -58,6 +58,7 @@ const LoginPage          = lazy(() => import('../features/auth/LoginPage'));
 const RegisterPage       = lazy(() => import('../features/auth/RegisterPage'));
 const ForgotPasswordPage = lazy(() => import('../features/auth/ForgotPasswordPage'));
 const DashboardPage      = lazy(() => import('../features/dashboard/DashboardPage'));
+const AIStudioPage       = lazy(() => import('../features/ai/AIStudioPage'));
 
 // ── Suspense fallback ────────────────────────────────────────────
 function PageFallback() {
@@ -153,6 +154,10 @@ export default function AppRouter() {
           <Route
             index
             element={<Lazy><DashboardPage /></Lazy>}
+          />
+          <Route
+            path="ai-studio"
+            element={<Lazy><AIStudioPage /></Lazy>}
           />
         </Route>
 

@@ -1,67 +1,286 @@
 /**
  * features/ai/PromptInput.jsx
+ *
+ * Left panel of AI Studio.
+ * Hosts the prompt textarea, generation options (type / tone / length / creativity),
+ * and the Generate + Clear buttons.
+ *
+ * Props
+ *   prompt         string
+ *   setPrompt      fn(string)
+ *   options        { type, tone, length, creativity }
+ *   setOptions     fn(partial)
+ *   onGenerate     fn()
+ *   isGenerating   bool
  */
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { promptSchema } from '../../utils/validators';
-import { useAI } from '../../hooks/useAI';
-import { toast } from 'sonner';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import { useId } from 'react';
+import { cn }    from '../../utils/cn';
+import Button    from '../../components/ui/Button';
+import Spinner   from '../../components/ui/Spinner';
 
-export default function PromptInput() {
-  const { generateText, isGenerating } = useAI();
-  const [charCount, setCharCount] = useState(0);
+// ── Configuration data ────────────────────────────────────────────────────────
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(promptSchema), defaultValues: { prompt: '' } });
+const STORY_TYPES = ['Story', 'Script', 'Character', 'Dialogue', 'Outline', 'World Building'];
+const TONES       = ['Fantasy', 'Sci-Fi', 'Professional', 'Dark', 'Funny'];
+const LENGTHS     = ['Short', 'Medium', 'Long'];
+const MAX_CHARS   = 1000;
 
-  async function onSubmit({ prompt }) {
-    try {
-      await generateText(prompt);
-      reset();
-    } catch {
-      toast.error('Generation failed. Please try again.');
+// ── SegmentedControl ──────────────────────────────────────────────────────────
+
+function SegmentedControl({ label, options, value, onChange, disabled }) {
+  const id = useId();
+  return (
+    <fieldset>
+      <legend
+        id={id}
+        className="mb-1.5 block text-[var(--text-xs)] font-[var(--weight-semibold)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-text-muted)]"
+      >
+        {label}
+      </legend>
+      <div
+        role="group"
+        aria-labelledby={id}
+        className="flex flex-wrap gap-1.5"
+      >
+        {options.map((opt) => (
+          <button
+            key={opt}
+            type="button"
+            role="radio"
+            aria-checked={value === opt}
+            disabled={disabled}
+            onClick={() => onChange(opt)}
+            className={cn(
+              'rounded-[var(--radius-md)] border px-2.5 py-1',
+              'text-[var(--text-xs)] font-[var(--weight-medium)] leading-none',
+              'transition-[color,background-color,border-color] duration-[var(--duration-fast)]',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-border-focus)]',
+              'disabled:pointer-events-none disabled:opacity-40',
+              value === opt
+                ? 'border-[var(--color-brand)] bg-[var(--color-brand-subtle)] text-[var(--color-brand)]'
+                : 'border-[var(--color-border)] bg-transparent text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)]',
+            )}
+          >
+            {opt}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+// ── CreativitySlider ──────────────────────────────────────────────────────────
+
+function CreativitySlider({ value, onChange, disabled }) {
+  const id = useId();
+  const label =
+    value < 30 ? 'Precise' :
+    value < 60 ? 'Balanced' :
+    value < 85 ? 'Creative' : 'Wild';
+
+  return (
+    <div>
+      <div className="mb-1.5 flex items-center justify-between">
+        <label
+          htmlFor={id}
+          className="text-[var(--text-xs)] font-[var(--weight-semibold)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-text-muted)]"
+        >
+          Creativity
+        </label>
+        <span className="flex items-center gap-1.5 text-[var(--text-xs)]">
+          <span className="font-[var(--weight-semibold)] text-[var(--color-brand)]">{value}</span>
+          <span className="text-[var(--color-text-muted)]">· {label}</span>
+        </span>
+      </div>
+      <input
+        id={id}
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        disabled={disabled}
+        aria-label={`Creativity: ${value} — ${label}`}
+        className={cn(
+          'w-full cursor-pointer appearance-none',
+          'h-1.5 rounded-full',
+          'bg-[var(--color-border)]',
+          '[&::-webkit-slider-thumb]:appearance-none',
+          '[&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4',
+          '[&::-webkit-slider-thumb]:rounded-full',
+          '[&::-webkit-slider-thumb]:bg-[var(--color-brand)]',
+          '[&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white',
+          '[&::-webkit-slider-thumb]:shadow-[var(--shadow-sm)]',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-border-focus)]',
+          'disabled:pointer-events-none disabled:opacity-40',
+        )}
+        style={{
+          background: `linear-gradient(to right, var(--color-brand) ${value}%, var(--color-border) ${value}%)`,
+        }}
+      />
+    </div>
+  );
+}
+
+// ── PromptInput ───────────────────────────────────────────────────────────────
+
+export default function PromptInput({
+  prompt,
+  setPrompt,
+  options,
+  setOptions,
+  onGenerate,
+  isGenerating,
+}) {
+  const textareaId = useId();
+  const charCount  = prompt.length;
+  const isOverLimit = charCount > MAX_CHARS;
+  const isEmpty     = prompt.trim().length === 0;
+
+  function handleKeyDown(e) {
+    // Ctrl/Cmd + Enter → generate
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !isGenerating && !isEmpty && !isOverLimit) {
+      e.preventDefault();
+      onGenerate();
     }
   }
 
   return (
-    <Card>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="prompt" className="text-sm font-medium text-[var(--color-text-primary)]">
-            Your prompt
-          </label>
+    <section
+      className="flex h-full flex-col gap-5 overflow-y-auto"
+      aria-label="Prompt editor"
+    >
+      {/* ── Textarea ── */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor={textareaId}
+          className="text-[var(--text-xs)] font-[var(--weight-semibold)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-text-muted)]"
+        >
+          Your Prompt
+        </label>
+
+        <div className="relative">
           <textarea
-            id="prompt"
-            rows={5}
-            placeholder="Write a thrilling opening chapter for a dystopian novel set in 2157…"
-            className="w-full resize-none rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-base)]
-                       px-3 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]
-                       focus:border-[var(--color-ai)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ai)]/20"
-            aria-invalid={Boolean(errors.prompt)}
-            {...register('prompt', {
-              onChange: (e) => setCharCount(e.target.value.length),
-            })}
+            id={textareaId}
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={isGenerating}
+            placeholder="Describe your story idea…"
+            aria-label="Story prompt"
+            aria-describedby={`${textareaId}-counter`}
+            rows={7}
+            className={cn(
+              'w-full resize-none rounded-[var(--radius-xl)]',
+              'border bg-[var(--color-bg-elevated)]',
+              'px-4 py-3.5 text-[var(--text-sm)] text-[var(--color-text-primary)]',
+              'placeholder:text-[var(--color-text-muted)]',
+              'leading-[var(--leading-relaxed)]',
+              'transition-[border-color,box-shadow] duration-[var(--duration-fast)]',
+              'focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)]',
+              'disabled:pointer-events-none disabled:opacity-60',
+              isOverLimit
+                ? 'border-[var(--color-error)] focus:ring-[var(--color-error)]'
+                : 'border-[var(--color-border)] focus:border-[var(--color-border-focus)]',
+            )}
           />
-          <div className="flex items-center justify-between">
-            {errors.prompt
-              ? <p className="text-xs text-[var(--color-error)]">{errors.prompt.message}</p>
-              : <span />
-            }
-            <span className="text-xs text-[var(--color-text-muted)]">{charCount} / 2000</span>
-          </div>
+          {/* Empty-state hint (shown inside textarea area when empty) */}
+          {isEmpty && !isGenerating && (
+            <p className="pointer-events-none absolute bottom-3 right-4 text-[var(--text-2xs)] text-[var(--color-text-muted)] select-none">
+              Ctrl+Enter to generate
+            </p>
+          )}
         </div>
 
-        <Button type="submit" variant="ai" className="w-full" isLoading={isGenerating}>
-          {isGenerating ? 'Generating…' : '✦ Generate'}
+        {/* Character counter */}
+        <div
+          id={`${textareaId}-counter`}
+          className="flex items-center justify-end gap-1.5"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span
+            className={cn(
+              'text-[var(--text-xs)]',
+              isOverLimit
+                ? 'font-[var(--weight-semibold)] text-[var(--color-error)]'
+                : charCount > MAX_CHARS * 0.8
+                ? 'text-[var(--color-warning)]'
+                : 'text-[var(--color-text-muted)]',
+            )}
+          >
+            {charCount} / {MAX_CHARS}
+          </span>
+        </div>
+      </div>
+
+      {/* ── Generation options ── */}
+      <div className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
+
+        <SegmentedControl
+          label="Story Type"
+          options={STORY_TYPES}
+          value={options.type}
+          onChange={(v) => setOptions({ type: v })}
+          disabled={isGenerating}
+        />
+
+        <SegmentedControl
+          label="Tone"
+          options={TONES}
+          value={options.tone}
+          onChange={(v) => setOptions({ tone: v })}
+          disabled={isGenerating}
+        />
+
+        <SegmentedControl
+          label="Length"
+          options={LENGTHS}
+          value={options.length}
+          onChange={(v) => setOptions({ length: v })}
+          disabled={isGenerating}
+        />
+
+        <CreativitySlider
+          value={options.creativity}
+          onChange={(v) => setOptions({ creativity: v })}
+          disabled={isGenerating}
+        />
+      </div>
+
+      {/* ── Action buttons ── */}
+      <div className="flex gap-2.5">
+        <Button
+          variant="brand"
+          size="lg"
+          fullWidth
+          onClick={onGenerate}
+          disabled={isGenerating || isEmpty || isOverLimit}
+          aria-label={isGenerating ? 'Generating…' : 'Generate story'}
+          leftIcon={
+            isGenerating
+              ? <Spinner size="sm" className="text-current opacity-80" />
+              : (
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              )
+          }
+        >
+          {isGenerating ? 'Generating…' : 'Generate'}
         </Button>
-      </form>
-    </Card>
+
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={() => setPrompt('')}
+          disabled={isGenerating || isEmpty}
+          aria-label="Clear prompt"
+        >
+          Clear
+        </Button>
+      </div>
+    </section>
   );
 }
