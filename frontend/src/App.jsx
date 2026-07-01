@@ -1,17 +1,36 @@
-function App() {
+/**
+ * App.jsx
+ * Root component — mounts all global context providers and the router.
+ * Provider order: Theme → Auth → AI → Router
+ */
+import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { AIProvider } from './contexts/AIContext';
+import AppRouter from './routes/AppRouter';
+import ErrorBoundary from './components/common/ErrorBoundary';
+import { Toaster } from 'sonner';
+
+export default function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold mb-4">
-          StoryForge AI
-        </h1>
-
-        <p className="text-xl text-slate-300">
-          AI-Powered Creative Studio
-        </p>
-      </div>
-    </div>
-  )
+    <ErrorBoundary>
+      <ThemeProvider>
+        <AuthProvider>
+          <AIProvider>
+            <AppRouter />
+            <Toaster
+              position="top-right"
+              richColors
+              closeButton
+              toastOptions={{
+                style: {
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'var(--text-sm)',
+                },
+              }}
+            />
+          </AIProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
 }
-
-export default App
