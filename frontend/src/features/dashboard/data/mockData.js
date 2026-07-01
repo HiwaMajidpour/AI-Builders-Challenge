@@ -164,11 +164,11 @@ export const QUICK_ACTIONS = [
     to:      '/dashboard/ai-studio',
   },
   {
-    id:      'import',
-    label:   'Import Project',
-    icon:    'import',
+    id:      'open-editor',
+    label:   'Open Editor',
+    icon:    'editor',
     variant: 'secondary',
-    to:      '/dashboard/projects/import',
+    to:      '/dashboard/editor',
   },
   {
     id:      'templates',

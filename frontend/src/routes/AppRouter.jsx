@@ -61,6 +61,7 @@ const DashboardPage      = lazy(() => import('../features/dashboard/DashboardPag
 const AIStudioPage       = lazy(() => import('../features/ai/AIStudioPage'));
 const ProjectsPage       = lazy(() => import('../features/projects/ProjectsPage'));
 const TemplatesPage      = lazy(() => import('../features/templates/TemplatesPage'));
+const EditorPage         = lazy(() => import('../features/editor/EditorPage'));
 
 // ── Suspense fallback ────────────────────────────────────────────
 function PageFallback() {
@@ -168,6 +169,10 @@ export default function AppRouter() {
           <Route
             path="templates"
             element={<Lazy><TemplatesPage /></Lazy>}
+          />
+          <Route
+            path="editor"
+            element={<Lazy><EditorPage /></Lazy>}
           />
         </Route>
 
