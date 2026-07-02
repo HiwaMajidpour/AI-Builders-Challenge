@@ -3,7 +3,7 @@
  * User profile settings.
  */
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { useSettings } from '../../hooks/useSettings';
 
@@ -14,15 +14,19 @@ export default function ProfileSettings() {
         loading,
     } = useSettings();
 
-    const [saving, setSaving] = useState(false);
+    const profile = useMemo(
+        () => ({
+            name: settings?.profile?.name ?? '',
+            email: settings?.profile?.email ?? '',
+            bio: settings?.profile?.bio ?? '',
+            country: settings?.profile?.country ?? '',
+            timezone: settings?.profile?.timezone ?? '',
+        }),
+        [settings]
+    );
 
-    const [form, setForm] = useState(() => ({
-        name: settings?.profile?.name ?? '',
-        email: settings?.profile?.email ?? '',
-        bio: settings?.profile?.bio ?? '',
-        country: settings?.profile?.country ?? '',
-        timezone: settings?.profile?.timezone ?? '',
-    }));
+    const [form, setForm] = useState(profile);
+    const [saving, setSaving] = useState(false);
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -59,6 +63,15 @@ export default function ProfileSettings() {
         );
     }
 
+    const values =
+        form.name ||
+            form.email ||
+            form.country ||
+            form.timezone ||
+            form.bio
+            ? form
+            : profile;
+
     return (
         <form
             onSubmit={handleSubmit}
@@ -87,7 +100,7 @@ export default function ProfileSettings() {
                         id="name"
                         name="name"
                         type="text"
-                        value={form.name}
+                        value={values.name}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
                     />
@@ -105,7 +118,7 @@ export default function ProfileSettings() {
                         id="email"
                         name="email"
                         type="email"
-                        value={form.email}
+                        value={values.email}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
                     />
@@ -123,7 +136,7 @@ export default function ProfileSettings() {
                         id="country"
                         name="country"
                         type="text"
-                        value={form.country}
+                        value={values.country}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
                     />
@@ -141,7 +154,7 @@ export default function ProfileSettings() {
                         id="timezone"
                         name="timezone"
                         type="text"
-                        value={form.timezone}
+                        value={values.timezone}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
                     />
@@ -159,7 +172,7 @@ export default function ProfileSettings() {
                         id="bio"
                         name="bio"
                         rows={5}
-                        value={form.bio}
+                        value={values.bio}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
                     />
