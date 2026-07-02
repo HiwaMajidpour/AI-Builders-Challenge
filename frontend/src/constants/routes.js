@@ -1,25 +1,48 @@
 /**
  * constants/routes.js
- * Single source of truth for every application path.
- * Import ROUTES everywhere — never hardcode path strings.
+ * ------------------------------------------------------------------
+ * Centralized application routes.
+ * Import ROUTES everywhere instead of hardcoding path strings.
+ * ------------------------------------------------------------------
  */
 
 export const ROUTES = {
-  // ── Public ──────────────────────────────────────────────
+  // ──────────────────────────────────────────────────────────
+  // Public
+  // ──────────────────────────────────────────────────────────
   HOME: '/',
 
-  // ── Auth ────────────────────────────────────────────────
-  LOGIN:            '/login',
-  REGISTER:         '/register',
-  FORGOT_PASSWORD:  '/forgot-password',
+  // ──────────────────────────────────────────────────────────
+  // Authentication
+  // ──────────────────────────────────────────────────────────
+  LOGIN: '/login',
+  REGISTER: '/register',
+  FORGOT_PASSWORD: '/forgot-password',
 
-  // ── Protected ───────────────────────────────────────────
-  DASHBOARD:  '/dashboard',
-  AI_STUDIO:  '/dashboard/ai-studio',
-  PROJECTS:   '/dashboard/projects',
-  TEMPLATES:  '/dashboard/templates',
-  EDITOR:     '/dashboard/editor',
+  // ──────────────────────────────────────────────────────────
+  // Dashboard
+  // ──────────────────────────────────────────────────────────
+  DASHBOARD: '/dashboard',
 
-  // ── Misc ────────────────────────────────────────────────
+  AI_STUDIO: '/dashboard/ai-studio',
+  PROJECTS: '/dashboard/projects',
+  TEMPLATES: '/dashboard/templates',
+  EDITOR: '/dashboard/editor',
+
+  // ──────────────────────────────────────────────────────────
+  // Settings
+  // ──────────────────────────────────────────────────────────
+  SETTINGS: '/dashboard/settings',
+
+  PROFILE_SETTINGS: '/dashboard/settings/profile',
+  ACCOUNT_SETTINGS: '/dashboard/settings/account',
+  APPEARANCE_SETTINGS: '/dashboard/settings/appearance',
+  NOTIFICATION_SETTINGS: '/dashboard/settings/notifications',
+  SECURITY_SETTINGS: '/dashboard/settings/security',
+  BILLING_SETTINGS: '/dashboard/settings/billing',
+
+  // ──────────────────────────────────────────────────────────
+  // Fallback
+  // ──────────────────────────────────────────────────────────
   NOT_FOUND: '*',
 };
