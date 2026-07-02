@@ -1,6 +1,6 @@
 /**
  * services/settingsService.js
- * Mock settings service with simulated latency.
+ * Mock settings service with localStorage persistence.
  */
 
 import { storage } from '../utils/storage';
@@ -39,7 +39,9 @@ const DEFAULT_SETTINGS = {
 };
 
 function delay(ms = 400) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }
 
 export const settingsService = {
@@ -60,7 +62,31 @@ export const settingsService = {
 
         const updated = {
             ...current,
-            ...patch,
+
+            profile: {
+                ...current.profile,
+                ...(patch.profile ?? {}),
+            },
+
+            appearance: {
+                ...current.appearance,
+                ...(patch.appearance ?? {}),
+            },
+
+            notifications: {
+                ...current.notifications,
+                ...(patch.notifications ?? {}),
+            },
+
+            security: {
+                ...current.security,
+                ...(patch.security ?? {}),
+            },
+
+            billing: {
+                ...current.billing,
+                ...(patch.billing ?? {}),
+            },
         };
 
         storage.set(SETTINGS_KEY, updated);
@@ -71,8 +97,10 @@ export const settingsService = {
     async resetSettings() {
         await delay();
 
-        storage.set(SETTINGS_KEY, DEFAULT_SETTINGS);
+        const settings = structuredClone(DEFAULT_SETTINGS);
 
-        return DEFAULT_SETTINGS;
+        storage.set(SETTINGS_KEY, settings);
+
+        return settings;
     },
 };
