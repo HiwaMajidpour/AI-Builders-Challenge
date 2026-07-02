@@ -1,172 +1,229 @@
 /**
  * services/authService.js
  *
- * Mock authentication service — simulates real API latency (800 ms).
- * Returns fake JWT tokens and user objects so the rest of the app
- * can be developed / tested without a running backend.
- *
- * Drop-in replacement: swap the mock* implementations for real
- * api.post() calls when the backend is ready.
+ * Mock authentication service with persistent session support.
+ * Simulates a backend API while storing the authenticated session
+ * in LocalStorage.
  */
 
 const MOCK_DELAY = 800;
 
-/** Pause for MOCK_DELAY ms */
+const TOKEN_KEY = 'sf_token';
+const REFRESH_TOKEN_KEY = 'sf_refresh_token';
+const USER_KEY = 'sf_user';
+
+/* -------------------------------------------------------------------------- */
+/* Helpers                                                                    */
+/* -------------------------------------------------------------------------- */
+
 function delay(ms = MOCK_DELAY) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/** Deterministic fake JWT — NOT cryptographically valid */
 function makeFakeJwt(userId) {
-  const header  = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const payload = btoa(JSON.stringify({
-    sub: userId,
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 24 h
-  }));
-  const sig = btoa(`mock-signature-${userId}`);
-  return `${header}.${payload}.${sig}`;
+  const header = btoa(
+    JSON.stringify({
+      alg: 'HS256',
+      typ: 'JWT',
+    })
+  );
+
+  const payload = btoa(
+    JSON.stringify({
+      sub: userId,
+      iat: Math.floor(Date.now() / 1000),
+      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+    })
+  );
+
+  const signature = btoa(`mock-signature-${userId}`);
+
+  return `${header}.${payload}.${signature}`;
 }
 
-/** In-memory "database" — seeded with one demo account */
+/* -------------------------------------------------------------------------- */
+/* Mock Database                                                              */
+/* -------------------------------------------------------------------------- */
+
 const MOCK_DB = {
   users: [
     {
-      id:        'usr_demo_001',
-      name:      'Demo User',
-      email:     'demo@storyforge.ai',
-      // bcrypt hash of "Password1" (shown only for developer reference)
-      password:  'Password1',
-      avatar:    null,
-      plan:      'pro',
+      id: 'usr_demo_001',
+      name: 'Demo User',
+      email: 'demo@storyforge.ai',
+      password: 'Password1',
+      avatar: null,
+      plan: 'pro',
       createdAt: '2024-01-15T10:00:00.000Z',
     },
   ],
 
   findByEmail(email) {
-    return this.users.find((u) => u.email.toLowerCase() === email.toLowerCase()) ?? null;
+    return (
+      this.users.find(
+        (user) =>
+          user.email.toLowerCase() === email.toLowerCase()
+      ) ?? null
+    );
   },
 
   findById(id) {
-    return this.users.find((u) => u.id === id) ?? null;
+    return this.users.find((user) => user.id === id) ?? null;
   },
 
   create({ name, email, password }) {
-    const newUser = {
-      id:        `usr_${Date.now()}`,
+    const user = {
+      id: `usr_${Date.now()}`,
       name,
       email,
       password,
-      avatar:    null,
-      plan:      'free',
+      avatar: null,
+      plan: 'free',
       createdAt: new Date().toISOString(),
     };
-    this.users.push(newUser);
-    return newUser;
+
+    this.users.push(user);
+
+    return user;
   },
 };
 
-/** Strip password before returning user to the client */
-function sanitize(userRecord) {
+function sanitize(user) {
   // eslint-disable-next-line no-unused-vars
-  const { password, ...safeUser } = userRecord;
+  const { password, ...safeUser } = user;
+
   return safeUser;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+/* -------------------------------------------------------------------------- */
+/* Auth Service                                                               */
+/* -------------------------------------------------------------------------- */
 
 export const authService = {
-  /**
-   * Simulate POST /auth/login
-   * @param {{ email: string, password: string }} credentials
-   * @returns {{ token: string, refreshToken: string, user: object }}
-   */
+  saveSession(session) {
+    localStorage.setItem(TOKEN_KEY, session.token);
+    localStorage.setItem(
+      REFRESH_TOKEN_KEY,
+      session.refreshToken
+    );
+    localStorage.setItem(USER_KEY, JSON.stringify(session.user));
+  },
+
+  clearSession() {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+  },
+
+  getStoredSession() {
+    const token = localStorage.getItem(TOKEN_KEY);
+    const refreshToken = localStorage.getItem(
+      REFRESH_TOKEN_KEY
+    );
+
+    const rawUser = localStorage.getItem(USER_KEY);
+
+    return {
+      token,
+      refreshToken,
+      user: rawUser ? JSON.parse(rawUser) : null,
+    };
+  },
+
   async login({ email, password }) {
     await delay();
 
     const found = MOCK_DB.findByEmail(email);
 
     if (!found || found.password !== password) {
-      const err = new Error('Invalid email or password.');
-      err.code  = 'INVALID_CREDENTIALS';
-      throw err;
+      const error = new Error('Invalid email or password.');
+      error.code = 'INVALID_CREDENTIALS';
+      throw error;
     }
 
-    return {
-      token:        makeFakeJwt(found.id),
+    const session = {
+      token: makeFakeJwt(found.id),
       refreshToken: makeFakeJwt(`refresh_${found.id}`),
-      user:         sanitize(found),
+      user: sanitize(found),
     };
+
+    this.saveSession(session);
+
+    return session;
   },
 
-  /**
-   * Simulate POST /auth/register
-   * @param {{ name: string, email: string, password: string }} payload
-   * @returns {{ token: string, refreshToken: string, user: object }}
-   */
   async register({ name, email, password }) {
     await delay();
 
     if (MOCK_DB.findByEmail(email)) {
-      const err = new Error('An account with this email already exists.');
-      err.code  = 'EMAIL_TAKEN';
-      throw err;
+      const error = new Error(
+        'An account with this email already exists.'
+      );
+
+      error.code = 'EMAIL_TAKEN';
+
+      throw error;
     }
 
-    const newUser = MOCK_DB.create({ name, email, password });
+    const user = MOCK_DB.create({
+      name,
+      email,
+      password,
+    });
 
-    return {
-      token:        makeFakeJwt(newUser.id),
-      refreshToken: makeFakeJwt(`refresh_${newUser.id}`),
-      user:         sanitize(newUser),
+    const session = {
+      token: makeFakeJwt(user.id),
+      refreshToken: makeFakeJwt(`refresh_${user.id}`),
+      user: sanitize(user),
     };
+
+    this.saveSession(session);
+
+    return session;
   },
 
-  /**
-   * Simulate POST /auth/logout
-   * Server-side token revocation — no-op in mock.
-   */
   async logout() {
     await delay(300);
+
+    this.clearSession();
   },
 
-  /**
-   * Simulate POST /auth/forgot-password
-   * @param {string} email
-   * @returns {{ message: string }}
-   */
   async forgotPassword(email) {
     await delay();
 
-    // We intentionally do NOT reveal whether the email exists (security).
     void email;
 
     return {
-      message: 'If an account with that email exists, a reset link has been sent.',
+      message:
+        'If an account with that email exists, a reset link has been sent.',
     };
   },
 
-  /**
-   * Simulate GET /auth/me — validates a stored token on mount.
-   * Decodes the fake JWT payload to look up the user in mock DB.
-   * @param {string} token
-   * @returns {object} sanitized user
-   */
   async getMe(token) {
     await delay(300);
 
     try {
-      const [, payloadB64] = token.split('.');
-      const { sub } = JSON.parse(atob(payloadB64));
-      const found   = MOCK_DB.findById(sub);
+      const [, payload] = token.split('.');
 
-      if (!found) throw new Error('User not found.');
+      const { sub } = JSON.parse(atob(payload));
 
-      return sanitize(found);
+      const user = MOCK_DB.findById(sub);
+
+      if (!user) {
+        throw new Error();
+      }
+
+      return sanitize(user);
     } catch {
-      const err = new Error('Token is invalid or expired.');
-      err.code  = 'INVALID_TOKEN';
-      throw err;
+      this.clearSession();
+
+      const error = new Error(
+        'Token is invalid or expired.'
+      );
+
+      error.code = 'INVALID_TOKEN';
+
+      throw error;
     }
   },
 };

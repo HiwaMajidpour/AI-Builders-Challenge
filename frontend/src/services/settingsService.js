@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
     profile: {
         name: 'John Doe',
         email: 'john@example.com',
+        avatar: null,
         bio: '',
         country: '',
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -48,7 +49,10 @@ export const settingsService = {
     async getSettings() {
         await delay();
 
-        const settings = storage.get(SETTINGS_KEY, DEFAULT_SETTINGS);
+        const settings = storage.get(
+            SETTINGS_KEY,
+            structuredClone(DEFAULT_SETTINGS)
+        );
 
         storage.set(SETTINGS_KEY, settings);
 
@@ -58,7 +62,10 @@ export const settingsService = {
     async updateSettings(patch) {
         await delay();
 
-        const current = storage.get(SETTINGS_KEY, DEFAULT_SETTINGS);
+        const current = storage.get(
+            SETTINGS_KEY,
+            structuredClone(DEFAULT_SETTINGS)
+        );
 
         const updated = {
             ...current,
@@ -104,3 +111,5 @@ export const settingsService = {
         return settings;
     },
 };
+
+export { DEFAULT_SETTINGS };
