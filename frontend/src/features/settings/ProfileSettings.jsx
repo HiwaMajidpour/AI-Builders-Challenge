@@ -5,18 +5,27 @@
 
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useSettings } from '../../hooks/useSettings';
 
 export default function ProfileSettings() {
-    const [form, setForm] = useState({
-        name: 'John Doe',
-        email: 'john@example.com',
-        bio: '',
-    });
+    const {
+        settings,
+        updateSettings,
+        loading,
+    } = useSettings();
 
     const [saving, setSaving] = useState(false);
 
-    function handleChange(e) {
-        const { name, value } = e.target;
+    const [form, setForm] = useState(() => ({
+        name: settings?.profile?.name ?? '',
+        email: settings?.profile?.email ?? '',
+        bio: settings?.profile?.bio ?? '',
+        country: settings?.profile?.country ?? '',
+        timezone: settings?.profile?.timezone ?? '',
+    }));
+
+    function handleChange(event) {
+        const { name, value } = event.target;
 
         setForm((prev) => ({
             ...prev,
@@ -24,14 +33,15 @@ export default function ProfileSettings() {
         }));
     }
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    async function handleSubmit(event) {
+        event.preventDefault();
 
         try {
             setSaving(true);
 
-            // TODO: Connect to SettingsContext
-            await new Promise((resolve) => setTimeout(resolve, 700));
+            await updateSettings({
+                profile: form,
+            });
 
             toast.success('Profile updated successfully.');
         } catch {
@@ -39,6 +49,14 @@ export default function ProfileSettings() {
         } finally {
             setSaving(false);
         }
+    }
+
+    if (loading && !settings) {
+        return (
+            <div className="py-12 text-center text-sm text-[var(--color-text-muted)]">
+                Loading profile...
+            </div>
+        );
     }
 
     return (
@@ -56,9 +74,8 @@ export default function ProfileSettings() {
                 </p>
             </div>
 
-            <div className="space-y-5">
-
-                <div>
+            <div className="grid gap-5 md:grid-cols-2">
+                <div className="md:col-span-2">
                     <label
                         htmlFor="name"
                         className="mb-2 block text-sm font-medium"
@@ -76,7 +93,7 @@ export default function ProfileSettings() {
                     />
                 </div>
 
-                <div>
+                <div className="md:col-span-2">
                     <label
                         htmlFor="email"
                         className="mb-2 block text-sm font-medium"
@@ -96,6 +113,42 @@ export default function ProfileSettings() {
 
                 <div>
                     <label
+                        htmlFor="country"
+                        className="mb-2 block text-sm font-medium"
+                    >
+                        Country
+                    </label>
+
+                    <input
+                        id="country"
+                        name="country"
+                        type="text"
+                        value={form.country}
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
+                    />
+                </div>
+
+                <div>
+                    <label
+                        htmlFor="timezone"
+                        className="mb-2 block text-sm font-medium"
+                    >
+                        Timezone
+                    </label>
+
+                    <input
+                        id="timezone"
+                        name="timezone"
+                        type="text"
+                        value={form.timezone}
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
+                    />
+                </div>
+
+                <div className="md:col-span-2">
+                    <label
                         htmlFor="bio"
                         className="mb-2 block text-sm font-medium"
                     >
@@ -105,13 +158,12 @@ export default function ProfileSettings() {
                     <textarea
                         id="bio"
                         name="bio"
-                        rows={4}
+                        rows={5}
                         value={form.bio}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-4 py-2"
                     />
                 </div>
-
             </div>
 
             <button
