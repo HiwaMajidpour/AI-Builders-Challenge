@@ -28,7 +28,7 @@ import { BrowserRouter, Routes, Route, Outlet, Link } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
 
 // ── Layouts — eager (always needed, tiny, no benefit splitting) ──
-import MainLayout      from '../components/layout/MainLayout';
+import MainLayout from '../components/layout/MainLayout';
 import DashboardLayout from '../components/layout/DashboardLayout';
 
 // ── Auth layout — inline (no external deps) ─────────────────────
@@ -53,15 +53,21 @@ function AuthLayout() {
 }
 
 // ── Lazy page imports ────────────────────────────────────────────
-const LandingPage        = lazy(() => import('../features/landing/LandingPage'));
-const LoginPage          = lazy(() => import('../features/auth/LoginPage'));
-const RegisterPage       = lazy(() => import('../features/auth/RegisterPage'));
+const LandingPage = lazy(() => import('../features/landing/LandingPage'));
+const LoginPage = lazy(() => import('../features/auth/LoginPage'));
+const RegisterPage = lazy(() => import('../features/auth/RegisterPage'));
 const ForgotPasswordPage = lazy(() => import('../features/auth/ForgotPasswordPage'));
-const DashboardPage      = lazy(() => import('../features/dashboard/DashboardPage'));
-const AIStudioPage       = lazy(() => import('../features/ai/AIStudioPage'));
-const ProjectsPage       = lazy(() => import('../features/projects/ProjectsPage'));
-const TemplatesPage      = lazy(() => import('../features/templates/TemplatesPage'));
-const EditorPage         = lazy(() => import('../features/editor/EditorPage'));
+const DashboardPage = lazy(() => import('../features/dashboard/DashboardPage'));
+const AIStudioPage = lazy(() => import('../features/ai/AIStudioPage'));
+const ProjectsPage = lazy(() => import('../features/projects/ProjectsPage'));
+const TemplatesPage = lazy(() => import('../features/templates/TemplatesPage'));
+const EditorPage = lazy(() => import('../features/editor/EditorPage'));
+const SettingsPage = lazy(() => import('../features/settings/SettingsPage'));
+const ProfileSettings = lazy(() => import('../features/settings/ProfileSettings'));
+const AccountSettings = lazy(() => import('../features/settings/AccountSettings'));
+const BillingSettings = lazy(() => import('../features/settings/BillingSettings'));
+const AppearanceSettings = lazy(() => import('../features/settings/AppearanceSettings'));
+const NotificationsSettings = lazy(() => import('../features/settings/NotificationsSettings'));
 
 // ── Suspense fallback ────────────────────────────────────────────
 function PageFallback() {
@@ -173,6 +179,40 @@ export default function AppRouter() {
           <Route
             path="editor"
             element={<Lazy><EditorPage /></Lazy>}
+          />
+        </Route>
+        <Route
+          path="settings"
+          element={<Lazy><SettingsPage /></Lazy>}
+        >
+          <Route
+            index
+            element={<Lazy><ProfileSettings /></Lazy>}
+          />
+
+          <Route
+            path="profile"
+            element={<Lazy><ProfileSettings /></Lazy>}
+          />
+
+          <Route
+            path="account"
+            element={<Lazy><AccountSettings /></Lazy>}
+          />
+
+          <Route
+            path="appearance"
+            element={<Lazy><AppearanceSettings /></Lazy>}
+          />
+
+          <Route
+            path="billing"
+            element={<Lazy><BillingSettings /></Lazy>}
+          />
+
+          <Route
+            path="notifications"
+            element={<Lazy><NotificationsSettings /></Lazy>}
           />
         </Route>
 

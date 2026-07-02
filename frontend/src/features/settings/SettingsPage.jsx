@@ -2,6 +2,7 @@
  * features/settings/SettingsPage.jsx
  * Main Settings page.
  */
+
 import { NavLink, Outlet } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import { cn } from '../../utils/cn';
@@ -9,27 +10,27 @@ import { cn } from '../../utils/cn';
 const TABS = [
     {
         label: 'Profile',
-        to: `${ROUTES.SETTINGS}/profile`,
+        to: ROUTES.SETTINGS_PROFILE,
     },
     {
         label: 'Account',
-        to: `${ROUTES.SETTINGS}/account`,
+        to: ROUTES.SETTINGS_ACCOUNT,
     },
     {
         label: 'Appearance',
-        to: `${ROUTES.SETTINGS}/appearance`,
+        to: ROUTES.SETTINGS_APPEARANCE,
     },
     {
         label: 'Notifications',
-        to: `${ROUTES.SETTINGS}/notifications`,
+        to: ROUTES.SETTINGS_NOTIFICATIONS,
     },
     {
         label: 'Security',
-        to: `${ROUTES.SETTINGS}/security`,
+        to: ROUTES.SETTINGS_SECURITY,
     },
     {
         label: 'Billing',
-        to: `${ROUTES.SETTINGS}/billing`,
+        to: ROUTES.SETTINGS_BILLING,
     },
 ];
 
