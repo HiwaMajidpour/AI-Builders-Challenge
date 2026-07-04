@@ -23,21 +23,21 @@
  */
 
 import { useState, useCallback } from 'react';
-import { toast }                 from 'sonner';
-import { useAI }                 from '../../hooks/useAI';
-import { cn }                    from '../../utils/cn';
-import Button                    from '../../components/ui/Button';
-import Badge                     from '../../components/ui/Badge';
-import PromptInput               from './PromptInput';
-import GenerationResult          from './GenerationResult';
-import AIHistoryPanel            from './AIHistoryPanel';
+import { toast } from 'sonner';
+import { useAI } from '../../hooks/useAI';
+import { cn } from '../../utils/cn';
+import Button from '../../components/ui/Button';
+import Badge from '../../components/ui/Badge';
+import PromptInput from './PromptInput';
+import GenerationResult from './GenerationResult';
+import AIHistoryPanel from './AIHistoryPanel';
 
 // ── Default generation options ────────────────────────────────────────────────
 
 const DEFAULT_OPTIONS = {
-  type:       'Story',
-  tone:       'Fantasy',
-  length:     'Medium',
+  type: 'Story',
+  tone: 'Fantasy',
+  length: 'Medium',
   creativity: 65,
 };
 
@@ -83,11 +83,11 @@ function HistoryDrawer({ open, onClose, children }) {
 export default function AIStudioPage() {
   const { isGenerating, currentResult, history, generate, loadResult, deleteGeneration, clearHistory } = useAI();
 
-  const [prompt,        setPrompt]        = useState('');
-  const [options,       setOptionsState]  = useState(DEFAULT_OPTIONS);
-  const [historyOpen,   setHistoryOpen]   = useState(false);
-  const [lastPrompt,    setLastPrompt]    = useState('');
-  const [lastOptions,   setLastOptions]   = useState(DEFAULT_OPTIONS);
+  const [prompt, setPrompt] = useState('');
+  const [options, setOptionsState] = useState(DEFAULT_OPTIONS);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [lastPrompt, setLastPrompt] = useState('');
+  const [lastOptions, setLastOptions] = useState(DEFAULT_OPTIONS);
 
   // Merge-update options (partial)
   const setOptions = useCallback((patch) => {
@@ -139,6 +139,22 @@ export default function AIStudioPage() {
   function handleClearAll() {
     clearHistory();
     toast.success('History cleared.');
+  }
+
+  // ── Reuse prompt from history ───────────────────────────────────────────
+  function handleReusePrompt(item) {
+    setPrompt(item.prompt);
+
+    setOptions({
+      type: item.type,
+      tone: item.tone,
+      length: item.length,
+      creativity: item.creativity,
+    });
+
+    setHistoryOpen(false);
+
+    toast.success('Prompt loaded.');
   }
 
   // ── Render ───────────────────────────────────────────────────────────────────
@@ -250,6 +266,7 @@ export default function AIStudioPage() {
             onSelect={handleHistorySelect}
             onDelete={handleHistoryDelete}
             onClearAll={handleClearAll}
+            onReusePrompt={handleReusePrompt}
           />
         </div>
 
@@ -266,6 +283,7 @@ export default function AIStudioPage() {
           onSelect={handleHistorySelect}
           onDelete={handleHistoryDelete}
           onClearAll={handleClearAll}
+          onReusePrompt={handleReusePrompt}
         />
       </HistoryDrawer>
 
