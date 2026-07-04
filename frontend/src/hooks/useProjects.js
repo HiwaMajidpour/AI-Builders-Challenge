@@ -1,12 +1,19 @@
 /**
  * hooks/useProjects.js
- * Convenience hook for consuming ProjectContext.
+ * Custom hook for accessing the ProjectContext.
  */
+
 import { useContext } from 'react';
 import { ProjectContext } from '../contexts/ProjectContext';
 
 export function useProjects() {
-  const ctx = useContext(ProjectContext);
-  if (!ctx) throw new Error('useProjects must be used inside <ProjectProvider>');
-  return ctx;
+  const context = useContext(ProjectContext);
+
+  if (!context) {
+    throw new Error(
+      'useProjects must be used within a ProjectProvider.'
+    );
+  }
+
+  return context;
 }
