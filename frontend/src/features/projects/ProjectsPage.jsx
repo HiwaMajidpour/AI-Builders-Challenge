@@ -10,34 +10,34 @@
  */
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { cn }                   from '../../utils/cn';
-import { useProjects }          from '../../hooks/useProjects';
-import Button                   from '../../components/ui/Button';
-import Badge                    from '../../components/ui/Badge';
-import ProjectSearch             from './ProjectSearch';
-import ProjectFilters            from './ProjectFilters';
-import ProjectList               from './ProjectList';
-import CreateProjectModal        from './CreateProjectModal';
-import EditProjectModal          from './EditProjectModal';
-import DeleteProjectModal        from './DeleteProjectModal';
+import { cn } from '../../utils/cn';
+import { useProjects } from '../../hooks/useProjects';
+import Button from '../../components/ui/Button';
+import Badge from '../../components/ui/Badge';
+import ProjectSearch from './ProjectSearch';
+import ProjectFilters from './ProjectFilters';
+import ProjectList from './ProjectList';
+import CreateProjectModal from './CreateProjectModal';
+import EditProjectModal from './EditProjectModal';
+import DeleteProjectModal from './DeleteProjectModal';
 
 // ── Sort options ──────────────────────────────────────────────────────────────
 
 const SORT_OPTIONS = [
-  { value: 'newest',   label: 'Newest' },
-  { value: 'oldest',   label: 'Oldest' },
-  { value: 'az',       label: 'A → Z' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'oldest', label: 'Oldest' },
+  { value: 'az', label: 'A → Z' },
   { value: 'progress', label: 'Progress' },
 ];
 
 function sortProjects(projects, sort) {
   const arr = [...projects];
   switch (sort) {
-    case 'newest':   return arr.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-    case 'oldest':   return arr.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-    case 'az':       return arr.sort((a, b) => a.title.localeCompare(b.title));
+    case 'newest': return arr.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    case 'oldest': return arr.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+    case 'az': return arr.sort((a, b) => a.title.localeCompare(b.title));
     case 'progress': return arr.sort((a, b) => b.progress - a.progress);
-    default:         return arr;
+    default: return arr;
   }
 }
 
@@ -54,37 +54,45 @@ const GridIcon = (
 
 const ListIcon = (
   <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <line x1="8"  y1="6"  x2="21" y2="6" />
-    <line x1="8"  y1="12" x2="21" y2="12" />
-    <line x1="8"  y1="18" x2="21" y2="18" />
-    <line x1="3"  y1="6"  x2="3.01" y2="6" />
-    <line x1="3"  y1="12" x2="3.01" y2="12" />
-    <line x1="3"  y1="18" x2="3.01" y2="18" />
+    <line x1="8" y1="6" x2="21" y2="6" />
+    <line x1="8" y1="12" x2="21" y2="12" />
+    <line x1="8" y1="18" x2="21" y2="18" />
+    <line x1="3" y1="6" x2="3.01" y2="6" />
+    <line x1="3" y1="12" x2="3.01" y2="12" />
+    <line x1="3" y1="18" x2="3.01" y2="18" />
   </svg>
 );
 
 const PlusIcon = (
   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
     <line x1="12" y1="5" x2="12" y2="19" />
-    <line x1="5"  y1="12" x2="19" y2="12" />
+    <line x1="5" y1="12" x2="19" y2="12" />
   </svg>
 );
 
 // ── ProjectsPage ──────────────────────────────────────────────────────────────
 
 export default function ProjectsPage() {
-  const { projects, loading, loadProjects, createProject, updateProject, deleteProject } = useProjects();
+  const {
+    projects,
+    loading,
+    loadProjects,
+    createProject,
+    updateProject,
+    deleteProject,
+    duplicateProject,
+  } = useProjects();
 
   // ── UI state ─────────────────────────────────────────────────────────────────
-  const [view,    setView]    = useState('grid');
-  const [search,  setSearch]  = useState('');
+  const [view, setView] = useState('grid');
+  const [search, setSearch] = useState('');
   const [filters, setFilters] = useState({ genre: 'All', status: 'All' });
-  const [sort,    setSort]    = useState('newest');
+  const [sort, setSort] = useState('newest');
 
   // ── Modal state ──────────────────────────────────────────────────────────────
-  const [createOpen, setCreateOpen]         = useState(false);
-  const [editTarget,   setEditTarget]       = useState(null);
-  const [deleteTarget, setDeleteTarget]     = useState(null);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // ── Load projects on mount (or if context hasn't loaded yet) ─────────────────
   useEffect(() => {
@@ -255,6 +263,7 @@ export default function ProjectsPage() {
         view={view}
         onEdit={setEditTarget}
         onDelete={setDeleteTarget}
+        onDuplicate={duplicateProject}
         onCreateFirst={() => setCreateOpen(true)}
         isFiltered={isFiltered}
       />
