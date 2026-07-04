@@ -5,10 +5,10 @@
  */
 import { createContext, useCallback, useEffect, useReducer, useRef } from 'react';
 import { editorService } from '../services/editorService';
-import { storage }       from '../utils/storage';
+import { storage } from '../utils/storage';
 
 const CURRENT_DOC_KEY = 'sf_editor_current_doc';
-const OPEN_TABS_KEY   = 'sf_editor_open_tabs';
+const OPEN_TABS_KEY = 'sf_editor_open_tabs';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const EditorContext = createContext(null);
@@ -21,12 +21,12 @@ function countWords(text) {
 
 // ── Reducer ───────────────────────────────────────────────────────────────────
 const initialState = {
-  documents:       null,             // null = not loaded yet
+  documents: null,             // null = not loaded yet
   currentDocument: storage.get(CURRENT_DOC_KEY, null),
-  openTabIds:      storage.get(OPEN_TABS_KEY, []),
-  loading:         false,
-  saving:          false,
-  error:           null,
+  openTabIds: storage.get(OPEN_TABS_KEY, []),
+  loading: false,
+  saving: false,
+  error: null,
 };
 
 function editorReducer(state, action) {
@@ -48,9 +48,9 @@ function editorReducer(state, action) {
       const updated = action.payload;
       return {
         ...state,
-        saving:          false,
+        saving: false,
         currentDocument: state.currentDocument?.id === updated.id ? updated : state.currentDocument,
-        documents:       (state.documents ?? []).map((d) => d.id === updated.id ? updated : d),
+        documents: (state.documents ?? []).map((d) => d.id === updated.id ? updated : d),
       };
     }
 
@@ -69,8 +69,8 @@ function editorReducer(state, action) {
       const tabIds = state.openTabIds.filter((id) => id !== action.payload);
       const current = state.currentDocument?.id === action.payload
         ? (tabIds.length > 0
-            ? (state.documents ?? []).find((d) => d.id === tabIds[tabIds.length - 1]) ?? null
-            : null)
+          ? (state.documents ?? []).find((d) => d.id === tabIds[tabIds.length - 1]) ?? null
+          : null)
         : state.currentDocument;
       return { ...state, openTabIds: tabIds, currentDocument: current };
     }
@@ -79,9 +79,9 @@ function editorReducer(state, action) {
       const tabIds = [...state.openTabIds, action.payload.id];
       return {
         ...state,
-        documents:       [action.payload, ...(state.documents ?? [])],
+        documents: [action.payload, ...(state.documents ?? [])],
         currentDocument: action.payload,
-        openTabIds:      tabIds,
+        openTabIds: tabIds,
       };
     }
 
@@ -90,20 +90,20 @@ function editorReducer(state, action) {
       const current = state.currentDocument?.id === action.payload ? null : state.currentDocument;
       return {
         ...state,
-        documents:       (state.documents ?? []).filter((d) => d.id !== action.payload),
+        documents: (state.documents ?? []).filter((d) => d.id !== action.payload),
         currentDocument: current,
-        openTabIds:      tabIds,
+        openTabIds: tabIds,
       };
     }
 
     case 'UPDATE_CONTENT': {
       if (!state.currentDocument) return state;
-      const wc  = countWords(action.payload);
+      const wc = countWords(action.payload);
       const doc = { ...state.currentDocument, content: action.payload, wordCount: wc };
       return {
         ...state,
         currentDocument: doc,
-        documents:       (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
+        documents: (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
       };
     }
 
@@ -113,7 +113,7 @@ function editorReducer(state, action) {
       return {
         ...state,
         currentDocument: doc,
-        documents:       (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
+        documents: (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
       };
     }
 
@@ -124,7 +124,7 @@ function editorReducer(state, action) {
       return {
         ...state,
         currentDocument: doc,
-        documents:       (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
+        documents: (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
       };
     }
 
@@ -137,7 +137,7 @@ function editorReducer(state, action) {
       return {
         ...state,
         currentDocument: doc,
-        documents:       (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
+        documents: (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
       };
     }
 
@@ -148,7 +148,7 @@ function editorReducer(state, action) {
       return {
         ...state,
         currentDocument: doc,
-        documents:       (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
+        documents: (state.documents ?? []).map((d) => d.id === doc.id ? doc : d),
       };
     }
 
@@ -163,7 +163,7 @@ function editorReducer(state, action) {
 // ── Provider ──────────────────────────────────────────────────────────────────
 export function EditorProvider({ children }) {
   const [state, dispatch] = useReducer(editorReducer, initialState);
-  const saveTimerRef      = useRef(null);
+  const saveTimerRef = useRef(null);
 
   // Persist current document
   useEffect(() => {
@@ -242,16 +242,30 @@ export function EditorProvider({ children }) {
 
   // ── updateTitle ───────────────────────────────────────────────────────────
   const updateTitle = useCallback((title) => {
-    dispatch({ type: 'UPDATE_TITLE', payload: title });
-  }, []);
+    dispatch({
+      type: 'UPDATE_TITLE',
+      payload: title,
+    });
+
+    const current = state.currentDocument;
+
+    if (!current) return;
+
+    const updated = {
+      ...current,
+      title,
+    };
+
+    save(updated).catch(() => { });
+  }, [state.currentDocument, save]);
 
   // ── chapter operations ────────────────────────────────────────────────────
   const createChapter = useCallback((title) => {
     const chapter = {
-      id:        `ch_${Date.now()}`,
-      title:     title ?? 'New Chapter',
+      id: `ch_${Date.now()}`,
+      title: title ?? 'New Chapter',
       wordCount: 0,
-      order:     Date.now(),
+      order: Date.now(),
     };
     dispatch({ type: 'ADD_CHAPTER', payload: chapter });
   }, []);
@@ -267,10 +281,10 @@ export function EditorProvider({ children }) {
   // ── exportDocument ────────────────────────────────────────────────────────
   const exportDocument = useCallback(async (id, format) => {
     const result = await editorService.exportDocument(id, format);
-    const blob   = new Blob([result.content], { type: 'text/plain' });
-    const url    = URL.createObjectURL(blob);
-    const link   = document.createElement('a');
-    link.href     = url;
+    const blob = new Blob([result.content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
     link.download = result.filename;
     link.click();
     URL.revokeObjectURL(url);
