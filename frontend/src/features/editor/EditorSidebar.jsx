@@ -14,24 +14,24 @@
  *   onDeleteChapter  fn(id)
  *   onRestoreVersion fn(version)
  */
-import { useState }    from 'react';
-import { cn }          from '../../utils/cn';
-import Button          from '../../components/ui/Button';
-import Badge           from '../../components/ui/Badge';
-import Input           from '../../components/ui/Input';
-import ChapterList     from './ChapterList';
-import WordCounter     from './WordCounter';
-import ReadingStats    from './ReadingStats';
-import VersionHistory  from './VersionHistory';
+import { useState } from 'react';
+import { cn } from '../../utils/cn';
+import Button from '../../components/ui/Button';
+import Badge from '../../components/ui/Badge';
+import Input from '../../components/ui/Input';
+import ChapterList from './ChapterList';
+import WordCounter from './WordCounter';
+import ReadingStats from './ReadingStats';
+import VersionHistory from './VersionHistory';
 
 const GENRE_VARIANT = {
-  'Sci-Fi':    'accent',
-  Fantasy:     'brand',
-  Mystery:     'default',
-  Romance:     'default',
-  Literary:    'default',
-  Historical:  'default',
-  Fiction:     'default',
+  'Sci-Fi': 'accent',
+  Fantasy: 'brand',
+  Mystery: 'default',
+  Romance: 'default',
+  Literary: 'default',
+  Historical: 'default',
+  Fiction: 'default',
 };
 
 const SearchIcon = (
@@ -51,10 +51,10 @@ const PlusIcon = (
 function relTime(iso) {
   const diff = Date.now() - new Date(iso).getTime();
   const mins = Math.floor(diff / 60_000);
-  if (mins < 1)  return 'Just now';
+  if (mins < 1) return 'Just now';
   if (mins < 60) return `${mins}m ago`;
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24)  return `${hrs}h ago`;
+  if (hrs < 24) return `${hrs}h ago`;
   return `${Math.floor(hrs / 24)}d ago`;
 }
 
@@ -70,14 +70,14 @@ export default function EditorSidebar({
   onDeleteChapter,
   onRestoreVersion,
 }) {
-  const [search,  setSearch]  = useState('');
+  const [search, setSearch] = useState('');
   const [section, setSection] = useState('documents'); // 'documents' | 'chapters' | 'stats' | 'history'
 
   const tabs = [
-    { id: 'documents', label: 'Docs'    },
-    { id: 'chapters',  label: 'Chapters'},
-    { id: 'stats',     label: 'Stats'   },
-    { id: 'history',   label: 'History' },
+    { id: 'documents', label: 'Docs' },
+    { id: 'chapters', label: 'Chapters' },
+    { id: 'stats', label: 'Stats' },
+    { id: 'history', label: 'History' },
   ];
 
   const filteredDocs = (documents ?? []).filter((d) =>
@@ -85,7 +85,7 @@ export default function EditorSidebar({
   );
 
   const favorites = filteredDocs.filter((d) => d.favorite);
-  const recent    = filteredDocs.filter((d) => !d.favorite).slice(0, 8);
+  const recent = filteredDocs.filter((d) => !d.favorite).slice(0, 8);
 
   return (
     <aside
@@ -196,7 +196,7 @@ export default function EditorSidebar({
         {/* ── Stats ── */}
         {section === 'stats' && currentDocument && (
           <div className="flex flex-col divide-y divide-[var(--color-border)]">
-            <WordCounter  content={currentDocument.content} />
+            <WordCounter content={currentDocument.content} />
             <ReadingStats content={currentDocument.content} />
           </div>
         )}
@@ -207,12 +207,18 @@ export default function EditorSidebar({
         {/* ── History ── */}
         {section === 'history' && (
           currentDocument ? (
-            <VersionHistory
-              versions={currentDocument.versions ?? []}
-              onRestore={onRestoreVersion}
-            />
+            <>
+              <pre style={{ fontSize: 10 }}>
+                {JSON.stringify(currentDocument?.versions, null, 2)}
+              </pre>
+
+              <VersionHistory
+                versions={currentDocument.versions ?? []}
+                onRestore={onRestoreVersion}
+              />
+            </>
           ) : (
-            <p className="p-4 text-[var(--text-xs)] text-[var(--color-text-muted)]">Open a document first.</p>
+            <p>Open a document first.</p>
           )
         )}
       </div>
@@ -265,7 +271,7 @@ function DocList({ docs, currentId, onOpen, onDelete }) {
           >
             <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <line x1="10" y1="0" x2="0" y2="10" />
-              <line x1="0"  y1="0" x2="10" y2="10" />
+              <line x1="0" y1="0" x2="10" y2="10" />
             </svg>
           </button>
         </li>

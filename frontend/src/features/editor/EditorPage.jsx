@@ -14,16 +14,16 @@
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { toast }            from 'sonner';
-import { cn }               from '../../utils/cn';
-import { useEditor }        from '../../hooks/useEditor';
-import Button               from '../../components/ui/Button';
-import EditorToolbar        from './EditorToolbar';
-import EditorCanvas         from './EditorCanvas';
-import EditorSidebar        from './EditorSidebar';
-import EditorStatusBar      from './EditorStatusBar';
-import DocumentTabs         from './DocumentTabs';
-import AIAssistantPanel     from './AIAssistantPanel';
+import { toast } from 'sonner';
+import { cn } from '../../utils/cn';
+import { useEditor } from '../../hooks/useEditor';
+import Button from '../../components/ui/Button';
+import EditorToolbar from './EditorToolbar';
+import EditorCanvas from './EditorCanvas';
+import EditorSidebar from './EditorSidebar';
+import EditorStatusBar from './EditorStatusBar';
+import DocumentTabs from './DocumentTabs';
+import AIAssistantPanel from './AIAssistantPanel';
 
 // ── Debounce helper ───────────────────────────────────────────────────────────
 function useDebounce(fn, delay) {
@@ -36,8 +36,8 @@ function useDebounce(fn, delay) {
 
 // ── Undo / Redo history hook ──────────────────────────────────────────────────
 function useUndoHistory(initial = '') {
-  const stackRef    = useRef([initial]);
-  const indexRef    = useRef(0);
+  const stackRef = useRef([initial]);
+  const indexRef = useRef(0);
 
   function push(value) {
     // Trim forward history
@@ -161,6 +161,7 @@ export default function EditorPage() {
     deleteDocument,
     updateContent,
     updateTitle,
+    restoreVersion,
     createChapter,
     updateChapter,
     deleteChapter,
@@ -168,15 +169,15 @@ export default function EditorPage() {
   } = useEditor();
 
   // ── Local UI state ────────────────────────────────────────────────────────
-  const [sidebarOpen,  setSidebarOpen]  = useState(false);
-  const [aiPanelOpen,  setAIPanelOpen]  = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [aiPanelOpen, setAIPanelOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [cursorPos,    setCursorPos]    = useState(null);
-  const [lastSaved,    setLastSaved]    = useState(null);
+  const [cursorPos, setCursorPos] = useState(null);
+  const [lastSaved, setLastSaved] = useState(null);
 
   // ── Undo / redo ───────────────────────────────────────────────────────────
   const undoHistory = useUndoHistory(currentDocument?.content ?? '');
-  const prevDocId   = useRef(null);
+  const prevDocId = useRef(null);
 
   // Reset undo history when switching documents
   useEffect(() => {
@@ -251,8 +252,15 @@ export default function EditorPage() {
     }
   }
 
-  function handleRestoreVersion(version) {
-    toast.success(`Restored to "${version.label}" (${version.wordCount} words).`);
+  async function handleRestoreVersion(version) {
+    restoreVersion(version);
+
+    await save({
+      ...currentDocument,
+      content: version.content,
+    });
+
+    toast.success(`Restored "${version.label}"`);
   }
 
   function handleInsertFromAI(text) {
@@ -290,7 +298,7 @@ export default function EditorPage() {
           className="h-8 w-8"
         >
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
-            <line x1="3" y1="6"  x2="21" y2="6"  />
+            <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
@@ -425,7 +433,7 @@ export default function EditorPage() {
           >
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <line x1="14" y1="0" x2="0" y2="14" />
-              <line x1="0"  y1="0" x2="14" y2="14" />
+              <line x1="0" y1="0" x2="14" y2="14" />
             </svg>
           </Button>
         </div>

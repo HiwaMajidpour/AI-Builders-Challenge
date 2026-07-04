@@ -7,15 +7,15 @@
  *   onRestore   fn(version)
  */
 import { cn } from '../../utils/cn';
-import Button  from '../../components/ui/Button';
+import Button from '../../components/ui/Button';
 
 function relTime(iso) {
   const diff = Date.now() - new Date(iso).getTime();
   const mins = Math.floor(diff / 60_000);
-  if (mins < 1)  return 'Just now';
+  if (mins < 1) return 'Just now';
   if (mins < 60) return `${mins}m ago`;
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24)  return `${hrs}h ago`;
+  if (hrs < 24) return `${hrs}h ago`;
   return `${Math.floor(hrs / 24)}d ago`;
 }
 
@@ -60,8 +60,7 @@ export default function VersionHistory({ versions = [], onRestore }) {
                     size="xs"
                     onClick={() => onRestore(v)}
                     aria-label={`Restore version: ${v.label}`}
-                    className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-[var(--color-brand)]"
-                  >
+                    className="shrink-0 text-[var(--color-brand)]"                  >
                     Restore
                   </Button>
                 )}

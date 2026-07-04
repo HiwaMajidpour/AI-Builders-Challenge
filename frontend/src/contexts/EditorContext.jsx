@@ -117,6 +117,24 @@ function editorReducer(state, action) {
       };
     }
 
+    case 'RESTORE_VERSION': {
+      if (!state.currentDocument) return state;
+
+      const doc = {
+        ...state.currentDocument,
+        content: action.payload.content,
+        wordCount: countWords(action.payload.content),
+      };
+
+      return {
+        ...state,
+        currentDocument: doc,
+        documents: (state.documents ?? []).map((d) =>
+          d.id === doc.id ? doc : d
+        ),
+      };
+    }
+
     case 'ADD_CHAPTER': {
       if (!state.currentDocument) return state;
       const chapters = [...(state.currentDocument.chapters ?? []), action.payload];
@@ -295,6 +313,13 @@ export function EditorProvider({ children }) {
     dispatch({ type: 'CLEAR_ERROR' });
   }, []);
 
+  const restoreVersion = useCallback((version) => {
+    dispatch({
+      type: 'RESTORE_VERSION',
+      payload: version,
+    });
+  }, []);
+
   // Cleanup auto-save timer on unmount
   useEffect(() => {
     const timer = saveTimerRef.current;
@@ -313,6 +338,7 @@ export function EditorProvider({ children }) {
         deleteDocument,
         updateContent,
         updateTitle,
+        restoreVersion,
         createChapter,
         updateChapter,
         deleteChapter,
