@@ -223,7 +223,7 @@ export default function ProjectCard({
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => onEdit(project)}
+              onClick={() => onEdit?.(project)}
               aria-label={`Edit ${title}`}
             >
               {EditIcon}
@@ -232,7 +232,7 @@ export default function ProjectCard({
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => onDuplicate(project)}
+              onClick={() => onDuplicate?.(project)}
               aria-label={`Duplicate ${title}`}
             >
               {DuplicateIcon}
@@ -241,7 +241,7 @@ export default function ProjectCard({
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => onDelete(project)}
+              onClick={() => onDelete?.(project)}
               aria-label={`Delete ${title}`}
             >
               {DeleteIcon}
