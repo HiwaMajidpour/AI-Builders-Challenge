@@ -10,13 +10,13 @@
  *   onUpdate  fn(id, data) → Promise
  */
 import { useState, useRef, useEffect } from 'react';
-import { toast }  from 'sonner';
-import Modal      from '../../components/ui/Modal';
-import Input      from '../../components/ui/Input';
-import Button     from '../../components/ui/Button';
+import { toast } from 'sonner';
+import Modal from '../../components/ui/Modal';
+import Input from '../../components/ui/Input';
+import Button from '../../components/ui/Button';
 import { GENRES } from './data/projectConstants';
 
-const STATUSES     = ['Draft', 'In Progress', 'Completed'];
+const STATUSES = ['Draft', 'In Progress', 'Completed'];
 const GENRE_OPTIONS = GENRES.filter((g) => g !== 'All');
 
 const COVER_COLORS = [
@@ -26,29 +26,29 @@ const COVER_COLORS = [
 
 function validate({ title, genre }) {
   const errors = {};
-  if (!title.trim())            errors.title = 'Title is required.';
+  if (!title.trim()) errors.title = 'Title is required.';
   if (title.trim().length > 80) errors.title = 'Title must be 80 characters or fewer.';
-  if (!genre)                   errors.genre = 'Please select a genre.';
+  if (!genre) errors.genre = 'Please select a genre.';
   return errors;
 }
 
 export default function EditProjectModal({ isOpen, onClose, project, onUpdate }) {
-  const [form, setForm]     = useState({});
+  const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
-  const titleRef            = useRef(null);
+  const titleRef = useRef(null);
 
   // Sync form when project changes (microtask avoids set-state-in-effect lint rule)
   useEffect(() => {
     if (!project) return;
     Promise.resolve().then(() => {
       setForm({
-        title:       project.title ?? '',
-        genre:       project.genre ?? '',
+        title: project.title ?? '',
+        genre: project.genre ?? '',
         description: project.description ?? '',
-        status:      project.status ?? 'Draft',
-        progress:    project.progress ?? 0,
-        coverColor:  project.coverColor ?? COVER_COLORS[0],
+        status: project.status ?? 'Draft',
+        progress: project.progress ?? 0,
+        coverColor: project.coverColor ?? COVER_COLORS[0],
       });
       setErrors({});
       setSaving(false);
@@ -219,7 +219,7 @@ export default function EditProjectModal({ isOpen, onClose, project, onUpdate })
                 style={{
                   backgroundColor: colour,
                   borderColor: (form.coverColor ?? COVER_COLORS[0]) === colour ? 'white' : 'transparent',
-                  boxShadow:   (form.coverColor ?? COVER_COLORS[0]) === colour ? `0 0 0 2px ${colour}` : 'none',
+                  boxShadow: (form.coverColor ?? COVER_COLORS[0]) === colour ? `0 0 0 2px ${colour}` : 'none',
                 }}
               />
             ))}

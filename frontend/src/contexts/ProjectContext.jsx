@@ -1,9 +1,15 @@
 /**
  * contexts/ProjectContext.jsx
- * Manages project state and connects the UI to the mock project service.
+ * Global project state.
  */
 
-import { createContext, useCallback, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  useReducer,
+  useEffect,
+  useCallback,
+} from 'react';
+
 import { projectService } from '../services/projectService';
 import { storage } from '../utils/storage';
 
@@ -12,10 +18,6 @@ const STORAGE_KEY = 'sf_projects';
 // eslint-disable-next-line react-refresh/only-export-components
 export const ProjectContext = createContext(null);
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Reducer
-// ─────────────────────────────────────────────────────────────────────────────
-
 const initialState = {
   projects: storage.get(STORAGE_KEY, null),
   currentProject: null,
@@ -23,7 +25,7 @@ const initialState = {
   error: null,
 };
 
-function projectReducer(state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case 'LOAD_START':
       return {
@@ -68,21 +70,18 @@ function projectReducer(state, action) {
             : state.currentProject,
       };
 
-    case 'REMOVE_PROJECT': {
-      const filtered = (state.projects ?? []).filter(
-        (project) => project.id !== action.payload
-      );
-
+    case 'REMOVE_PROJECT':
       return {
         ...state,
         loading: false,
-        projects: filtered,
+        projects: (state.projects ?? []).filter(
+          (project) => project.id !== action.payload
+        ),
         currentProject:
           state.currentProject?.id === action.payload
             ? null
             : state.currentProject,
       };
-    }
 
     case 'SELECT_PROJECT':
       return {
@@ -108,21 +107,15 @@ function projectReducer(state, action) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Provider
-// ─────────────────────────────────────────────────────────────────────────────
-
 export function ProjectProvider({ children }) {
-  const [state, dispatch] = useReducer(projectReducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Persist projects whenever they change.
   useEffect(() => {
     if (state.projects !== null) {
       storage.set(STORAGE_KEY, state.projects);
     }
   }, [state.projects]);
 
-  // Load all projects.
   const loadProjects = useCallback(async () => {
     dispatch({ type: 'LOAD_START' });
 
@@ -136,17 +129,15 @@ export function ProjectProvider({ children }) {
     } catch (error) {
       dispatch({
         type: 'LOAD_ERROR',
-        payload: error.message ?? 'Failed to load projects.',
+        payload: error.message || 'Failed to load projects.',
       });
     }
   }, []);
 
-  // Reload the project list.
   const refreshProjects = useCallback(async () => {
     await loadProjects();
   }, [loadProjects]);
 
-  // Create a new project.
   const createProject = useCallback(async (data) => {
     dispatch({ type: 'LOAD_START' });
 
@@ -162,14 +153,13 @@ export function ProjectProvider({ children }) {
     } catch (error) {
       dispatch({
         type: 'SET_ERROR',
-        payload: error.message ?? 'Failed to create project.',
+        payload: error.message || 'Failed to create project.',
       });
 
       throw error;
     }
   }, []);
 
-  // Update an existing project.
   const updateProject = useCallback(async (id, data) => {
     dispatch({ type: 'LOAD_START' });
 
@@ -185,14 +175,13 @@ export function ProjectProvider({ children }) {
     } catch (error) {
       dispatch({
         type: 'SET_ERROR',
-        payload: error.message ?? 'Failed to update project.',
+        payload: error.message || 'Failed to update project.',
       });
 
       throw error;
     }
   }, []);
 
-  // Delete a project.
   const deleteProject = useCallback(async (id) => {
     dispatch({ type: 'LOAD_START' });
 
@@ -206,22 +195,19 @@ export function ProjectProvider({ children }) {
     } catch (error) {
       dispatch({
         type: 'SET_ERROR',
-        payload: error.message ?? 'Failed to delete project.',
+        payload: error.message || 'Failed to delete project.',
       });
 
       throw error;
     }
   }, []);
 
-  // Duplicate an existing project.
   const duplicateProject = useCallback(async (id) => {
-    try {
-      const project = await projectService.getProject(id);
+    dispatch({ type: 'LOAD_START' });
 
-      const duplicated = await projectService.createProject({
-        ...project,
-        title: `${project.title} (Copy)`,
-      });
+    try {
+      const duplicated =
+        await projectService.duplicateProject(id);
 
       dispatch({
         type: 'ADD_PROJECT',
@@ -232,14 +218,13 @@ export function ProjectProvider({ children }) {
     } catch (error) {
       dispatch({
         type: 'SET_ERROR',
-        payload: error.message ?? 'Failed to duplicate project.',
+        payload: error.message || 'Failed to duplicate project.',
       });
 
       throw error;
     }
   }, []);
 
-  // Search projects locally.
   const searchProjects = useCallback(
     (query) => {
       const keyword = query.trim().toLowerCase();
@@ -254,14 +239,15 @@ export function ProjectProvider({ children }) {
           (project.description ?? '')
             .toLowerCase()
             .includes(keyword) ||
-          (project.genre ?? '').toLowerCase().includes(keyword)
+          (project.genre ?? '')
+            .toLowerCase()
+            .includes(keyword)
         );
       });
     },
     [state.projects]
   );
 
-  // Select the active project.
   const selectProject = useCallback((project) => {
     dispatch({
       type: 'SELECT_PROJECT',
@@ -269,7 +255,6 @@ export function ProjectProvider({ children }) {
     });
   }, []);
 
-  // Clear the current error.
   const clearError = useCallback(() => {
     dispatch({
       type: 'CLEAR_ERROR',
@@ -280,13 +265,17 @@ export function ProjectProvider({ children }) {
     <ProjectContext.Provider
       value={{
         ...state,
+
         loadProjects,
         refreshProjects,
+
         createProject,
         updateProject,
         deleteProject,
         duplicateProject,
+
         searchProjects,
+
         selectProject,
         clearError,
       }}

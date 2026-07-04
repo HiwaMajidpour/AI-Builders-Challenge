@@ -10,18 +10,13 @@ const PROJECTS_KEY = 'sf_projects';
 
 /**
  * Simulate network latency.
- * @param {number} ms
- * @returns {Promise<void>}
  */
 function delay(ms = 600) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
- * Generate a unique project ID.
- * @returns {string}
+ * Generate unique project id.
  */
 function generateId() {
   return `project_${Date.now()}_${Math.random()
@@ -30,13 +25,12 @@ function generateId() {
 }
 
 /**
- * Load projects from storage or seed default data.
- * @returns {Array}
+ * Load projects from storage or seed defaults.
  */
 function loadProjects() {
   const projects = storage.get(PROJECTS_KEY);
 
-  if (projects) {
+  if (Array.isArray(projects)) {
     return projects;
   }
 
@@ -50,8 +44,7 @@ function loadProjects() {
 }
 
 /**
- * Save projects to storage.
- * @param {Array} projects
+ * Save projects.
  */
 function saveProjects(projects) {
   storage.set(PROJECTS_KEY, projects);
@@ -60,12 +53,11 @@ function saveProjects(projects) {
 export const projectService = {
   /**
    * Get all projects.
-   * @returns {Promise<Array>}
    */
   async getProjects() {
     await delay();
 
-    return loadProjects().sort(
+    return [...loadProjects()].sort(
       (a, b) =>
         new Date(b.updatedAt).getTime() -
         new Date(a.updatedAt).getTime()
@@ -73,14 +65,12 @@ export const projectService = {
   },
 
   /**
-   * Get a single project.
-   * @param {string} id
-   * @returns {Promise<Object>}
+   * Get one project.
    */
   async getProject(id) {
     await delay();
 
-    const project = loadProjects().find((item) => item.id === id);
+    const project = loadProjects().find((p) => p.id === id);
 
     if (!project) {
       throw new Error(`Project "${id}" not found.`);
@@ -90,10 +80,8 @@ export const projectService = {
   },
 
   /**
-   * Create a new project.
-   * @param {Object} data
-   * @returns {Promise<Object>}
-   */
+ * Create project.
+ */
   async createProject(data) {
     await delay();
 
@@ -102,11 +90,17 @@ export const projectService = {
 
     const project = {
       id: generateId(),
+
       title: data.title.trim(),
+      genre: data.genre,
       description: data.description?.trim() ?? '',
-      category: data.category ?? 'Story',
-      status: 'Draft',
-      content: data.content ?? '',
+
+      status: data.status ?? 'Draft',
+      progress: data.progress ?? 0,
+      wordCount: data.wordCount ?? 0,
+
+      coverColor: data.coverColor ?? '#6d28d9',
+
       createdAt: now,
       updatedAt: now,
     };
@@ -119,17 +113,14 @@ export const projectService = {
   },
 
   /**
-   * Update an existing project.
-   * @param {string} id
-   * @param {Object} data
-   * @returns {Promise<Object>}
+   * Update project.
    */
   async updateProject(id, data) {
     await delay();
 
     const projects = loadProjects();
 
-    const index = projects.findIndex((item) => item.id === id);
+    const index = projects.findIndex((p) => p.id === id);
 
     if (index === -1) {
       throw new Error(`Project "${id}" not found.`);
@@ -137,7 +128,19 @@ export const projectService = {
 
     projects[index] = {
       ...projects[index],
-      ...data,
+
+      title: data.title?.trim() ?? projects[index].title,
+      genre: data.genre ?? projects[index].genre,
+      description:
+        data.description ?? projects[index].description,
+
+      status: data.status ?? projects[index].status,
+      progress: data.progress ?? projects[index].progress,
+      wordCount: data.wordCount ?? projects[index].wordCount,
+
+      coverColor:
+        data.coverColor ?? projects[index].coverColor,
+
       updatedAt: new Date().toISOString(),
     };
 
@@ -147,16 +150,14 @@ export const projectService = {
   },
 
   /**
-   * Delete a project.
-   * @param {string} id
-   * @returns {Promise<void>}
+   * Delete project.
    */
   async deleteProject(id) {
     await delay();
 
     const projects = loadProjects();
 
-    const filtered = projects.filter((item) => item.id !== id);
+    const filtered = projects.filter((p) => p.id !== id);
 
     if (filtered.length === projects.length) {
       throw new Error(`Project "${id}" not found.`);
@@ -166,16 +167,14 @@ export const projectService = {
   },
 
   /**
-   * Duplicate an existing project.
-   * @param {string} id
-   * @returns {Promise<Object>}
-   */
+ * Duplicate project.
+ */
   async duplicateProject(id) {
     await delay();
 
     const projects = loadProjects();
 
-    const original = projects.find((item) => item.id === id);
+    const original = projects.find((p) => p.id === id);
 
     if (!original) {
       throw new Error(`Project "${id}" not found.`);
@@ -199,9 +198,7 @@ export const projectService = {
   },
 
   /**
-   * Search projects by title, description or category.
-   * @param {string} query
-   * @returns {Promise<Array>}
+   * Search projects.
    */
   async searchProjects(query) {
     await delay(250);
@@ -216,7 +213,7 @@ export const projectService = {
       return (
         project.title.toLowerCase().includes(search) ||
         project.description.toLowerCase().includes(search) ||
-        project.category.toLowerCase().includes(search)
+        project.genre.toLowerCase().includes(search)
       );
     });
   },
