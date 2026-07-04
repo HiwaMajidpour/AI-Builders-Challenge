@@ -4,6 +4,7 @@
  */
 
 import { storage } from '../utils/storage';
+import { activityService } from './activityService';
 import { MOCK_PROJECTS } from '../features/projects/data/mockProjects';
 
 const PROJECTS_KEY = 'sf_projects';
@@ -109,6 +110,8 @@ export const projectService = {
 
     saveProjects(projects);
 
+    activityService.logProjectCreated(project);
+
     return { ...project };
   },
 
@@ -146,6 +149,8 @@ export const projectService = {
 
     saveProjects(projects);
 
+    activityService.logProjectUpdated(projects[index]);
+
     return { ...projects[index] };
   },
 
@@ -157,11 +162,15 @@ export const projectService = {
 
     const projects = loadProjects();
 
+    const project = projects.find((p) => p.id === id);
+
     const filtered = projects.filter((p) => p.id !== id);
 
     if (filtered.length === projects.length) {
       throw new Error(`Project "${id}" not found.`);
     }
+
+    activityService.logProjectDeleted(project.title);
 
     saveProjects(filtered);
   },
@@ -193,6 +202,8 @@ export const projectService = {
     projects.unshift(copy);
 
     saveProjects(projects);
+
+    activityService.logProjectDuplicated(copy);
 
     return { ...copy };
   },

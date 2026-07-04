@@ -1,51 +1,53 @@
 /**
  * features/dashboard/ActivityPanel.jsx
- * Right-side activity timeline: recent AI generations, logins, exports.
+ * Dashboard activity timeline.
  */
-import Card, { CardHeader, CardTitle } from '../../components/ui/Card';
+
+import { useMemo } from 'react';
+
+import Card, {
+  CardHeader,
+  CardTitle,
+} from '../../components/ui/Card';
+
 import { cn } from '../../utils/cn';
 import { formatRelativeTime } from '../../utils/formatters';
-import { MOCK_ACTIVITY } from './data/mockData';
+import { activityService } from '../../services/activityService';
 
-// ── Activity type config ──────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// Activity type configuration
+// ─────────────────────────────────────────────────────────────────────────────
+
 const TYPE_CONFIG = {
-  generation: {
-    label:   'Generation',
-    iconBg:  'bg-[var(--color-brand-subtle)]',
-    iconFg:  'text-[var(--color-brand)]',
-    icon: (
-      <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-      </svg>
-    ),
+  create: {
+    iconBg: 'bg-[var(--color-success-subtle)]',
+    iconFg: 'text-[var(--color-success)]',
+    icon: '➕',
   },
-  login: {
-    label:   'Login',
-    iconBg:  'bg-[var(--color-success-subtle)]',
-    iconFg:  'text-[var(--color-success)]',
-    icon: (
-      <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-        <polyline points="10 17 15 12 10 7" />
-        <line x1="15" y1="12" x2="3" y2="12" />
-      </svg>
-    ),
+
+  update: {
+    iconBg: 'bg-[var(--color-accent-subtle)]',
+    iconFg: 'text-[var(--color-accent)]',
+    icon: '✏️',
   },
-  export: {
-    label:   'Export',
-    iconBg:  'bg-[var(--color-accent-subtle)]',
-    iconFg:  'text-[var(--color-accent)]',
-    icon: (
-      <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="7 10 12 15 17 10" />
-        <line x1="12" y1="15" x2="12" y2="3" />
-      </svg>
-    ),
+
+  delete: {
+    iconBg: 'bg-[var(--color-error-subtle)]',
+    iconFg: 'text-[var(--color-error)]',
+    icon: '🗑️',
+  },
+
+  duplicate: {
+    iconBg: 'bg-[var(--color-brand-subtle)]',
+    iconFg: 'text-[var(--color-brand)]',
+    icon: '📄',
   },
 };
 
-// ── Skeleton ──────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// Skeleton
+// ─────────────────────────────────────────────────────────────────────────────
+
 function ActivitySkeleton() {
   return (
     <li className="flex gap-3 pb-4">
@@ -53,6 +55,7 @@ function ActivitySkeleton() {
         <div className="h-7 w-7 rounded-full skeleton animate-shimmer shrink-0" />
         <div className="mt-1 h-full w-px bg-[var(--color-border)]" />
       </div>
+
       <div className="flex-1 space-y-1.5 pt-0.5">
         <div className="h-3.5 w-40 rounded skeleton animate-shimmer" />
         <div className="h-3 w-28 rounded skeleton animate-shimmer" />
@@ -62,48 +65,76 @@ function ActivitySkeleton() {
   );
 }
 
-// ── ActivityPanel ─────────────────────────────────────────────────────────────
-export default function ActivityPanel({ activities = MOCK_ACTIVITY, isLoading = false }) {
+// ─────────────────────────────────────────────────────────────────────────────
+// ActivityPanel
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default function ActivityPanel({
+  isLoading = false,
+}) {
+  const activities = useMemo(() => {
+    return activityService.getActivity();
+  }, []);
+
   return (
-    <Card padding="none" className="overflow-hidden">
-      <CardHeader className="px-5 pt-5 pb-4 border-b border-[var(--color-border)] mb-0">
-        <CardTitle>Recent Activity</CardTitle>
+    <Card
+      padding="none"
+      className="overflow-hidden"
+    >
+      <CardHeader className="mb-0 border-b border-[var(--color-border)] px-5 pt-5 pb-4">
+        <CardTitle>
+          Recent Activity
+        </CardTitle>
       </CardHeader>
 
       <div className="px-5 py-4">
         {isLoading ? (
-          <ul aria-label="Loading activity" className="space-y-0">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <ActivitySkeleton key={i} />
+          <ul
+            aria-label="Loading activity"
+            className="space-y-0"
+          >
+            {Array.from({ length: 4 }).map((_, index) => (
+              <ActivitySkeleton key={index} />
             ))}
           </ul>
         ) : activities.length === 0 ? (
           <p className="py-6 text-center text-[var(--text-sm)] text-[var(--color-text-muted)]">
-            No recent activity.
+            No activity yet. Start creating projects to see your timeline.
           </p>
         ) : (
           <ol
             aria-label="Recent activity timeline"
             className="space-y-0"
           >
-            {activities.map((act, idx) => {
-              const cfg = TYPE_CONFIG[act.type] ?? TYPE_CONFIG.login;
-              const isLast = idx === activities.length - 1;
+            {activities.map((activity, index) => {
+              const config =
+                TYPE_CONFIG[activity.type] ??
+                TYPE_CONFIG.update;
+
+              const isLast =
+                index === activities.length - 1;
 
               return (
-                <li key={act.id} className="flex gap-3">
-                  {/* Timeline track */}
+                <li
+                  key={activity.id}
+                  className="flex gap-3"
+                >
+                  {/* Timeline */}
+
                   <div className="flex flex-col items-center">
                     <span
                       className={cn(
                         'flex h-7 w-7 shrink-0 items-center justify-center rounded-full',
-                        cfg.iconBg,
-                        cfg.iconFg,
+                        config.iconBg,
+                        config.iconFg
                       )}
                       aria-hidden="true"
                     >
-                      {cfg.icon}
+                      <span className="text-sm">
+                        {config.icon}
+                      </span>
                     </span>
+
                     {!isLast && (
                       <span
                         className="mt-1 mb-1 w-px flex-1 bg-[var(--color-border)]"
@@ -113,18 +144,28 @@ export default function ActivityPanel({ activities = MOCK_ACTIVITY, isLoading = 
                   </div>
 
                   {/* Content */}
-                  <div className={cn('flex-1 pb-4', isLast && 'pb-0')}>
-                    <p className="text-[var(--text-sm)] font-[var(--weight-medium)] text-[var(--color-text-primary)] leading-snug">
-                      {act.title}
+
+                  <div
+                    className={cn(
+                      'flex-1 pb-4',
+                      isLast && 'pb-0'
+                    )}
+                  >
+                    <p className="text-[var(--text-sm)] font-[var(--weight-medium)] leading-snug text-[var(--color-text-primary)]">
+                      {activity.title}
                     </p>
+
                     <p className="mt-0.5 text-[var(--text-xs)] text-[var(--color-text-secondary)]">
-                      {act.detail}
+                      {activity.detail}
                     </p>
+
                     <time
-                      dateTime={act.timestamp}
+                      dateTime={activity.timestamp}
                       className="mt-0.5 block text-[var(--text-2xs)] text-[var(--color-text-muted)]"
                     >
-                      {formatRelativeTime(act.timestamp)}
+                      {formatRelativeTime(
+                        activity.timestamp
+                      )}
                     </time>
                   </div>
                 </li>

@@ -109,6 +109,18 @@ export default function ProjectsPage() {
     setFilters({ genre: 'All', status: 'All' });
   }, []);
 
+  const handleDuplicate = useCallback(
+    async (project) => {
+      try {
+        await duplicateProject(project.id);
+        await loadProjects();
+      } catch (error) {
+        console.error('Duplicate failed:', error);
+      }
+    },
+    [duplicateProject, loadProjects]
+  );
+
   // ── Derived / filtered list ───────────────────────────────────────────────────
   const displayed = useMemo(() => {
     if (!projects) return null;
@@ -263,7 +275,7 @@ export default function ProjectsPage() {
         view={view}
         onEdit={setEditTarget}
         onDelete={setDeleteTarget}
-        onDuplicate={duplicateProject}
+        onDuplicate={handleDuplicate}
         onCreateFirst={() => setCreateOpen(true)}
         isFiltered={isFiltered}
       />
