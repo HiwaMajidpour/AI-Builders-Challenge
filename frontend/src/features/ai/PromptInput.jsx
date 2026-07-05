@@ -13,7 +13,13 @@
  *   onGenerate     fn()
  *   isGenerating   bool
  */
-import { useId } from 'react';
+import {
+  forwardRef,
+  useId,
+  useImperativeHandle,
+  useRef,
+} from 'react';
+
 import { cn } from '../../utils/cn';
 import Button from '../../components/ui/Button';
 import Spinner from '../../components/ui/Spinner';
@@ -126,15 +132,27 @@ function CreativitySlider({ value, onChange, disabled }) {
 
 // ── PromptInput ───────────────────────────────────────────────────────────────
 
-export default function PromptInput({
+const PromptInput = forwardRef(function PromptInput({
   prompt,
   setPrompt,
   options,
   setOptions,
   onGenerate,
   isGenerating,
-}) {
+}, ref) {
   const textareaId = useId();
+
+  const textareaRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      textareaRef.current?.focus();
+    },
+
+    blur() {
+      textareaRef.current?.blur();
+    },
+  }));
 
   // Always work with a safe string value.
   const safePrompt = prompt ?? '';
@@ -144,8 +162,20 @@ export default function PromptInput({
   const isEmpty = safePrompt.trim().length === 0;
 
   function handleKeyDown(e) {
+    // Escape → remove focus from the textarea
+    if (e.key === 'Escape') {
+      textareaRef.current?.blur();
+      return;
+    }
+
     // Ctrl/Cmd + Enter → generate
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !isGenerating && !isEmpty && !isOverLimit) {
+    if (
+      (e.ctrlKey || e.metaKey) &&
+      e.key === 'Enter' &&
+      !isGenerating &&
+      !isEmpty &&
+      !isOverLimit
+    ) {
       e.preventDefault();
       onGenerate();
     }
@@ -167,6 +197,7 @@ export default function PromptInput({
 
         <div className="relative">
           <textarea
+            ref={textareaRef}
             id={textareaId}
             value={safePrompt}
             onChange={(e) => setPrompt(e.target.value)}
@@ -315,4 +346,6 @@ export default function PromptInput({
       </div>
     </section>
   );
-}
+});
+
+export default PromptInput;

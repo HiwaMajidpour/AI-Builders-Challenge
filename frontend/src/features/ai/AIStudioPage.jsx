@@ -22,7 +22,13 @@
  * Prompt + Result stacked; History accessible via slide-up drawer.
  */
 
-import { useState, useCallback } from 'react';
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
+
 import { toast } from 'sonner';
 import { useAI } from '../../hooks/useAI';
 import { cn } from '../../utils/cn';
@@ -98,6 +104,9 @@ export default function AIStudioPage() {
   const [lastPrompt, setLastPrompt] = useState('');
   const [lastOptions, setLastOptions] = useState(DEFAULT_OPTIONS);
 
+  // Prompt input reference
+  const promptInputRef = useRef(null);
+
   // Merge-update options (partial)
   const setOptions = useCallback((patch) => {
     setOptionsState((prev) => ({ ...prev, ...patch }));
@@ -110,6 +119,7 @@ export default function AIStudioPage() {
     setLastOptions({ ...options });
     try {
       await generate({ prompt: prompt.trim(), ...options });
+      promptInputRef.current?.focus();
     } catch {
       toast.error('Generation failed. Please try again.');
     }
@@ -165,6 +175,22 @@ export default function AIStudioPage() {
 
     toast.success('Prompt loaded.');
   }
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    function handleShortcut(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        promptInputRef.current?.focus();
+      }
+    }
+
+    window.addEventListener('keydown', handleShortcut);
+
+    return () => {
+      window.removeEventListener('keydown', handleShortcut);
+    };
+  }, []);
 
   // ── Render ───────────────────────────────────────────────────────────────────
   return (
@@ -230,6 +256,7 @@ export default function AIStudioPage() {
           )}
         >
           <PromptInput
+            ref={promptInputRef}
             prompt={prompt}
             setPrompt={setPrompt}
             options={options}
