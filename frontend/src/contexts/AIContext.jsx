@@ -196,6 +196,8 @@ export function AIProvider({ children }) {
 
       return result;
     } catch (err) {
+      console.error(err);
+
       dispatch({
         type: 'GENERATE_ERROR',
         payload: err.message ?? 'Generation failed.',
