@@ -42,7 +42,7 @@ function formatFullDate() {
 
 export default function DashboardPage() {
   const { currentUser } = useAuth();
-  const { projects = [] } = useProjects();
+  const { projects } = useProjects();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -57,17 +57,20 @@ export default function DashboardPage() {
   const firstName = currentUser?.name?.split(' ')[0] ?? 'Creator';
 
   const stats = useMemo(() => {
-    const totalProjects = projects.length;
+    // Always work with a safe array
+    const safeProjects = Array.isArray(projects) ? projects : [];
 
-    const draftProjects = projects.filter(
+    const totalProjects = safeProjects.length;
+
+    const draftProjects = safeProjects.filter(
       (project) => project.status === 'Draft'
     ).length;
 
-    const completedProjects = projects.filter(
+    const completedProjects = safeProjects.filter(
       (project) => project.status === 'Completed'
     ).length;
 
-    const totalWords = projects.reduce(
+    const totalWords = safeProjects.reduce(
       (sum, project) => sum + (project.wordCount ?? 0),
       0
     );
@@ -161,7 +164,6 @@ export default function DashboardPage() {
       {/* Statistics */}
 
       <section aria-label="Statistics">
-
         <div
           className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
           role="list"
@@ -179,7 +181,6 @@ export default function DashboardPage() {
               </div>
             ))}
         </div>
-
       </section>
 
       {/* Main */}
@@ -188,7 +189,6 @@ export default function DashboardPage() {
         aria-label="Projects and quick actions"
         className="grid grid-cols-1 gap-6 lg:grid-cols-3"
       >
-
         <div className="lg:col-span-2">
           <RecentProjects isLoading={isLoading} />
         </div>
@@ -196,7 +196,6 @@ export default function DashboardPage() {
         <div>
           <QuickActions />
         </div>
-
       </section>
 
       {/* Activity */}

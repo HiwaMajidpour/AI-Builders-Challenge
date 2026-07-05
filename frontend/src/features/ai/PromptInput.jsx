@@ -14,16 +14,17 @@
  *   isGenerating   bool
  */
 import { useId } from 'react';
-import { cn }    from '../../utils/cn';
-import Button    from '../../components/ui/Button';
-import Spinner   from '../../components/ui/Spinner';
+import { cn } from '../../utils/cn';
+import Button from '../../components/ui/Button';
+import Spinner from '../../components/ui/Spinner';
+import { PROMPT_TEMPLATES } from './promptTemplates';
 
 // ── Configuration data ────────────────────────────────────────────────────────
 
 const STORY_TYPES = ['Story', 'Script', 'Character', 'Dialogue', 'Outline', 'World Building'];
-const TONES       = ['Fantasy', 'Sci-Fi', 'Professional', 'Dark', 'Funny'];
-const LENGTHS     = ['Short', 'Medium', 'Long'];
-const MAX_CHARS   = 1000;
+const TONES = ['Fantasy', 'Sci-Fi', 'Professional', 'Dark', 'Funny'];
+const LENGTHS = ['Short', 'Medium', 'Long'];
+const MAX_CHARS = 1000;
 
 // ── SegmentedControl ──────────────────────────────────────────────────────────
 
@@ -75,8 +76,8 @@ function CreativitySlider({ value, onChange, disabled }) {
   const id = useId();
   const label =
     value < 30 ? 'Precise' :
-    value < 60 ? 'Balanced' :
-    value < 85 ? 'Creative' : 'Wild';
+      value < 60 ? 'Balanced' :
+        value < 85 ? 'Creative' : 'Wild';
 
   return (
     <div>
@@ -134,9 +135,13 @@ export default function PromptInput({
   isGenerating,
 }) {
   const textareaId = useId();
-  const charCount  = prompt.length;
+
+  // Always work with a safe string value.
+  const safePrompt = prompt ?? '';
+
+  const charCount = safePrompt.length;
   const isOverLimit = charCount > MAX_CHARS;
-  const isEmpty     = prompt.trim().length === 0;
+  const isEmpty = safePrompt.trim().length === 0;
 
   function handleKeyDown(e) {
     // Ctrl/Cmd + Enter → generate
@@ -163,7 +168,7 @@ export default function PromptInput({
         <div className="relative">
           <textarea
             id={textareaId}
-            value={prompt}
+            value={safePrompt}
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isGenerating}
@@ -185,12 +190,39 @@ export default function PromptInput({
                 : 'border-[var(--color-border)] focus:border-[var(--color-border-focus)]',
             )}
           />
+
           {/* Empty-state hint (shown inside textarea area when empty) */}
           {isEmpty && !isGenerating && (
             <p className="pointer-events-none absolute bottom-3 right-4 text-[var(--text-2xs)] text-[var(--color-text-muted)] select-none">
               Ctrl+Enter to generate
             </p>
           )}
+        </div>
+
+      </div>
+
+      {/* Prompt templates */}
+
+      <div className="mt-4">
+        <p className="mb-2 text-xs font-medium text-[var(--color-text-secondary)]">
+          Templates
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+
+          {PROMPT_TEMPLATES.map((template) => (
+
+            <Button
+              key={template.label}
+              size="xs"
+              variant="secondary"
+              onClick={() => setPrompt(template.prompt)}
+            >
+              {template.label}
+            </Button>
+
+          ))}
+
         </div>
 
         {/* Character counter */}
@@ -206,8 +238,8 @@ export default function PromptInput({
               isOverLimit
                 ? 'font-[var(--weight-semibold)] text-[var(--color-error)]'
                 : charCount > MAX_CHARS * 0.8
-                ? 'text-[var(--color-warning)]'
-                : 'text-[var(--color-text-muted)]',
+                  ? 'text-[var(--color-warning)]'
+                  : 'text-[var(--color-text-muted)]',
             )}
           >
             {charCount} / {MAX_CHARS}

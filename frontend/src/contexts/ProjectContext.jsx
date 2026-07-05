@@ -19,7 +19,7 @@ const STORAGE_KEY = 'sf_projects';
 export const ProjectContext = createContext(null);
 
 const initialState = {
-  projects: storage.get(STORAGE_KEY, null),
+  projects: storage.get(STORAGE_KEY, []),
   currentProject: null,
   loading: false,
   error: null,
@@ -38,7 +38,9 @@ function reducer(state, action) {
       return {
         ...state,
         loading: false,
-        projects: action.payload,
+        projects: Array.isArray(action.payload)
+          ? action.payload
+          : [],
       };
 
     case 'LOAD_ERROR':
@@ -110,10 +112,9 @@ function reducer(state, action) {
 export function ProjectProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Persist projects whenever they change
   useEffect(() => {
-    if (state.projects !== null) {
-      storage.set(STORAGE_KEY, state.projects);
-    }
+    storage.set(STORAGE_KEY, state.projects ?? []);
   }, [state.projects]);
 
   const loadProjects = useCallback(async () => {
@@ -124,7 +125,7 @@ export function ProjectProvider({ children }) {
 
       dispatch({
         type: 'LOAD_SUCCESS',
-        payload: projects,
+        payload: Array.isArray(projects) ? projects : [],
       });
     } catch (error) {
       dispatch({
@@ -133,6 +134,11 @@ export function ProjectProvider({ children }) {
       });
     }
   }, []);
+
+  // Load projects on initial mount
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
 
   const refreshProjects = useCallback(async () => {
     await loadProjects();
