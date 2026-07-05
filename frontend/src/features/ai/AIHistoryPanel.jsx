@@ -13,9 +13,12 @@
  *   onReusePrompt    fn(item)
  */
 
+import { useMemo, useState } from 'react';
+
 import { cn } from '../../utils/cn';
 import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
 
 // ─────────────────────────────────────────────────────────────
 
@@ -225,6 +228,24 @@ export default function AIHistoryPanel({
 
   const hasHistory = history.length > 0;
 
+  // Search value
+  const [search, setSearch] = useState('');
+
+  // Filter history by title, prompt or type
+  const filteredHistory = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
+    if (!query) return history;
+
+    return history.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(query) ||
+        item.type.toLowerCase().includes(query) ||
+        item.prompt.toLowerCase().includes(query)
+      );
+    });
+  }, [history, search]);
+
   return (
     <section
       aria-label="Generation history"
@@ -265,33 +286,50 @@ export default function AIHistoryPanel({
 
       </div>
 
+      {hasHistory && (
+        <div className="mt-4">
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search history..."
+            aria-label="Search history"
+          />
+        </div>
+      )}
+
       {/* History List */}
 
       <div className="mt-4 flex-1 overflow-y-auto">
 
         {hasHistory ? (
+          filteredHistory.length > 0 ? (
 
-          <ul className="space-y-2">
+            <ul className="space-y-2">
 
-            {history.map((item) => (
+              {filteredHistory.map((item) => (
 
-              <HistoryItem
-                key={item.id}
-                item={item}
-                isActive={currentResult?.id === item.id}
-                onSelect={onSelect}
-                onDelete={onDelete}
-                onReusePrompt={onReusePrompt}
-              />
+                <HistoryItem
+                  key={item.id}
+                  item={item}
+                  isActive={currentResult?.id === item.id}
+                  onSelect={onSelect}
+                  onDelete={onDelete}
+                  onReusePrompt={onReusePrompt}
+                />
 
-            ))}
+              ))}
 
-          </ul>
+            </ul>
 
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <p className="text-sm text-[var(--color-text-muted)]">
+                No matching generations found.
+              </p>
+            </div>
+          )
         ) : (
-
           <EmptyHistory />
-
         )}
 
       </div>
