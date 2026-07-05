@@ -20,6 +20,7 @@ import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { getAIStatistics } from '../../utils/aiStatistics';
+import AIStatisticsCard from './AIStatisticsCard';
 
 // ─────────────────────────────────────────────────────────────
 
@@ -248,26 +249,19 @@ export default function AIHistoryPanel({
   const filteredHistory = useMemo(() => {
     const query = search.trim().toLowerCase();
 
-    const statistics = getAIStatistics(history);
-
-    console.log(statistics);
-
     const filtered = history.filter((item) => {
       if (!query) return true;
-
 
       return (
         item.title.toLowerCase().includes(query) ||
         item.type.toLowerCase().includes(query) ||
-        item.prompt.toLowerCase().includes(query)
+        (item.prompt ?? '').toLowerCase().includes(query)
       );
     });
 
-    // Pinned items always stay at the top.
-    // Items with the same pin state remain sorted by creation date.
     return filtered.sort((a, b) => {
       if (a.pinned !== b.pinned) {
-        return b.pinned - a.pinned;
+        return Number(b.pinned) - Number(a.pinned);
       }
 
       return (
@@ -276,6 +270,10 @@ export default function AIHistoryPanel({
       );
     });
   }, [history, search]);
+
+  const statistics = useMemo(() => {
+    return getAIStatistics(history);
+  }, [history]);
 
   return (
     <section
@@ -326,6 +324,12 @@ export default function AIHistoryPanel({
             aria-label="Search history"
           />
         </div>
+      )}
+
+      {hasHistory && (
+        <AIStatisticsCard
+          statistics={statistics}
+        />
       )}
 
       {/* History List */}
