@@ -12,6 +12,7 @@
  *   onDelete       fn()
  */
 import { useState } from 'react';
+import TextStatisticsCard from './TextStatisticsCard';
 import { toast } from 'sonner';
 import { cn } from '../../utils/cn';
 import Button from '../../components/ui/Button';
@@ -253,27 +254,14 @@ ${result.content}
         </div>
       </div>
 
-      {/* ── Metadata ── */}
-      <dl
-        className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[var(--text-xs)] text-[var(--color-text-muted)]"
-        aria-label="Generation statistics"
-      >
-        <div className="flex items-center gap-1">
-          <dt>Words</dt>
-          <dd className="font-[var(--weight-semibold)] text-[var(--color-text-secondary)]">{result.wordCount.toLocaleString()}</dd>
-        </div>
-        <div className="flex items-center gap-1">
-          <dt>Characters</dt>
-          <dd className="font-[var(--weight-semibold)] text-[var(--color-text-secondary)]">{result.charCount.toLocaleString()}</dd>
-        </div>
-        <div className="flex items-center gap-1">
-          <dt>Reading time</dt>
-          <dd className="font-[var(--weight-semibold)] text-[var(--color-text-secondary)]">~{result.readingTime} min</dd>
-        </div>
-      </dl>
+      {/* ── Text statistics ── */}
+      <TextStatisticsCard text={result.content} />
 
       {/* ── Divider ── */}
-      <div className="h-px shrink-0 bg-[var(--color-border)]" aria-hidden="true" />
+      <div
+        className="h-px shrink-0 bg-[var(--color-border)]"
+        aria-hidden="true"
+      />
 
       {/* ── Generated text ── */}
       <div className="flex-1 overflow-y-auto">
