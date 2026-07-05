@@ -91,6 +91,7 @@ export default function AIStudioPage() {
     isGenerating,
     currentResult,
     history,
+    promptHistory,
     generate,
     loadResult,
     togglePin,
@@ -263,6 +264,7 @@ export default function AIStudioPage() {
             setOptions={setOptions}
             onGenerate={handleGenerate}
             isGenerating={isGenerating}
+            recentPrompts={promptHistory}
           />
         </div>
 

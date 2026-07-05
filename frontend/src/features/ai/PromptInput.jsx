@@ -139,6 +139,7 @@ const PromptInput = forwardRef(function PromptInput({
   setOptions,
   onGenerate,
   isGenerating,
+  recentPrompts = [],
 }, ref) {
   const textareaId = useId();
 
@@ -277,6 +278,30 @@ const PromptInput = forwardRef(function PromptInput({
           </span>
         </div>
       </div>
+
+      {recentPrompts.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-[var(--color-text-secondary)]">
+            Recent Prompts
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {recentPrompts.slice(0, 5).map((item) => (
+              <Button
+                key={item.id}
+                size="xs"
+                variant="ghost"
+                onClick={() => setPrompt(item.prompt)}
+                title={item.prompt}
+              >
+                {item.prompt.length > 24
+                  ? `${item.prompt.slice(0, 24)}...`
+                  : item.prompt}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── Generation options ── */}
       <div className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-4">
