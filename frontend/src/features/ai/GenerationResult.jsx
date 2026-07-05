@@ -18,6 +18,7 @@ import { cn } from '../../utils/cn';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
 import { CardTitle } from '../../components/ui/Card';
+import ExportMenu from './ExportMenu';
 
 // ── Skeleton ──────────────────────────────────────────────────────────────────
 
@@ -125,78 +126,6 @@ export default function GenerationResult({ result, isGenerating, onRegenerate, o
     setTimeout(() => setCopied(false), 2000);
   }
 
-  // ── Copy Markdown ───────────────────────────────────────────────────────────
-
-  async function handleCopyMarkdown() {
-    const markdown = `# ${result.title}
-
-${result.content}
-`;
-
-    await navigator.clipboard.writeText(markdown);
-
-    toast.success('Markdown copied.');
-  }
-
-  // ── Download TXT ────────────────────────────────────────────────────────────
-
-  function handleDownloadTxt() {
-    const blob = new Blob(
-      [`${result.title}\n\n${result.content}`],
-      {
-        type: 'text/plain;charset=utf-8',
-      },
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-
-    link.href = url;
-
-    link.download = `${result.title
-      .replace(/\s+/g, '-')
-      .toLowerCase()}.txt`;
-
-    link.click();
-
-    URL.revokeObjectURL(url);
-
-    toast.success('TXT downloaded.');
-  }
-
-  // ── Download Markdown ───────────────────────────────────────────────────────
-
-  function handleDownloadMarkdown() {
-    const markdown = `# ${result.title}
-
-${result.content}
-`;
-
-    const blob = new Blob(
-      [markdown],
-      {
-        type: 'text/markdown;charset=utf-8',
-      },
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-
-    link.href = url;
-
-    link.download = `${result.title
-      .replace(/\s+/g, '-')
-      .toLowerCase()}.md`;
-
-    link.click();
-
-    URL.revokeObjectURL(url);
-
-    toast.success('Markdown downloaded.');
-  }
-
   // ── Render ───────────────────────────────────────────────────────────────────
   return (
     <article
@@ -227,29 +156,7 @@ ${result.content}
             {copied ? 'Copied!' : 'Copy'}
           </Button>
 
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleDownloadTxt}
-          >
-            TXT
-          </Button>
-
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleDownloadMarkdown}
-          >
-            MD
-          </Button>
-
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleCopyMarkdown}
-          >
-            Copy MD
-          </Button>
+          <ExportMenu result={result} />
 
         </div>
       </div>
