@@ -12,9 +12,10 @@
  *   onDelete       fn()
  */
 import { useState } from 'react';
-import { cn }       from '../../utils/cn';
-import Button       from '../../components/ui/Button';
-import Badge        from '../../components/ui/Badge';
+import { toast } from 'sonner';
+import { cn } from '../../utils/cn';
+import Button from '../../components/ui/Button';
+import Badge from '../../components/ui/Badge';
 import { CardTitle } from '../../components/ui/Card';
 
 // ── Skeleton ──────────────────────────────────────────────────────────────────
@@ -109,24 +110,90 @@ export default function GenerationResult({ result, isGenerating, onRegenerate, o
   const [copied, setCopied] = useState(false);
 
   if (isGenerating) return <ResultSkeleton />;
-  if (!result)      return <EmptyState />;
+  if (!result) return <EmptyState />;
 
-  // ── Handlers ────────────────────────────────────────────────────────────────
-  function handleCopy() {
-    navigator.clipboard.writeText(result.content).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+  // ── Clipboard ───────────────────────────────────────────────────────────────
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(result.content);
+
+    setCopied(true);
+
+    toast.success('Copied to clipboard.');
+
+    setTimeout(() => setCopied(false), 2000);
   }
 
-  function handleExport() {
-    const blob = new Blob([`${result.title}\n\n${result.content}`], { type: 'text/plain' });
-    const url  = URL.createObjectURL(blob);
+  // ── Copy Markdown ───────────────────────────────────────────────────────────
+
+  async function handleCopyMarkdown() {
+    const markdown = `# ${result.title}
+
+${result.content}
+`;
+
+    await navigator.clipboard.writeText(markdown);
+
+    toast.success('Markdown copied.');
+  }
+
+  // ── Download TXT ────────────────────────────────────────────────────────────
+
+  function handleDownloadTxt() {
+    const blob = new Blob(
+      [`${result.title}\n\n${result.content}`],
+      {
+        type: 'text/plain;charset=utf-8',
+      },
+    );
+
+    const url = URL.createObjectURL(blob);
+
     const link = document.createElement('a');
-    link.href     = url;
-    link.download = `${result.title.replace(/\s+/g, '-').toLowerCase()}.txt`;
+
+    link.href = url;
+
+    link.download = `${result.title
+      .replace(/\s+/g, '-')
+      .toLowerCase()}.txt`;
+
     link.click();
+
     URL.revokeObjectURL(url);
+
+    toast.success('TXT downloaded.');
+  }
+
+  // ── Download Markdown ───────────────────────────────────────────────────────
+
+  function handleDownloadMarkdown() {
+    const markdown = `# ${result.title}
+
+${result.content}
+`;
+
+    const blob = new Blob(
+      [markdown],
+      {
+        type: 'text/markdown;charset=utf-8',
+      },
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+
+    link.href = url;
+
+    link.download = `${result.title
+      .replace(/\s+/g, '-')
+      .toLowerCase()}.md`;
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    toast.success('Markdown downloaded.');
   }
 
   // ── Render ───────────────────────────────────────────────────────────────────
@@ -149,26 +216,12 @@ export default function GenerationResult({ result, isGenerating, onRegenerate, o
         </div>
 
         {/* Action buttons */}
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+
           <Button
             variant="ghost"
             size="sm"
             onClick={handleCopy}
-            aria-label={copied ? 'Copied!' : 'Copy to clipboard'}
-            leftIcon={
-              copied
-                ? (
-                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                )
-                : (
-                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                  </svg>
-                )
-            }
           >
             {copied ? 'Copied!' : 'Copy'}
           </Button>
@@ -176,18 +229,27 @@ export default function GenerationResult({ result, isGenerating, onRegenerate, o
           <Button
             variant="secondary"
             size="sm"
-            onClick={handleExport}
-            aria-label="Export as text file"
-            leftIcon={
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-            }
+            onClick={handleDownloadTxt}
           >
-            Export
+            TXT
           </Button>
+
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleDownloadMarkdown}
+          >
+            MD
+          </Button>
+
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleCopyMarkdown}
+          >
+            Copy MD
+          </Button>
+
         </div>
       </div>
 
