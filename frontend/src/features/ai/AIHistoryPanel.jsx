@@ -19,6 +19,7 @@ import { cn } from '../../utils/cn';
 import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import { getAIStatistics } from '../../utils/aiStatistics';
 
 // ─────────────────────────────────────────────────────────────
 
@@ -247,8 +248,13 @@ export default function AIHistoryPanel({
   const filteredHistory = useMemo(() => {
     const query = search.trim().toLowerCase();
 
+    const statistics = getAIStatistics(history);
+
+    console.log(statistics);
+
     const filtered = history.filter((item) => {
       if (!query) return true;
+
 
       return (
         item.title.toLowerCase().includes(query) ||
