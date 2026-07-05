@@ -96,6 +96,7 @@ function HistoryItem({
   onSelect,
   onDelete,
   onReusePrompt,
+  onTogglePin,
 }) {
   return (
     <li
@@ -162,8 +163,17 @@ function HistoryItem({
           )}
         </button>
 
-        {onReusePrompt && (
-          <div className="flex justify-end">
+        <div className="flex justify-between">
+
+          <Button
+            size="xs"
+            variant="ghost"
+            onClick={() => onTogglePin(item.id)}
+          >
+            {item.pinned ? '⭐ Pinned' : '☆ Pin'}
+          </Button>
+
+          {onReusePrompt && (
             <Button
               size="xs"
               variant="secondary"
@@ -171,8 +181,9 @@ function HistoryItem({
             >
               Reuse Prompt
             </Button>
-          </div>
-        )}
+          )}
+
+        </div>
 
       </div>
 
@@ -224,6 +235,7 @@ export default function AIHistoryPanel({
   onDelete,
   onClearAll,
   onReusePrompt,
+  onTogglePin,
 }) {
 
   const hasHistory = history.length > 0;
@@ -235,13 +247,26 @@ export default function AIHistoryPanel({
   const filteredHistory = useMemo(() => {
     const query = search.trim().toLowerCase();
 
-    if (!query) return history;
+    const filtered = history.filter((item) => {
+      if (!query) return true;
 
-    return history.filter((item) => {
       return (
         item.title.toLowerCase().includes(query) ||
         item.type.toLowerCase().includes(query) ||
         item.prompt.toLowerCase().includes(query)
+      );
+    });
+
+    // Pinned items always stay at the top.
+    // Items with the same pin state remain sorted by creation date.
+    return filtered.sort((a, b) => {
+      if (a.pinned !== b.pinned) {
+        return b.pinned - a.pinned;
+      }
+
+      return (
+        new Date(b.createdAt).getTime() -
+        new Date(a.createdAt).getTime()
       );
     });
   }, [history, search]);
@@ -315,6 +340,7 @@ export default function AIHistoryPanel({
                   onSelect={onSelect}
                   onDelete={onDelete}
                   onReusePrompt={onReusePrompt}
+                  onTogglePin={onTogglePin}
                 />
 
               ))}

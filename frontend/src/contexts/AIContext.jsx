@@ -8,7 +8,13 @@
  * - persistence with localStorage
  */
 
-import { createContext, useCallback, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useReducer,
+} from 'react';
+
 import { aiService } from '../services/aiService';
 import { storage } from '../utils/storage';
 
@@ -47,7 +53,10 @@ function aiReducer(state, action) {
       };
 
     case 'GENERATE_SUCCESS': {
-      const history = [action.payload, ...state.history].slice(0, MAX_HISTORY);
+      const history = [action.payload, ...state.history].slice(
+        0,
+        MAX_HISTORY
+      );
 
       return {
         ...state,
@@ -81,6 +90,26 @@ function aiReducer(state, action) {
       return {
         ...state,
         promptHistory: prompts,
+      };
+    }
+
+    case 'TOGGLE_PIN_GENERATION': {
+      const history = state.history.map((item) =>
+        item.id === action.payload
+          ? {
+            ...item,
+            pinned: !item.pinned,
+          }
+          : item
+      );
+
+      return {
+        ...state,
+        history,
+        currentResult:
+          state.currentResult?.id === action.payload
+            ? history.find((item) => item.id === action.payload) ?? null
+            : state.currentResult,
       };
     }
 
@@ -126,12 +155,12 @@ function aiReducer(state, action) {
 export function AIProvider({ children }) {
   const [state, dispatch] = useReducer(aiReducer, initialState);
 
-  // Save AI generations
+  // Persist generation history
   useEffect(() => {
     storage.set(HISTORY_KEY, state.history);
   }, [state.history]);
 
-  // Save Prompt history
+  // Persist prompt history
   useEffect(() => {
     storage.set(PROMPT_HISTORY_KEY, state.promptHistory);
   }, [state.promptHistory]);
@@ -157,6 +186,9 @@ export function AIProvider({ children }) {
     try {
       const result = await aiService.generate(params);
 
+      // Initialize pin state for new generations
+      result.pinned ??= false;
+
       dispatch({
         type: 'GENERATE_SUCCESS',
         payload: result,
@@ -177,6 +209,13 @@ export function AIProvider({ children }) {
     dispatch({
       type: 'SET_CURRENT_RESULT',
       payload: item,
+    });
+  }, []);
+
+  const togglePin = useCallback((id) => {
+    dispatch({
+      type: 'TOGGLE_PIN_GENERATION',
+      payload: id,
     });
   }, []);
 
@@ -211,6 +250,7 @@ export function AIProvider({ children }) {
         ...state,
         generate,
         loadResult,
+        togglePin,
         deleteGeneration,
         clearHistory,
         clearPromptHistory,

@@ -81,7 +81,16 @@ function HistoryDrawer({ open, onClose, children }) {
 // ── Prompt saved for regeneration ─────────────────────────────────────────────
 
 export default function AIStudioPage() {
-  const { isGenerating, currentResult, history, generate, loadResult, deleteGeneration, clearHistory } = useAI();
+  const {
+    isGenerating,
+    currentResult,
+    history,
+    generate,
+    loadResult,
+    togglePin,
+    deleteGeneration,
+    clearHistory,
+  } = useAI();
 
   const [prompt, setPrompt] = useState('');
   const [options, setOptionsState] = useState(DEFAULT_OPTIONS);
@@ -267,6 +276,7 @@ export default function AIStudioPage() {
             onDelete={handleHistoryDelete}
             onClearAll={handleClearAll}
             onReusePrompt={handleReusePrompt}
+            onTogglePin={togglePin}
           />
         </div>
 
@@ -284,6 +294,7 @@ export default function AIStudioPage() {
           onDelete={handleHistoryDelete}
           onClearAll={handleClearAll}
           onReusePrompt={handleReusePrompt}
+          onTogglePin={togglePin}
         />
       </HistoryDrawer>
 
