@@ -81,27 +81,93 @@ function ResultSkeleton() {
 
 function EmptyState() {
   return (
-    <div
-      role="status"
-      className="flex h-full flex-col items-center justify-center gap-4 py-12 text-center"
-    >
+    <div className="flex h-full flex-col items-center justify-center text-center">
+
+      {/* Illustration */}
       <div
-        aria-hidden="true"
-        className="flex h-16 w-16 items-center justify-center rounded-[var(--radius-2xl)] border border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-muted)]"
+        className="
+          mb-6 flex h-20 w-20 items-center justify-center
+          rounded-2xl
+          border border-[var(--color-border)]
+          bg-[var(--color-bg-surface)]
+        "
       >
-        <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M14 3a11 11 0 1 0 0 22A11 11 0 0 0 14 3z" />
-          <path d="M14 9v5l3 3" />
+        <svg
+          width="36"
+          height="36"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-[var(--color-brand)]"
+        >
+          <path d="M12 3h8l5 5v13a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+          <path d="M20 3v5h5" />
+          <path d="M15 13h5" />
+          <path d="M15 17h5" />
         </svg>
       </div>
-      <div className="flex flex-col gap-1">
-        <p className="text-[var(--text-base)] font-[var(--weight-semibold)] text-[var(--color-text-primary)]">
-          No generation yet
-        </p>
-        <p className="max-w-xs text-[var(--text-sm)] text-[var(--color-text-muted)]">
-          Write a prompt and press <strong>Generate</strong> to create your first story.
-        </p>
+
+      {/* Title */}
+
+      <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
+        Ready to create
+      </h2>
+
+      {/* Description */}
+
+      <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--color-text-muted)]">
+        Start with a prompt to generate stories, scripts,
+        characters, dialogue or world building ideas.
+      </p>
+
+      {/* Tips */}
+
+      <div className="mt-8 grid gap-3 text-left sm:grid-cols-2">
+
+        <div className="rounded-xl border border-[var(--color-border)] p-4">
+          <p className="font-medium">
+            ✨ Story ideas
+          </p>
+
+          <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+            Fantasy, mystery, sci-fi and more.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-[var(--color-border)] p-4">
+          <p className="font-medium">
+            🎭 Characters
+          </p>
+
+          <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+            Build detailed heroes and villains.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-[var(--color-border)] p-4">
+          <p className="font-medium">
+            💬 Dialogue
+          </p>
+
+          <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+            Generate realistic conversations.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-[var(--color-border)] p-4">
+          <p className="font-medium">
+            🌍 World Building
+          </p>
+
+          <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+            Design kingdoms, cities and lore.
+          </p>
+        </div>
+
       </div>
+
     </div>
   );
 }
