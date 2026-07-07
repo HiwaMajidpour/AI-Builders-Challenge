@@ -3,6 +3,9 @@
  * Security settings page.
  */
 
+import Button from '../../components/ui/Button';
+import Card from '../../components/ui/Card';
+
 export default function SecuritySettings() {
     return (
         <div className="space-y-6">
@@ -13,47 +16,41 @@ export default function SecuritySettings() {
                 </h2>
 
                 <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                    Manage password and account security.
+                    Manage your password and account security settings.
                 </p>
             </div>
 
-            <div className="space-y-4">
+            <Card padding="md">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                    Password
+                </h3>
 
-                <div className="rounded-lg border border-[var(--color-border)] p-4">
-                    <h3 className="font-medium text-[var(--color-text-primary)]">
-                        Password
-                    </h3>
+                <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+                    Change your password regularly to keep your account secure.
+                </p>
 
-                    <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                        Change your password to keep your account secure.
-                    </p>
-
-                    <button
-                        type="button"
-                        className="mt-4 rounded-lg bg-[var(--color-brand)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
-                    >
+                <div className="mt-4">
+                    <Button variant="primary">
                         Change Password
-                    </button>
+                    </Button>
                 </div>
+            </Card>
 
-                <div className="rounded-lg border border-[var(--color-border)] p-4">
-                    <h3 className="font-medium text-[var(--color-text-primary)]">
-                        Two-Factor Authentication
-                    </h3>
+            <Card padding="md">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                    Two-Factor Authentication
+                </h3>
 
-                    <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-                        Add an extra layer of protection to your account.
-                    </p>
+                <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+                    Add an extra layer of protection to your account by enabling two-factor authentication.
+                </p>
 
-                    <button
-                        type="button"
-                        className="mt-4 rounded-lg border border-[var(--color-border)] px-4 py-2 text-sm font-medium"
-                    >
+                <div className="mt-4">
+                    <Button variant="secondary">
                         Enable 2FA
-                    </button>
+                    </Button>
                 </div>
-
-            </div>
+            </Card>
 
         </div>
     );

@@ -10,27 +10,27 @@ import { cn } from '../../utils/cn';
 const TABS = [
     {
         label: 'Profile',
-        to: ROUTES.SETTINGS_PROFILE,
+        to: ROUTES.PROFILE_SETTINGS,
     },
     {
         label: 'Account',
-        to: ROUTES.SETTINGS_ACCOUNT,
+        to: ROUTES.ACCOUNT_SETTINGS,
     },
     {
         label: 'Appearance',
-        to: ROUTES.SETTINGS_APPEARANCE,
+        to: ROUTES.APPEARANCE_SETTINGS,
     },
     {
         label: 'Notifications',
-        to: ROUTES.SETTINGS_NOTIFICATIONS,
+        to: ROUTES.NOTIFICATION_SETTINGS,
     },
     {
         label: 'Security',
-        to: ROUTES.SETTINGS_SECURITY,
+        to: ROUTES.SECURITY_SETTINGS,
     },
     {
         label: 'Billing',
-        to: ROUTES.SETTINGS_BILLING,
+        to: ROUTES.BILLING_SETTINGS,
     },
 ];
 

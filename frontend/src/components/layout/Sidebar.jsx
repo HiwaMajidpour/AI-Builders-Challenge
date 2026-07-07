@@ -10,20 +10,20 @@
  *   • Optional onClose prop for mobile drawer mode
  */
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth }  from '../../hooks/useAuth';
-import { ROUTES }   from '../../constants/routes';
+import { useAuth } from '../../hooks/useAuth';
+import { ROUTES } from '../../constants/routes';
 import { APP_NAME } from '../../config';
-import { cn }       from '../../utils/cn';
-import Avatar       from '../ui/Avatar';
-import Badge        from '../ui/Badge';
-import { toast }    from 'sonner';
+import { cn } from '../../utils/cn';
+import Avatar from '../ui/Avatar';
+import Badge from '../ui/Badge';
+import { toast } from 'sonner';
 
 // ── Nav items ─────────────────────────────────────────────────────────────────
 const NAV_ITEMS = [
   {
     label: 'Dashboard',
-    to:    ROUTES.DASHBOARD,
-    end:   true,
+    to: ROUTES.DASHBOARD,
+    end: true,
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="3" y="3" width="7" height="7" />
@@ -35,7 +35,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'AI Studio',
-    to:    '/dashboard/ai-studio',
+    to: ROUTES.AI_STUDIO,
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -44,7 +44,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Projects',
-    to:    '/dashboard/projects',
+    to: ROUTES.PROJECTS,
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
@@ -53,7 +53,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Templates',
-    to:    '/dashboard/templates',
+    to: ROUTES.TEMPLATES,
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -63,7 +63,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Settings',
-    to:    '/dashboard/settings',
+    to: ROUTES.SETTINGS,
     icon: (
       <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="3" />

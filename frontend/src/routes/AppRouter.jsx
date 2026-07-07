@@ -68,6 +68,7 @@ const AccountSettings = lazy(() => import('../features/settings/AccountSettings'
 const BillingSettings = lazy(() => import('../features/settings/BillingSettings'));
 const AppearanceSettings = lazy(() => import('../features/settings/AppearanceSettings'));
 const NotificationsSettings = lazy(() => import('../features/settings/NotificationsSettings'));
+const SecuritySettings = lazy(() => import('../features/settings/SecuritySettings'));
 
 // ── Suspense fallback ────────────────────────────────────────────
 function PageFallback() {
@@ -160,60 +161,130 @@ export default function AppRouter() {
 
         {/* ── Protected routes — DashboardLayout ── */}
         <Route path={ROUTES.DASHBOARD} element={<DashboardLayout />}>
+
+          {/* Dashboard */}
           <Route
             index
-            element={<Lazy><DashboardPage /></Lazy>}
+            element={
+              <Lazy>
+                <DashboardPage />
+              </Lazy>
+            }
           />
+
+          {/* AI Studio */}
           <Route
             path="ai-studio"
-            element={<Lazy><AIStudioPage /></Lazy>}
+            element={
+              <Lazy>
+                <AIStudioPage />
+              </Lazy>
+            }
           />
+
+          {/* Projects */}
           <Route
             path="projects"
-            element={<Lazy><ProjectsPage /></Lazy>}
+            element={
+              <Lazy>
+                <ProjectsPage />
+              </Lazy>
+            }
           />
+
+          {/* Templates */}
           <Route
             path="templates"
-            element={<Lazy><TemplatesPage /></Lazy>}
+            element={
+              <Lazy>
+                <TemplatesPage />
+              </Lazy>
+            }
           />
+
+          {/* Editor */}
           <Route
             path="editor"
-            element={<Lazy><EditorPage /></Lazy>}
-          />
-        </Route>
-        <Route
-          path="settings"
-          element={<Lazy><SettingsPage /></Lazy>}
-        >
-          <Route
-            index
-            element={<Lazy><ProfileSettings /></Lazy>}
+            element={
+              <Lazy>
+                <EditorPage />
+              </Lazy>
+            }
           />
 
+          {/* Settings */}
           <Route
-            path="profile"
-            element={<Lazy><ProfileSettings /></Lazy>}
-          />
+            path="settings"
+            element={
+              <Lazy>
+                <SettingsPage />
+              </Lazy>
+            }
+          >
+            <Route
+              index
+              element={
+                <Lazy>
+                  <ProfileSettings />
+                </Lazy>
+              }
+            />
 
-          <Route
-            path="account"
-            element={<Lazy><AccountSettings /></Lazy>}
-          />
+            <Route
+              path="profile"
+              element={
+                <Lazy>
+                  <ProfileSettings />
+                </Lazy>
+              }
+            />
 
-          <Route
-            path="appearance"
-            element={<Lazy><AppearanceSettings /></Lazy>}
-          />
+            <Route
+              path="account"
+              element={
+                <Lazy>
+                  <AccountSettings />
+                </Lazy>
+              }
+            />
 
-          <Route
-            path="billing"
-            element={<Lazy><BillingSettings /></Lazy>}
-          />
+            <Route
+              path="appearance"
+              element={
+                <Lazy>
+                  <AppearanceSettings />
+                </Lazy>
+              }
+            />
 
-          <Route
-            path="notifications"
-            element={<Lazy><NotificationsSettings /></Lazy>}
-          />
+            <Route
+              path="notifications"
+              element={
+                <Lazy>
+                  <NotificationsSettings />
+                </Lazy>
+              }
+            />
+
+            <Route
+              path="security"
+              element={
+                <Lazy>
+                  <SecuritySettings />
+                </Lazy>
+              }
+            />
+
+            <Route
+              path="billing"
+              element={
+                <Lazy>
+                  <BillingSettings />
+                </Lazy>
+              }
+            />
+          </Route>
+
         </Route>
 
         {/* ── 404 catch-all ── */}
