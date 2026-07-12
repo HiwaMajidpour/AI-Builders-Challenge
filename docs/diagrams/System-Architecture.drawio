@@ -1,0 +1,70 @@
+# System Architecture Diagram
+
+---
+
+## Purpose
+
+This diagram illustrates the high-level architecture of AI Creative Studio.
+
+---
+
+## Layers
+
+### User Layer
+
+End users interact with the application through a modern React-based frontend.
+
+---
+
+### Presentation Layer
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Vite
+
+---
+
+### API Layer
+
+Handles communication between frontend and AI services.
+
+---
+
+### AI Layer
+
+IBM Granite processes prompts and generates intelligent responses.
+
+---
+
+### Backend Layer
+
+Future backend services include authentication, project storage, and user management.
+
+---
+
+### Output Layer
+
+Generated AI content is presented in the dashboard.
+
+---
+
+## Benefits
+
+- Modular architecture
+- Scalable design
+- Enterprise-ready
+- Easy maintenance
+
+---
+
+## Future Enhancements
+
+- Docker
+- Kubernetes
+- IBM Cloud
+- CI/CD
+- Monitoring
