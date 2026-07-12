@@ -2,175 +2,327 @@
 
 ---
 
-# Overview
+# AI Creative Studio Architecture
 
-AI Creative Studio follows a modular layered architecture designed to separate responsibilities across presentation, business logic, AI services, and data management.
+Version: 1.0
 
-The system is built to support future scalability while remaining easy to understand and maintain.
+AI Creative Studio is designed using a modular, layered architecture that separates user experience, application logic, AI processing, and future backend services.
 
----
-
-# High-Level Architecture
-
-User
-
-↓
-
-Frontend (React)
-
-↓
-
-Application Layer
-
-↓
-
-AI Services
-
-↓
-
-Data Layer
-
-↓
-
-Storage
+The architecture emphasizes maintainability, scalability, security, and AI-driven content generation while remaining lightweight enough for rapid development.
 
 ---
 
-# Layers
+# Architecture Overview
 
-## Presentation Layer
+```text
+End User
+      │
+      ▼
+React Frontend
+      │
+      ▼
+API Gateway
+      │
+      ▼
+Prompt Engineering Layer
+      │
+ Optimized Prompt
+      ▼
+IBM Granite Foundation Models
+      │
+AI Generated Response
+      ▼
+AI Response Engine
+      │
+      ▼
+User Dashboard
+      │
+      ▼
+User Feedback
+      │
+      ▼
+Prompt Engineering Layer
+      ▲
+      │
+ Feedback Loop
+```
 
-Responsible for:
+---
 
-- User Interface
-- Navigation
-- Forms
+# Architecture Layers
+
+## 1. Presentation Layer
+
+Responsible for delivering the user interface and user experience.
+
+### Responsibilities
+
+- Landing Page
 - Dashboard
-- User Experience
+- AI Studio
+- Templates
+- Project Management
+- User Settings
+- Navigation
+- Responsive Design
 
-Technology
+### Technology
 
-- React
+- React 19
 - TypeScript
-- TailwindCSS
+- Tailwind CSS
+- Vite
 
 ---
 
-## Business Layer
+## 2. API Gateway
 
-Responsible for:
+Acts as the communication layer between the frontend and AI services.
 
-- Business rules
-- Validation
-- Workflow logic
-- User management
+### Responsibilities
 
----
-
-## AI Layer
-
-Responsible for:
-
-- Prompt processing
-- AI responses
-- Recommendation engine
-- Content generation
-
-IBM Services
-
-- Granite Models
-- watsonx.ai
+- REST API
+- Authentication
+- Input Validation
+- Request Routing
+- Error Handling
+- Rate Limiting
+- Response Formatting
 
 ---
 
-## Data Layer
+## 3. Prompt Engineering Layer
 
-Responsible for:
+This layer prepares optimized prompts before they are sent to the IBM Granite models.
 
+Instead of sending raw user input directly to the AI model, the application enriches, validates, and structures prompts to improve response quality.
+
+### Responsibilities
+
+- Prompt Templates
+- Context Builder
+- System Prompt Injection
+- Prompt Optimization
+- Safety Rules
+- Output Formatting
+
+### Output
+
+Optimized Prompt
+
+---
+
+## 4. AI Layer
+
+The AI layer performs reasoning and content generation using IBM Granite Foundation Models.
+
+### IBM AI Services
+
+- IBM Granite Foundation Models
+- Prompt Understanding
+- Reasoning
+- Content Generation
+- Content Enhancement
+- Summarization
+
+### Responsibilities
+
+- AI Inference
+- Natural Language Processing
+- Intelligent Recommendations
+- Structured Response Generation
+
+### Output
+
+AI Generated Response
+
+---
+
+## 5. AI Response Engine
+
+Processes AI responses before presenting them to users.
+
+### Responsibilities
+
+- Response Processing
+- Quality Validation
+- Safety Filtering
+- Output Formatting
+- Response Delivery
+
+---
+
+## 6. User Dashboard
+
+Displays generated content and allows users to manage their work.
+
+### Features
+
+- Generated Content
 - Projects
 - Templates
-- Prompts
+- History
+- Analytics
 - User Settings
 
 ---
 
-## Infrastructure Layer
+## 7. Feedback Loop
 
-Responsible for:
+User interactions continuously improve future prompt quality.
 
-- Hosting
-- Security
-- Authentication
-- Deployment
+### Workflow
+
+User Feedback
+
+↓
+
+Prompt Refinement
+
+↓
+
+Prompt Engineering
+
+↓
+
+Optimized Prompt
+
+↓
+
+IBM Granite Models
+
+This continuous optimization process enables better AI responses over time.
 
 ---
 
-# Core Modules
+## 8. Future Backend Services
 
-Current modules include:
+The current challenge implementation is frontend-first.
 
-Authentication
+The architecture has been designed to support future backend integration without requiring significant architectural changes.
 
-↓
+### Planned Services
 
-Dashboard
+- Authentication
+- Authorization
+- User Management
+- Project Storage
+- Cloud Database
+- Audit Logs
+- Analytics
 
-↓
+---
 
-Projects
+# Core Application Modules
 
-↓
+The application currently contains the following functional modules:
 
-Templates
-
-↓
-
-AI Studio
-
-↓
-
-Editor
-
-↓
-
-Settings
+- Landing Page
+- Dashboard
+- AI Studio
+- Prompt Editor
+- Template Library
+- Project Workspace
+- Settings
 
 ---
 
 # Design Principles
 
-The architecture follows:
+The architecture follows modern software engineering principles.
 
-Single Responsibility Principle
+### SOLID Principles
 
-Open/Closed Principle
+- Single Responsibility Principle
+- Open/Closed Principle
+- Separation of Concerns
+- Dependency Isolation
 
-Dependency Separation
+### Frontend Principles
 
-Component Reusability
+- Component Reusability
+- Modular Design
+- Scalable Folder Structure
+- Type Safety
+- Responsive UI
 
-Scalable Feature Modules
+### AI Principles
+
+- Prompt Engineering
+- Context-Aware Requests
+- Safety Filtering
+- Human Feedback Loop
+- AI Response Validation
 
 ---
 
-# Scalability
+# Technology Stack
 
-Future scalability includes:
+## Frontend
 
-Microservices
+- React 19
+- TypeScript
+- Tailwind CSS
+- Vite
 
-Cloud deployment
+## AI
 
-Team collaboration
+- IBM Granite Foundation Models
 
-AI Agents
+## Development
 
-Enterprise API
+- Git
+- GitHub
+- Markdown
+- Mermaid
+- Draw.io
 
-Analytics
+## Future Deployment
+
+- IBM Cloud
+- Docker
+- Kubernetes
+
+---
+
+# Scalability Roadmap
+
+The architecture has been intentionally designed for enterprise-scale expansion.
+
+Future enhancements include:
+
+- Cloud Deployment
+- Microservices
+- Team Collaboration
+- AI Agents
+- Enterprise APIs
+- Notifications
+- Monitoring
+- Analytics
+- Caching
+- CI/CD Pipelines
+
+---
+
+# Security Considerations
+
+The architecture is designed to support enterprise security standards.
+
+Future implementations include:
+
+- Authentication
+- Authorization
+- Secure API Communication
+- Input Validation
+- Prompt Safety
+- Audit Logging
 
 ---
 
 # Conclusion
 
-The architecture enables AI Creative Studio to evolve from a challenge submission into an enterprise-grade AI platform.
+AI Creative Studio uses a clean, modular, and AI-first architecture that combines modern frontend technologies with IBM Granite Foundation Models.
+
+Its layered design improves maintainability, enables future scalability, and supports enterprise-grade AI workflows through Prompt Engineering, Response Validation, and Continuous Feedback Optimization.
+
+This architecture provides a solid foundation for evolving the project from a hackathon submission into a production-ready AI platform.
