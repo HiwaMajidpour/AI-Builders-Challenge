@@ -1,47 +1,33 @@
 # AI Architecture
 
----
-
-# Document Information
-
-| Item | Details |
-|------|----------|
-| Project | AI Creative Studio |
-| Layer | Artificial Intelligence |
-| AI Provider | IBM Granite / watsonx (Planned) |
-| Version | 1.0 |
+> **Version:** 1.0  
+> **Project:** AI Creative Studio  
+> **Architecture Type:** AI-First Enterprise Architecture
 
 ---
 
 # Overview
 
-Artificial Intelligence is the core capability of AI Creative Studio.
+AI Creative Studio follows an AI-first architecture where IBM Granite Foundation Models serve as the core intelligence engine for content generation.
 
-Rather than using AI as an additional feature, the platform is designed around AI-assisted workflows that improve creativity, productivity, and project organization.
+Rather than treating AI as an external service, the platform integrates AI into the application's primary workflow through Prompt Engineering, Context Building, Response Validation, and Continuous Feedback Optimization.
 
----
-
-# AI Objectives
-
-The AI system helps users:
-
-- Generate creative ideas
-- Improve written content
-- Organize projects
-- Create prompts
-- Analyze documents
-- Recommend templates
-- Increase productivity
+The architecture has been designed to maximize response quality while maintaining scalability, maintainability, and enterprise readiness.
 
 ---
 
 # AI Workflow
 
-User Input
+```text
+User
 
 ↓
 
-Prompt Validation
+Prompt Engineering
+
+↓
+
+Prompt Optimization
 
 ↓
 
@@ -49,147 +35,202 @@ Context Builder
 
 ↓
 
-IBM Granite Model
+IBM watsonx.ai
 
 ↓
 
-AI Processing
+IBM Granite Foundation Models
 
 ↓
 
-Response Formatter
+AI Response
 
 ↓
 
-Frontend
+Response Validation
+
+↓
+
+Formatting
+
+↓
+
+Dashboard
+
+↓
+
+User Feedback
+
+↓
+
+Feedback Loop
+
+↓
+
+Prompt Optimization
+```
 
 ---
 
 # AI Components
 
-## Prompt Engine
+## Prompt Engineering
 
-Responsible for:
+The Prompt Engineering layer transforms user input into optimized prompts before they are submitted to IBM Granite.
 
-- Prompt validation
-- Prompt enhancement
-- Prompt templates
-- Context generation
+Responsibilities
+
+- Prompt Templates
+- Prompt Validation
+- Prompt Optimization
+- Context Injection
+- Safety Rules
 
 ---
 
 ## Context Builder
 
-Collects
-
-- Current project
-- User preferences
-- Selected template
-- Previous prompts
-
-This improves AI response quality.
-
----
-
-## IBM AI Layer
-
-Future integration includes:
-
-- IBM Granite
-- IBM watsonx.ai
+The Context Builder enriches prompts with additional information.
 
 Responsibilities
 
-- Text generation
+- User Context
+- Template Context
+- Conversation Context
+- Project Context
+
+Benefits
+
+- Better AI responses
+- Reduced hallucinations
+- More consistent outputs
+
+---
+
+## IBM watsonx.ai
+
+IBM watsonx.ai acts as the AI orchestration platform.
+
+Responsibilities
+
+- AI Model Access
+- Request Management
+- Response Delivery
+- AI Service Integration
+
+---
+
+## IBM Granite Foundation Models
+
+Granite performs the primary reasoning and content generation tasks.
+
+Capabilities
+
+- Natural Language Understanding
+- Content Generation
 - Summarization
-- Recommendations
-- Creative assistance
+- Content Enhancement
+- Structured Responses
 
 ---
 
-## Response Formatter
+## AI Response Engine
 
-Converts raw AI responses into user-friendly content.
+Processes AI output before presenting it to users.
 
-Includes:
+Responsibilities
 
-- Formatting
-- Markdown rendering
-- Highlighting
-- Error handling
+- Response Validation
+- Safety Filtering
+- Output Formatting
+- Quality Assurance
 
 ---
 
-# AI Features
+# Prompt Lifecycle
+
+1. User enters a request.
+2. Prompt Engineering prepares the request.
+3. Context Builder enriches the prompt.
+4. Prompt Optimization improves quality.
+5. watsonx.ai forwards the request.
+6. Granite generates a response.
+7. Response Engine validates the output.
+8. Formatted content is displayed.
+9. User feedback improves future prompts.
+
+---
+
+# AI Safety
+
+The platform applies multiple validation layers.
 
 Current
 
-- Prompt management
-- AI Studio interface
-- AI workflow design
+- Prompt Validation
+- Input Sanitization
+- Response Formatting
 
 Future
 
-- Content generation
-- Idea generation
-- AI document review
-- Project recommendations
-- AI chat assistant
-- Multi-agent workflows
+- Toxicity Detection
+- Prompt Injection Protection
+- AI Guardrails
+- Content Moderation
 
 ---
 
-# Explainable AI
+# Feedback Loop
 
-The platform follows Responsible AI principles.
+User interactions continuously improve prompt quality.
 
-Users should understand:
+Workflow
 
-- Why recommendations were generated
-- What context was used
-- How AI reached conclusions
+User Feedback
 
----
+↓
 
-# Responsible AI
+Prompt Refinement
 
-Principles include:
+↓
 
-- Transparency
-- Fairness
-- Privacy
-- Human oversight
-- Ethical AI usage
+Prompt Optimization
 
----
+↓
 
-# AI Security
+IBM Granite
 
-AI interactions are protected through:
+↓
 
-- Secure API communication
-- Input validation
-- Prompt sanitization
-- Error isolation
+Improved Responses
 
 ---
 
 # Future AI Roadmap
 
-Planned enhancements
+Future enterprise AI capabilities include:
 
 - AI Agents
+- Multi-Agent Collaboration
 - Retrieval-Augmented Generation (RAG)
-- Knowledge Base
-- Long-term Memory
-- Voice AI
-- Image Generation
-- AI Workflow Automation
+- Long-Term Memory
+- Knowledge Base Integration
+- Function Calling
+- Semantic Search
+- AI Analytics
+
+---
+
+# Related Documentation
+
+- [System Architecture](System-Architecture.md)
+- [Data Flow](Data-Flow.md)
+- [Deployment Architecture](Deployment-Architecture.md)
 
 ---
 
 # Conclusion
 
-AI Creative Studio is built around AI-powered workflows rather than isolated AI features.
+AI Creative Studio implements an AI-first enterprise architecture centered on IBM Granite Foundation Models and IBM watsonx.ai.
 
-The architecture ensures that IBM AI technologies deliver meaningful business value while remaining scalable, transparent, and aligned with Responsible AI principles.
+By combining Prompt Engineering, Context Building, Response Validation, and Continuous Feedback Optimization, the platform delivers scalable, maintainable, and high-quality AI-assisted content generation while providing a strong foundation for future enterprise AI capabilities.

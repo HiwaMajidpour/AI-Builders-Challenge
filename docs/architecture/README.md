@@ -2,7 +2,7 @@
 
 > **Enterprise Architecture Documentation**  
 > **Project:** AI Creative Studio  
-> **Challenge:** IBM AI Builders Challenge 2025  
+> **Challenge:** IBM AI Builders Challenge 2026
 > **Version:** 1.0  
 > **Status:** Enterprise Documentation
 
