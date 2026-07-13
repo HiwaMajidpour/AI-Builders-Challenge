@@ -1,169 +1,374 @@
 # Architecture Decision Records (ADR)
 
+> **Version:** 1.0  
+> **Project:** AI Creative Studio  
+> **Architecture Type:** Architecture Decision Records (ADR)
+
 ---
 
-# Purpose
+# Overview
 
-This document records the major architectural decisions made during the design of AI Creative Studio.
+This document records the major architectural decisions made during the design and development of AI Creative Studio.
 
-Each decision explains:
+Each Architecture Decision Record (ADR) explains the selected approach, the available alternatives, the rationale behind the decision, and its expected impact on the system.
 
-- The problem
-- The chosen solution
-- Alternatives considered
-- Justification
+Maintaining ADRs improves transparency, consistency, maintainability, and long-term evolution of the project.
 
 ---
 
 # ADR-001
 
-## Decision
+## Title
 
-Frontend Framework
+Frontend-First Architecture
 
-### Selected
-
-React
-
-### Alternatives
-
-Vue
-
-Angular
-
-Svelte
-
-### Why React?
-
-- Large ecosystem
-- Component architecture
-- Easy scalability
-- Excellent IBM compatibility
-- Strong community
-
-Status
+### Status
 
 Accepted
+
+### Decision
+
+The initial implementation follows a frontend-first architecture.
+
+### Rationale
+
+- Faster development
+- Rapid prototyping
+- Lower infrastructure complexity
+- Better focus on AI interaction
+
+### Alternatives Considered
+
+- Full-stack architecture
+- Backend-first architecture
+
+### Consequences
+
+Positive
+
+- Faster iteration
+- Easier deployment
+- Lower maintenance
+
+Negative
+
+- Limited persistence
+- No authentication
+- Client-side storage
 
 ---
 
 # ADR-002
 
-## Build Tool
+## Title
 
-Selected
+React as Frontend Framework
 
-Vite
-
-Alternatives
-
-Create React App
-
-Webpack
-
-Reasons
-
-- Faster builds
-- Smaller configuration
-- Better developer experience
-
-Status
+### Status
 
 Accepted
+
+### Decision
+
+React was selected as the frontend framework.
+
+### Rationale
+
+- Component-based architecture
+- Strong ecosystem
+- Enterprise adoption
+- Excellent TypeScript support
+
+### Alternatives
+
+- Vue
+- Angular
+- Svelte
+
+### Consequences
+
+- Reusable components
+- Better maintainability
+- Scalable architecture
 
 ---
 
 # ADR-003
 
-## Programming Language
+## Title
 
-Selected
+TypeScript Adoption
 
-TypeScript
-
-Reason
-
-- Better maintainability
-- Static typing
-- Enterprise standard
-
-Status
+### Status
 
 Accepted
+
+### Decision
+
+Use TypeScript across the entire frontend.
+
+### Rationale
+
+- Type safety
+- Improved developer experience
+- Better refactoring
+- Fewer runtime errors
+
+### Alternatives
+
+- JavaScript
+
+### Consequences
+
+- Improved code quality
+- Easier maintenance
 
 ---
 
 # ADR-004
 
-## Styling
+## Title
 
-Selected
+IBM Granite Foundation Models
 
-Tailwind CSS
-
-Reason
-
-- Rapid UI development
-- Consistent design
-- Utility-first approach
-
-Status
+### Status
 
 Accepted
+
+### Decision
+
+IBM Granite is the primary AI inference engine.
+
+### Rationale
+
+- Enterprise-grade models
+- IBM watsonx.ai integration
+- High-quality text generation
+- Strong reasoning capabilities
+
+### Alternatives
+
+- Other LLM providers
+
+### Consequences
+
+- Enterprise AI workflow
+- IBM ecosystem compatibility
 
 ---
 
 # ADR-005
 
-## AI Platform
+## Title
 
-Selected
+Prompt Engineering Layer
 
-IBM Granite
-
-Reason
-
-- Enterprise AI
-- IBM ecosystem
-- Responsible AI
-- High-quality language models
-
-Status
+### Status
 
 Accepted
+
+### Decision
+
+Introduce a dedicated Prompt Engineering Layer between the application and IBM Granite.
+
+### Rationale
+
+- Better prompt quality
+- Consistent AI responses
+- Context management
+- Prompt optimization
+
+### Consequences
+
+- Higher response quality
+- Better AI reliability
 
 ---
 
 # ADR-006
 
-## Documentation
+## Title
 
-Selected
+Layered Architecture
 
-Markdown
-
-Reason
-
-- GitHub Native
-- Easy maintenance
-- Lightweight
-
-Status
+### Status
 
 Accepted
 
+### Decision
+
+Adopt a modular layered architecture.
+
+### Layers
+
+- User Layer
+- Presentation Layer
+- Application Layer
+- AI Layer
+- Data Layer
+
+### Rationale
+
+- Separation of Concerns
+- Scalability
+- Maintainability
+
+### Consequences
+
+- Easier testing
+- Clear responsibilities
+- Enterprise structure
+
 ---
 
-# Future ADRs
+# ADR-007
 
-- Database Selection
-- Cloud Provider
-- Authentication Strategy
-- Deployment Strategy
-- CI/CD Pipeline
+## Title
+
+Local Storage for Prototype
+
+### Status
+
+Accepted
+
+### Decision
+
+Use browser Local Storage during the challenge.
+
+### Rationale
+
+- Zero backend dependency
+- Fast implementation
+- Offline support
+
+### Future Migration
+
+- PostgreSQL
+- IBM Cloud Databases
+
+---
+
+# ADR-008
+
+## Title
+
+Future Cloud-Native Deployment
+
+### Status
+
+Planned
+
+### Decision
+
+Prepare the architecture for cloud-native deployment.
+
+### Target Technologies
+
+- IBM Cloud
+- Docker
+- Kubernetes
+
+### Benefits
+
+- Scalability
+- High Availability
+- Enterprise Operations
+
+---
+
+# ADR-009
+
+## Title
+
+Security by Design
+
+### Status
+
+Accepted
+
+### Decision
+
+Integrate security into every architectural layer.
+
+### Security Controls
+
+- HTTPS
+- Input Validation
+- Prompt Validation
+- JWT Authentication (Future)
+- RBAC
+- Audit Logging
+
+### Benefits
+
+- Enterprise Security
+- Reduced Risk
+- Better Compliance
+
+---
+
+# ADR-010
+
+## Title
+
+Comprehensive Architecture Documentation
+
+### Status
+
+Accepted
+
+### Decision
+
+Maintain complete architecture documentation alongside the source code.
+
+### Documentation Includes
+
+- System Architecture
+- Component Architecture
+- Data Flow
+- Deployment
+- Security
+- API
+- Database
+- C4 Model
+- Technology Stack
+
+### Benefits
+
+- Easier onboarding
+- Better maintainability
+- Enterprise documentation standard
+
+---
+
+# Summary of Decisions
+
+| ADR | Decision | Status |
+|------|----------|--------|
+| ADR-001 | Frontend-First Architecture | Accepted |
+| ADR-002 | React Framework | Accepted |
+| ADR-003 | TypeScript | Accepted |
+| ADR-004 | IBM Granite | Accepted |
+| ADR-005 | Prompt Engineering Layer | Accepted |
+| ADR-006 | Layered Architecture | Accepted |
+| ADR-007 | Local Storage | Accepted |
+| ADR-008 | Cloud-Native Deployment | Planned |
+| ADR-009 | Security by Design | Accepted |
+| ADR-010 | Architecture Documentation | Accepted |
+
+---
+
+# Related Documentation
+
+- [System Architecture](System-Architecture.md)
+- [Technology Stack](Technology-Stack.md)
+- [Security Architecture](Security-Architecture.md)
+- [Deployment Architecture](Deployment-Architecture.md)
 
 ---
 
 # Conclusion
 
-All architecture decisions were made considering scalability, maintainability, developer productivity, and IBM ecosystem compatibility.
+The Architecture Decision Records provide a transparent history of the key technical choices that shape AI Creative Studio.
+
+By documenting architectural decisions, trade-offs, and future plans, the project aligns with enterprise software engineering practices and establishes a solid foundation for future evolution.
