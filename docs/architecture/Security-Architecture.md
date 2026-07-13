@@ -1,184 +1,307 @@
 # Security Architecture
 
----
-
-# Document Information
-
-| Item | Details |
-|------|----------|
-| Project | AI Creative Studio |
-| Layer | Security |
-| Version | 1.0 |
-| Status | Enterprise Design |
+> **Version:** 1.0  
+> **Project:** AI Creative Studio  
+> **Architecture Type:** Enterprise Security Architecture
 
 ---
 
 # Overview
 
-Security is a fundamental design principle of AI Creative Studio.
+Security is a fundamental architectural principle of AI Creative Studio.
 
-The system follows a defense-in-depth strategy to protect user data, AI interactions, and application services.
+Rather than being treated as an additional feature, security is integrated throughout every architectural layer following the **Security by Design** approach.
+
+The platform is designed to protect users, AI services, application data, and future cloud infrastructure while supporting enterprise security standards.
 
 ---
 
-# Security Goals
+# Security Objectives
 
-The platform is designed to:
+The security architecture aims to ensure:
 
-- Protect user information
-- Secure AI requests
-- Prevent unauthorized access
-- Ensure secure communication
-- Protect sensitive data
-- Support enterprise deployment
+- Confidentiality
+- Integrity
+- Availability
+- Authentication
+- Authorization
+- Data Privacy
+- Secure AI Communication
+- Auditability
+
+---
+
+# Security Layers
+
+```text
+User
+
+↓
+
+HTTPS
+
+↓
+
+API Gateway
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Input Validation
+
+↓
+
+Prompt Validation
+
+↓
+
+IBM watsonx.ai
+
+↓
+
+IBM Granite
+
+↓
+
+Response Validation
+
+↓
+
+Application
+```
 
 ---
 
 # Authentication
 
-Current Prototype
+Current Implementation
 
-- Local authentication (planned)
+- Frontend Prototype
+- Local User Context
 
-Future
+Future Enterprise Implementation
 
 - JWT Authentication
 - OAuth 2.0
 - IBM App ID
+- Single Sign-On (SSO)
 - Multi-Factor Authentication (MFA)
 
 ---
 
 # Authorization
 
-Future Role-Based Access Control (RBAC)
+Future authorization model follows Role-Based Access Control (RBAC).
 
 Roles
 
 - Guest
 - User
-- Premium User
-- Moderator
 - Administrator
 
-Each role has different permissions.
+Responsibilities
 
----
+Guest
 
-# Password Security
+- View public pages
 
-Passwords will be:
+User
 
-- Hashed
-- Salted
-- Never stored as plain text
+- Generate AI content
+- Manage projects
+- Save templates
 
-Recommended Algorithm
+Administrator
 
-- bcrypt
+- User management
+- System monitoring
+- Analytics
+- Platform configuration
 
 ---
 
 # Secure Communication
 
-All communications should use:
+All communication is designed to use secure protocols.
+
+Current
 
 - HTTPS
 - TLS Encryption
 
-Sensitive API calls must always be encrypted.
+Future
+
+- Mutual TLS
+- API Gateway Encryption
+- Secure Cloud Communication
 
 ---
 
-# API Security
+# Input Validation
 
-Protection mechanisms include:
+Every request must be validated before entering the AI workflow.
 
-- JWT Tokens
-- Token Expiration
-- API Validation
-- Rate Limiting
-- Request Validation
+Validation includes
+
+- Required Fields
+- Length Limits
+- Type Validation
+- Format Validation
+- Malicious Content Detection
 
 ---
 
-# AI Security
+# Prompt Security
 
-AI requests should include:
+Prompt Engineering includes multiple protection layers.
 
-- Prompt validation
-- Prompt sanitization
-- Request limits
-- Abuse detection
+Current
+
+- Prompt Validation
+- Context Isolation
+- Prompt Formatting
 
 Future
 
-- Prompt Injection Protection
+- Prompt Injection Detection
 - AI Guardrails
+- Content Moderation
+- Safety Policies
+- Prompt Risk Scoring
+
+---
+
+# AI Response Validation
+
+AI responses are validated before presentation.
+
+Checks include
+
+- Output Formatting
+- Safety Validation
+- Content Filtering
+- Response Consistency
 
 ---
 
 # Data Protection
 
-Sensitive information includes:
+Current
 
-- User accounts
-- AI history
-- Project data
-- Personal settings
+- Browser Storage Isolation
+- Client-side Validation
 
-Protection methods
+Future
 
 - Encryption at Rest
-- Encryption in Transit
-- Secure Storage
+- Database Encryption
+- Secure Object Storage
+- Key Management
+- Data Classification
 
 ---
 
-# Logging
+# Secrets Management
 
-Security logs include:
+Sensitive configuration values should never be stored inside the source code.
 
-- Login attempts
-- Failed authentication
-- AI requests
-- Critical operations
+Future implementation
 
----
-
-# Backup Strategy
-
-Future enterprise deployment includes:
-
-- Daily backups
-- Encrypted backups
-- Disaster Recovery
+- Environment Variables
+- Secret Management Service
+- IBM Cloud Secrets Manager
 
 ---
 
-# OWASP Considerations
+# API Security
 
-The system is designed to reduce risks related to:
+Enterprise API security includes
 
-- Broken Authentication
-- Injection
-- XSS
-- CSRF
-- Sensitive Data Exposure
-- Security Misconfiguration
+- JWT Authentication
+- OAuth 2.0
+- Rate Limiting
+- API Versioning
+- Request Validation
+- Response Validation
 
 ---
 
-# Future Improvements
+# Logging & Auditing
 
-- Zero Trust Architecture
-- Secret Management
-- Security Monitoring
-- Intrusion Detection
-- Compliance (GDPR)
+Future logging strategy
+
+- Authentication Logs
+- API Logs
+- AI Usage Logs
+- Security Logs
+- Error Logs
+
+Audit logging enables
+
+- Incident Investigation
+- Compliance
+- Usage Monitoring
+
+---
+
+# Monitoring
+
+Future monitoring includes
+
+- Failed Login Attempts
+- API Abuse Detection
+- Prompt Injection Detection
+- AI Usage Monitoring
+- Infrastructure Monitoring
+
+---
+
+# Security Standards
+
+The architecture is designed to align with modern security practices.
+
+Target standards include
+
+- OWASP Top 10
+- Secure SDLC
+- Zero Trust Principles
+- Least Privilege Access
+- Defense in Depth
+
+---
+
+# Future Security Roadmap
+
+Planned enterprise enhancements
+
+- IBM App ID Integration
+- MFA
+- RBAC
+- Secrets Manager
+- SIEM Integration
+- Automated Threat Detection
+- Security Dashboards
+
+---
+
+# Related Documentation
+
+- [System Architecture](System-Architecture.md)
+- [API Architecture](API-Architecture.md)
+- [Deployment Architecture](Deployment-Architecture.md)
+- [AI Architecture](AI-Architecture.md)
 
 ---
 
 # Conclusion
 
-Security is integrated into every layer of AI Creative Studio to ensure privacy, integrity, and long-term enterprise readiness.
+AI Creative Studio adopts a Security by Design approach, embedding security controls across every architectural layer.
+
+Through secure communication, authentication, authorization, prompt validation, AI response verification, and continuous monitoring, the platform is prepared to evolve into a secure enterprise-grade AI application while maintaining compatibility with IBM Cloud services and IBM Granite Foundation Models.
