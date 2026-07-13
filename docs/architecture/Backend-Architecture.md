@@ -1,46 +1,33 @@
 # Backend Architecture
 
----
-
-# Document Information
-
-| Item | Details |
-|------|----------|
-| Project | AI Creative Studio |
-| Layer | Backend |
-| Version | 1.0 |
-| Status | Planned Architecture |
+> **Version:** 1.0  
+> **Project:** AI Creative Studio  
+> **Architecture Type:** Future Enterprise Backend
 
 ---
 
 # Overview
 
-Although the current IBM AI Builders Challenge submission focuses primarily on the frontend prototype, the system has been designed with a scalable backend architecture that supports future enterprise deployment.
+Although the current implementation of AI Creative Studio is frontend-first, the overall architecture has been intentionally designed to support a future backend without requiring significant changes to the frontend application.
 
-The backend is responsible for authentication, project management, AI orchestration, data persistence, analytics, and integration with IBM AI services.
+The backend architecture follows a layered service-oriented approach that separates API management, business logic, AI orchestration, data persistence, and infrastructure concerns.
 
----
-
-# Architecture Goals
-
-The backend architecture is designed to:
-
-- Provide secure APIs
-- Manage users and authentication
-- Handle AI requests
-- Store user projects
-- Support future enterprise scaling
-- Enable integrations with IBM AI services
+This design enables scalability, maintainability, security, and seamless integration with IBM watsonx.ai and IBM Granite Foundation Models.
 
 ---
 
-# High-Level Architecture
+# Backend Overview
 
-Client (React)
+```text
+Client
 
 ↓
 
-REST API
+API Gateway
+
+↓
+
+Authentication
 
 ↓
 
@@ -52,193 +39,207 @@ Business Logic
 
 ↓
 
+AI Service
+
+↓
+
 Database
 
 ↓
 
-IBM AI Services
+Cloud Storage
+```
 
 ---
 
-# Core Modules
+# Architecture Layers
 
-## Authentication Module
+## API Gateway
+
+Acts as the entry point for all client requests.
 
 Responsibilities
 
-- User registration
-- Login
-- Password reset
-- Session management
-- JWT authentication (future)
-
----
-
-## Project Module
-
-Responsibilities
-
-- Create projects
-- Edit projects
-- Delete projects
-- Project history
-- User ownership
-
----
-
-## Template Module
-
-Responsibilities
-
-- Template library
-- Template categories
-- Favorite templates
-- Template duplication
-
----
-
-## AI Module
-
-Responsibilities
-
-- Prompt processing
-- AI request handling
-- AI response formatting
-- Prompt history
-- AI recommendations
-
----
-
-## User Module
-
-Responsibilities
-
-- User profile
-- Preferences
-- Notifications
-- Account settings
-
----
-
-## Analytics Module (Future)
-
-Responsibilities
-
-- User activity
-- AI usage
-- Productivity metrics
-- Dashboard analytics
-
----
-
-# API Layer
-
-The backend exposes RESTful APIs for:
-
+- Request Routing
 - Authentication
-- Projects
-- Templates
-- AI
-- User Settings
-- Notifications
+- Authorization
+- Input Validation
+- Rate Limiting
+- API Versioning
 
 ---
 
-# Business Logic
+## Authentication Layer
 
-Business services are separated from controllers.
+Responsible for user identity and access control.
 
-Benefits
+Current
 
-- Better maintainability
-- Easier testing
-- Code reuse
-- Cleaner architecture
-
----
-
-# AI Service Layer
-
-The AI service acts as an orchestration layer between the application and IBM AI models.
-
-Responsibilities
-
-- Prompt validation
-- Context generation
-- Request optimization
-- Response processing
-- Error handling
-
----
-
-# Database Layer
-
-Stores
-
-- Users
-- Projects
-- Templates
-- Prompts
-- AI history
-- User preferences
-
----
-
-# Error Handling
-
-The backend returns consistent responses for:
-
-- Validation errors
-- Authentication failures
-- Permission errors
-- AI service failures
-- Unexpected exceptions
-
----
-
-# Security
-
-Security considerations include:
-
-- JWT Authentication
-- Password hashing
-- HTTPS
-- Input validation
-- Rate limiting
-- Secure API communication
+- Frontend Prototype
 
 Future
 
-- OAuth
-- Multi-factor authentication
-- RBAC
-- Audit logs
+- JWT Authentication
+- OAuth 2.0
+- IBM App ID
+- Session Management
 
 ---
 
-# Scalability
+## Application Services
 
-Future scalability includes:
+Contains application-level services.
 
-- Microservices
-- Load balancing
-- Distributed caching
-- Message queues
-- Horizontal scaling
+Services
+
+- Project Service
+- Template Service
+- User Service
+- AI Service
+- Analytics Service
+
+Responsibilities
+
+- Business Coordination
+- Workflow Management
+- Request Processing
+
+---
+
+## Business Logic Layer
+
+Implements core application rules.
+
+Responsibilities
+
+- Prompt Processing
+- Project Management
+- User Management
+- Validation
+- Analytics Processing
+
+---
+
+## AI Service Layer
+
+Coordinates communication with IBM AI services.
+
+Responsibilities
+
+- Prompt Optimization
+- AI Request Management
+- Context Building
+- Response Validation
+- AI Logging
+
+IBM Services
+
+- IBM watsonx.ai
+- IBM Granite Foundation Models
+
+---
+
+## Data Access Layer
+
+Provides access to persistent storage.
+
+Responsibilities
+
+- CRUD Operations
+- Query Optimization
+- Data Validation
+- Repository Pattern
+
+---
+
+# API Design
+
+Future backend exposes REST APIs.
+
+Examples
+
+- /api/projects
+- /api/templates
+- /api/prompts
+- /api/users
+- /api/settings
+
+---
+
+# Logging
+
+Future implementation includes
+
+- API Logs
+- Error Logs
+- Security Logs
+- AI Usage Logs
 
 ---
 
 # Monitoring
 
-Future monitoring
+Planned monitoring
 
-- Application logs
-- Error tracking
-- Performance monitoring
-- AI request analytics
+- Application Health
+- Performance Metrics
+- AI Usage Metrics
+- Error Tracking
+
+---
+
+# Scalability
+
+Supports
+
+- Horizontal Scaling
+- Stateless Services
+- Load Balancing
+- Container Deployment
+
+---
+
+# Security
+
+Future implementation
+
+- HTTPS
+- JWT
+- RBAC
+- API Gateway
+- Rate Limiting
+- Input Sanitization
+- Audit Logging
+
+---
+
+# Future Roadmap
+
+Planned backend capabilities
+
+- Node.js Services
+- Express.js APIs
+- PostgreSQL
+- Redis Cache
+- IBM Cloud Deployment
+- Docker Containers
+- Kubernetes
+- Background Workers
+- Notifications
+
+---
+
+# Related Documentation
+
+- [API Architecture](API-Architecture.md)
+- [Database Architecture](Database-Architecture.md)
+- [Security Architecture](Security-Architecture.md)
+- [Deployment Architecture](Deployment-Architecture.md)
 
 ---
 
 # Conclusion
 
-The backend architecture is intentionally modular and service-oriented, enabling AI Creative Studio to evolve from a prototype into an enterprise-ready platform with secure, scalable, and maintainable backend services.
+The backend architecture has been designed as a scalable, service-oriented foundation that supports secure API communication, AI orchestration, persistent storage, and future enterprise deployment.
+
+Its modular design enables AI Creative Studio to evolve from a frontend prototype into a production-ready cloud-native platform.
