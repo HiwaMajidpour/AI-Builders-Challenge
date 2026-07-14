@@ -2,7 +2,7 @@
 
 > Enterprise Infrastructure Architecture  
 > AI Creative Studio  
-> IBM AI Builders Challenge 2025
+> IBM AI Builders Challenge 2026
 
 ---
 

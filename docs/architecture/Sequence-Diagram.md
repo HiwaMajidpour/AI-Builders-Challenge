@@ -2,7 +2,7 @@
 
 > Enterprise Sequence Diagram  
 > AI Creative Studio  
-> IBM AI Builders Challenge 2025
+> IBM AI Builders Challenge 2026
 
 ---
 
