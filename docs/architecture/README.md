@@ -1,137 +1,97 @@
-# Architecture Documentation
+# Enterprise Architecture Documentation
 
-> **Enterprise Architecture Documentation**  
 > **Project:** AI Creative Studio  
-> **Challenge:** IBM AI Builders Challenge 2026
+> **Challenge:** IBM AI Builders Challenge 2026  
 > **Version:** 1.0  
-> **Status:** Enterprise Documentation
+> **Status:** Enterprise Architecture Documentation
 
 ---
 
 # Overview
 
-AI Creative Studio is an enterprise-grade AI content generation platform built around **IBM Granite Foundation Models** and **IBM watsonx.ai**.
+AI Creative Studio is an AI-powered content generation platform built using modern frontend technologies and powered by **IBM Granite Foundation Models** through **IBM watsonx.ai**.
 
-The platform follows modern cloud-native architecture principles, emphasizing modularity, scalability, maintainability, security, and AI-first software engineering practices.
+The platform follows enterprise software architecture principles including layered architecture, modular design, component-based development, cloud readiness, security by design, and AI-first engineering.
 
-This documentation provides a complete architectural reference for developers, software architects, technical reviewers, and IBM AI Builders Challenge judges.
-
-The objective of this documentation is to explain how the system has been designed, why architectural decisions were made, and how the platform can evolve from a hackathon prototype into a production-ready enterprise application.
+This documentation provides a comprehensive architectural reference for developers, software architects, technical reviewers, and IBM AI Builders Challenge judges.
 
 ---
 
-# Enterprise Architecture
+# Architecture Goals
 
-The platform is organized into five logical layers.
+The architecture has been designed to achieve the following objectives:
 
-```text
+- Modular architecture
+- AI-first workflows
+- High maintainability
+- Scalability
+- Cloud readiness
+- Secure design
+- Clean separation of concerns
+- Enterprise documentation
+
+---
+
+# Enterprise Architecture Layers
+
+```
 User Layer
       │
 Presentation Layer
       │
 Application Layer
       │
-AI Layer
+AI Integration Layer
       │
 Data Layer
 ```
 
-Each layer owns a single responsibility and communicates through clearly defined interfaces, following the **Separation of Concerns** principle.
+Each layer has a single responsibility and communicates through well-defined interfaces.
 
 ---
 
 # Architecture Diagrams
 
-The architecture is documented using professional Draw.io diagrams.
+The project documentation includes the following enterprise architecture diagrams.
 
 | Diagram | Description |
 |----------|-------------|
-| [System Architecture](./System-Architecture.md) | High-level layered architecture |
-| [Component Architecture](./Component-Architecture.md) | React component hierarchy |
-| [Data Flow Architecture](./Data-Flow.md) | AI request and response lifecycle |
-| [Deployment Architecture](./Deployment-Architecture.md) | Cloud deployment topology |
+| System Architecture | Overall layered system architecture |
+| Component Architecture | React component organization |
+| Data Flow Diagram | AI request and response lifecycle |
+| Deployment Architecture | Production deployment topology |
+| Sequence Diagram | Runtime interaction sequence |
+| Infrastructure Diagram | Enterprise infrastructure |
+| C4 Context Diagram | System context |
+| C4 Container Diagram | Internal container architecture |
+| Entity Relationship Diagram (ERD) | Data model |
+| AI Flow Diagram | AI processing workflow |
+| CI/CD Pipeline | Enterprise deployment pipeline |
+| User Flow Diagram | End-to-end user journey |
 
 ---
 
-# Diagram Assets
+# Documentation Structure
 
-All architecture diagrams are maintained in Draw.io and exported in multiple formats.
-
-| Asset | Location |
-|--------|----------|
-| Draw.io Sources | `../diagrams/` |
-| PNG Exports | `../diagrams/exports/` |
-| SVG Exports | `../diagrams/exports/` |
-
----
-
-# Documentation Index
-
-| Document | Purpose |
-|----------|---------|
-| Frontend Architecture | React application architecture |
-| Backend Architecture | Future backend services |
-| AI Architecture | IBM Granite integration |
-| Database Architecture | Data persistence |
-| API Architecture | REST communication |
-| Security Architecture | Security model |
-| Deployment Architecture | Production deployment |
-| Technology Stack | Technologies and frameworks |
-| Architecture Decisions | Engineering decisions |
-| C4 Model | Enterprise architecture views |
-
----
-
-# Architecture Principles
-
-The project follows modern enterprise software engineering principles.
-
-## Separation of Concerns
-
-Each architectural layer owns a dedicated responsibility.
-
----
-
-## Component-Based Architecture
-
-The frontend is built using reusable React components that are independently maintainable and testable.
-
----
-
-## Modular Design
-
-Business logic, user interface, AI services, and data persistence are separated into modular units.
-
----
-
-## Scalability
-
-The architecture is prepared for future expansion including:
-
-- Backend APIs
-- PostgreSQL
-- Authentication
-- Team Collaboration
-- Microservices
-- Cloud Deployment
-
----
-
-## Maintainability
-
-Consistent project organization, reusable components, and comprehensive documentation simplify long-term maintenance.
-
----
-
-## Security by Design
-
-Security is integrated throughout the architecture rather than added as an afterthought.
-
----
-
-## AI-First Architecture
-
-The entire platform is designed around AI-assisted workflows powered by IBM Granite Foundation Models and IBM watsonx.ai.
+```
+docs/
+│
+├── architecture/
+│   ├── README.md
+│   ├── System-Architecture.md
+│   ├── Component-Architecture.md
+│   ├── Data-Flow.md
+│   ├── Deployment-Architecture.md
+│   ├── Sequence-Diagram.md
+│   ├── Infrastructure-Diagram.md
+│   ├── C4-Context.md
+│   ├── C4-Container.md
+│   ├── ERD.md
+│   ├── AI-Flow.md
+│   ├── CI-CD.md
+│   ├── User-Flow.md
+│   └── images/
+```
 
 ---
 
@@ -139,91 +99,81 @@ The entire platform is designed around AI-assisted workflows powered by IBM Gran
 
 ## User Layer
 
-Provides user access through modern web browsers.
+Provides access to AI Creative Studio through modern web browsers.
 
 Responsibilities
 
-- User Interaction
-- Authentication
-- Content Creation
-- Project Management
+- User interaction
+- Authentication (future)
+- Content creation
+- Project management
 
 ---
 
 ## Presentation Layer
 
-Implements the graphical user interface.
-
 Technology
 
 - React 19
 - TypeScript
+- Vite
 - Tailwind CSS
 - shadcn/ui
 - React Router
 
 Responsibilities
 
-- Rendering UI
+- User Interface
 - Navigation
-- Forms
 - Responsive Design
+- Form Management
 - User Experience
 
 ---
 
 ## Application Layer
 
-Coordinates business logic and AI workflows.
+Coordinates application logic.
 
 Responsibilities
 
 - Prompt Engineering
-- Validation
+- Prompt Validation
 - State Management
-- Request Preparation
 - Workflow Coordination
+- AI Request Preparation
 - Response Processing
 
 ---
 
-## AI Layer
+## AI Integration Layer
 
-Provides intelligent content generation.
+Powered by
 
-Components
-
-- IBM watsonx.ai
 - IBM Granite Foundation Models
-- Prompt Engineering
-- Prompt Optimization
-- Context Builder
+- IBM watsonx.ai
 
 Responsibilities
 
+- Prompt Processing
 - AI Inference
-- Content Generation
-- Summarization
+- Response Generation
 - Prompt Optimization
-- Response Enhancement
+- Context Management
 
 ---
 
 ## Data Layer
 
-Stores application data.
-
 Current
 
 - Browser Local Storage
 
-Future
+Planned
 
 - PostgreSQL
 - IBM Cloud Databases
 - Object Storage
-- User Accounts
-- Persistent Projects
 
 ---
 
@@ -235,61 +185,25 @@ Future
 - TypeScript
 - Vite
 
----
-
-## User Interface
+## UI
 
 - Tailwind CSS
 - shadcn/ui
 - Lucide Icons
 
----
+## Forms
 
-## State Management
-
-- React Context
-- React Hooks
-
----
+- React Hook Form
+- Zod Validation
 
 ## Routing
 
 - React Router
 
----
-
-## Forms
-
-- React Hook Form
-
----
-
-## Validation
-
-- Zod
-
----
-
 ## AI Platform
 
 - IBM Granite Foundation Models
 - IBM watsonx.ai
-- Prompt Engineering
-- Prompt Optimization
-- Context Builder
-
----
-
-## Deployment
-
-- Vercel
-- IBM Cloud (Future)
-- HTTPS
-- CDN
-- Docker (Planned)
-- Kubernetes (Planned)
-
----
 
 ## Development
 
@@ -301,18 +215,34 @@ Future
 
 ---
 
+# Architecture Principles
+
+The project follows modern enterprise engineering principles.
+
+- Layered Architecture
+- Component-Based Architecture
+- Modular Design
+- Separation of Concerns
+- AI-First Architecture
+- Security by Design
+- Cloud-Native Readiness
+- Reusability
+- Maintainability
+
+---
+
 # Cross-Cutting Concerns
 
-The following architectural concerns apply across every layer.
+The following concerns apply across all architectural layers.
 
-- Security
 - Logging
 - Error Handling
 - Monitoring
-- Performance Optimization
+- Security
+- Configuration Management
 - Prompt Validation
 - AI Response Validation
-- Configuration Management
+- Performance Optimization
 
 ---
 
@@ -321,10 +251,10 @@ The following architectural concerns apply across every layer.
 The architecture has been designed to maximize:
 
 - Scalability
+- Reliability
+- Security
 - Availability
 - Performance
-- Security
-- Reliability
 - Maintainability
 - Extensibility
 - Reusability
@@ -332,62 +262,41 @@ The architecture has been designed to maximize:
 
 ---
 
-# Security Considerations
+# Security
 
 Current implementation
 
-- HTTPS Communication
+- HTTPS
 - Prompt Validation
-- Input Sanitization
 - Client-side Validation
+- Input Sanitization
 
-Future implementation
+Planned
 
 - JWT Authentication
-- Role-Based Access Control (RBAC)
-- API Gateway Security
+- RBAC
+- API Gateway
 - Rate Limiting
-- Audit Logging
 - Secret Management
+- Audit Logging
 
 ---
 
-# Design Decisions
+# Deployment Strategy
 
-Major engineering decisions include:
+Current
 
-- React SPA Architecture
-- TypeScript for Type Safety
-- Vite Build System
-- Tailwind CSS
-- Layered Architecture
-- Component-Based Frontend
-- IBM Granite Foundation Models
-- Browser Storage for Prototype Persistence
-- AI-First Design
+- Vercel
+- GitHub
+- GitHub Actions
 
-Architecture Decision Records (ADR) document the rationale behind each major decision.
+Future
 
----
-
-# Future Evolution
-
-The architecture supports future enterprise capabilities.
-
-Planned roadmap
-
-- Dedicated Backend APIs
+- IBM Cloud
+- Docker
+- Kubernetes
+- CDN
 - PostgreSQL
-- IBM Cloud Deployment
-- Authentication
-- Team Collaboration
-- AI Agents
-- Marketplace
-- Notifications
-- Monitoring
-- Analytics
-- Microservices
-- CI/CD Pipelines
 
 ---
 
@@ -395,34 +304,50 @@ Planned roadmap
 
 | Characteristic | Status |
 |---------------|--------|
-| AI-First | ✓ |
-| Modular | ✓ |
-| Layered | ✓ |
-| Component-Based | ✓ |
-| Cloud Ready | ✓ |
-| Scalable | ✓ |
-| Secure by Design | ✓ |
-| Enterprise Ready | ✓ |
+| AI-First | ✅ |
+| Modular | ✅ |
+| Layered | ✅ |
+| Component-Based | ✅ |
+| Cloud Ready | ✅ |
+| Enterprise Documentation | ✅ |
+| Scalable | ✅ |
+| Secure by Design | ✅ |
 
 ---
 
 # Related Documentation
 
-- [System Architecture](./System-Architecture.md)
-- [Component Architecture](./Component-Architecture.md)
-- [Data Flow Architecture](./Data-Flow.md)
-- [Deployment Architecture](./Deployment-Architecture.md)
-- [Technology Stack](./Technology-Stack.md)
-- [Security Architecture](./Security-Architecture.md)
-- [Architecture Decisions](./Architecture-Decisions.md)
-- [C4 Model](./C4-Model.md)
+- System Architecture
+- Component Architecture
+- Data Flow
+- Deployment Architecture
+- Sequence Diagram
+- Infrastructure Diagram
+- C4 Context
+- C4 Container
+- ERD
+- AI Flow
+- CI/CD Pipeline
+- User Flow
 
 ---
 
 # Conclusion
 
-AI Creative Studio has been engineered using enterprise software architecture principles rather than prototype-oriented development.
+AI Creative Studio has been designed using enterprise software architecture principles rather than prototype-oriented development.
 
-Its layered architecture, modular React components, AI-first workflow, prompt engineering pipeline, and comprehensive technical documentation establish a strong foundation for future cloud deployment and enterprise-scale expansion.
+Its layered architecture, modular React application, AI-first workflow, comprehensive documentation, and IBM Granite integration establish a solid foundation for future production deployment.
 
-By combining IBM Granite Foundation Models, IBM watsonx.ai, and modern frontend technologies, the platform demonstrates a scalable, maintainable, and production-ready architecture aligned with the expectations of the IBM AI Builders Challenge.
+The architecture supports future evolution toward cloud-native infrastructure, backend services, persistent storage, enterprise security, and scalable AI-assisted workflows while remaining aligned with the objectives of the **IBM AI Builders Challenge 2026**.
+
+---
+
+**AI Creative Studio**
+
+**Enterprise Architecture Documentation**
+
+**IBM AI Builders Challenge 2026**
+
+**Powered by IBM Granite Foundation Models**
+
+**Version 1.0**
