@@ -8,27 +8,26 @@
 
 # Overview
 
-This guide provides a recommended demonstration scenario for presenting AI Creative Studio during the IBM AI Builders Challenge.
+This guide follows the official demonstration format of the **IBM AI Builders Challenge**.
 
-The objective is to demonstrate the project's architecture, IBM AI integration, user workflow, and enterprise design within approximately **3–5 minutes**.
+The objective is to demonstrate the core functionality of AI Creative Studio, its IBM AI integration, and its enterprise architecture within the **maximum 3-minute demonstration limit**.
 
 ---
 
 # Demonstration Objectives
 
-The demo should demonstrate:
+The demonstration should clearly showcase:
 
-- Modern user interface
-- AI-powered content generation
 - IBM Granite Foundation Models
 - IBM watsonx.ai integration
-- Enterprise architecture
-- AI engineering workflow
+- AI-powered content generation
+- Enterprise software architecture
+- Responsible AI principles
 - Future scalability
 
 ---
 
-# Demo Environment
+# Demonstration Environment
 
 Recommended environment
 
@@ -43,33 +42,29 @@ Recommended environment
 
 ## Step 1 — Project Introduction
 
-Estimated time
+**Duration:** 20 seconds
 
-30 seconds
+Introduce:
 
-Explain
-
-- Project purpose
+- AI Creative Studio
 - IBM AI Builders Challenge
-- Enterprise AI architecture
+- Enterprise AI application
 - IBM technologies used
 
 ---
 
-## Step 2 — Home Page
+## Step 2 — User Interface
 
-Estimated time
+**Duration:** 20 seconds
 
-30 seconds
+Demonstrate:
 
-Show
-
-- Landing page
+- Home page
+- Responsive design
+- Modern interface
 - Navigation
-- Responsive interface
-- Modern UI
 
-Explain
+Mention
 
 - React 19
 - TypeScript
@@ -80,9 +75,7 @@ Explain
 
 ## Step 3 — AI Content Generation
 
-Estimated time
-
-90 seconds
+**Duration:** 70 seconds
 
 Demonstrate
 
@@ -91,12 +84,12 @@ Demonstrate
 Example
 
 ```
-Create a professional project summary for an AI platform.
+Generate a professional executive summary for an enterprise AI platform.
 ```
 
-2. Submit request
+2. Submit the request
 
-3. Wait for AI response
+3. Receive AI response
 
 4. Review generated content
 
@@ -108,67 +101,54 @@ Explain
 
 ---
 
-## Step 4 — Architecture
+## Step 4 — Enterprise Architecture
 
-Estimated time
-
-45 seconds
+**Duration:** 35 seconds
 
 Present
 
-- Architecture diagrams
-- Layered architecture
-- AI workflow
-- Component organization
+- Layered Architecture
+- AI Workflow
+- Modular Components
 
 Highlight
 
-- Separation of concerns
-- Modular design
-- Cloud readiness
+- Separation of Concerns
+- Scalable Design
+- Cloud Readiness
 
 ---
 
-## Step 5 — Documentation
+## Step 5 — IBM Integration
 
-Estimated time
+**Duration:** 20 seconds
 
-45 seconds
+Explain
 
-Show repository
+Current implementation
 
-Explain documentation categories
-
-- Architecture
-- Business
-- IBM
-- Technical
-- AI Engineering
+- IBM Granite Foundation Models
+- IBM watsonx.ai
 
 Mention
 
-More than 40 enterprise documentation files are included.
+Enterprise AI architecture built around IBM technologies.
 
 ---
 
 ## Step 6 — Future Roadmap
 
-Estimated time
+**Duration:** 15 seconds
 
-30 seconds
+Briefly mention
 
-Explain planned features
-
-- JWT Authentication
-- PostgreSQL
-- RAG
-- AI Agents
-- IBM Cloud
-- Multi-model AI
+- Retrieval-Augmented Generation (Planned)
+- AI Agents (Planned)
+- IBM Cloud Deployment (Planned)
 
 Clarify
 
-These capabilities are documented as planned architecture and are not part of the current implementation.
+These capabilities are documented as future architecture and are **not part of the current implementation**.
 
 ---
 
@@ -176,117 +156,106 @@ These capabilities are documented as planned architecture and are not part of th
 
 | Step | Duration |
 |------|----------|
-| Introduction | 30 sec |
-| UI Overview | 30 sec |
-| AI Generation | 90 sec |
-| Architecture | 45 sec |
-| Documentation | 45 sec |
-| Roadmap | 30 sec |
+| Project Introduction | 20 sec |
+| User Interface | 20 sec |
+| AI Content Generation | 70 sec |
+| Enterprise Architecture | 35 sec |
+| IBM Integration | 20 sec |
+| Future Roadmap | 15 sec |
 
-Total
-
-Approximately **4–5 minutes**
+**Total Duration:** **180 seconds (3 minutes)**
 
 ---
 
 # Key Messages
 
-During the demo, emphasize:
+During the presentation, emphasize:
 
 - IBM Granite Foundation Models
 - IBM watsonx.ai integration
-- Enterprise software architecture
-- AI engineering practices
+- AI-first software architecture
+- Enterprise engineering practices
 - Responsible AI
-- Modular design
-- Future cloud-native readiness
+- Modular application design
+- Cloud-ready architecture
 
 ---
 
 # Suggested Prompt
 
-Example prompt
-
 ```
 Generate a professional executive summary for an enterprise AI platform.
 ```
 
-Expected outcome
+Expected output
 
-- Structured response
-- Professional writing
+- Well-structured content
+- Professional language
+- Business-oriented writing
 - Clear formatting
-- Business-oriented language
 
 ---
 
-# Questions Judges May Ask
+# Possible Judge Questions
 
 ### Why IBM Granite?
 
-Answer
-
-IBM Granite Foundation Models provide enterprise-focused AI capabilities that align with the project's goals of responsible AI, scalability, and professional content generation.
+IBM Granite Foundation Models provide enterprise-focused AI capabilities aligned with responsible AI principles, scalability, and professional content generation.
 
 ---
 
 ### Why React?
 
-Answer
-
-React provides a modular component architecture, making the application maintainable, scalable, and suitable for future enterprise expansion.
+React enables a modular component architecture that improves maintainability, scalability, and future enterprise expansion.
 
 ---
 
 ### Why Local Storage?
 
-Answer
-
 The current implementation intentionally uses Local Storage to simplify deployment while preparing the architecture for future PostgreSQL and IBM Cloud Databases integration.
 
 ---
 
-### Why no Authentication?
+### Why isn't authentication implemented?
 
-Answer
-
-Authentication has been intentionally documented as a planned feature to maintain transparency. The architecture already supports future JWT and IBM IAM integration.
+Authentication has been intentionally documented as a planned feature. The architecture already supports future JWT Authentication and IBM IAM integration.
 
 ---
 
 # Demonstration Tips
 
-Before presenting
+Before recording
 
-- Verify internet connection
+- Verify internet connectivity
 - Prepare a sample prompt
-- Clear previous outputs if necessary
-- Keep documentation open in a separate browser tab
+- Clear previous outputs
+- Test the complete workflow
 
-During presentation
+During the demonstration
 
-- Focus on architecture rather than implementation details
-- Highlight IBM integration
-- Mention current vs planned capabilities
-- Avoid discussing undocumented features
+- Focus on IBM technologies
+- Keep explanations concise
+- Highlight implemented features
+- Clearly distinguish planned capabilities
+- Stay within the 3-minute limit
 
 ---
 
 # Success Criteria
 
-A successful demonstration should communicate:
+A successful demonstration should clearly communicate:
 
-- Enterprise AI architecture
 - Practical IBM AI integration
-- Professional software engineering
-- Clear documentation
+- AI-powered workflow
+- Enterprise architecture
+- Responsible AI practices
 - Future scalability
-- Responsible AI principles
+- Professional software engineering
 
 ---
 
 # Conclusion
 
-The recommended demonstration showcases AI Creative Studio as an enterprise-oriented AI application built around IBM Granite Foundation Models and IBM watsonx.ai.
+This demonstration has been designed specifically for the IBM AI Builders Challenge.
 
-By focusing on architecture, AI engineering, documentation, and responsible AI practices, the demo provides judges with a clear understanding of both the current implementation and the project's long-term vision.
+Within three minutes, it presents AI Creative Studio as an enterprise-oriented AI application powered by IBM Granite Foundation Models and IBM watsonx.ai, while highlighting its modular architecture, responsible AI approach, and readiness for future cloud-native evolution.
