@@ -2,214 +2,192 @@
 
 > **Project:** AI Creative Studio  
 > **Challenge:** IBM AI Builders Challenge 2026  
-> **Version:** 1.0  
-> **Status:** Business Documentation
+> **Version:** 1.0
 
 ---
 
-# Introduction
+# Overview
 
-AI Creative Studio has been designed to serve a diverse audience involved in content creation, documentation, education, research, and business communication.
+AI Creative Studio is designed for individuals and organizations seeking an intelligent, AI-assisted environment for creating, organizing, and managing written content.
 
-The platform combines AI-powered writing assistance with project organization, enabling users from different industries to improve productivity and create high-quality content efficiently.
-
-Understanding the needs of each user group is essential for delivering meaningful AI-powered experiences and guiding future product development.
+The platform supports a diverse range of users, from students and independent creators to professional teams and enterprise organizations.
 
 ---
 
 # Primary Target Users
 
-The platform primarily focuses on individuals and professionals who regularly create written content.
+## Students
 
----
+Students use AI Creative Studio to:
 
-# Students
-
-Students frequently create assignments, essays, reports, presentations, and research papers.
-
-### Needs
-
-- Faster writing
-- Better grammar
-- Clear structure
-- Academic assistance
-- Time management
-
-### Challenges
-
-- Writer's block
-- Limited writing experience
-- Tight deadlines
-- Lack of organization
-
-### Value Delivered
-
-AI Creative Studio helps students generate ideas, organize content, improve writing quality, and complete academic work more efficiently.
-
----
-
-# Researchers
-
-Researchers produce technical papers, reports, documentation, and literature reviews.
+- Draft academic assignments
+- Brainstorm ideas
+- Organize research notes
+- Improve writing quality
+- Generate study materials
 
 ### Needs
 
-- Structured writing
-- Technical accuracy
-- Efficient documentation
-- Research organization
-
-### Challenges
-
-- Large documentation workload
-- Time-consuming editing
-- Maintaining consistency
-
-### Value Delivered
-
-The platform accelerates documentation while supporting structured and professional writing.
+- Fast content generation
+- Easy editing
+- Template-based writing
+- AI assistance
 
 ---
 
-# Content Creators
+## Content Creators
 
-This group includes bloggers, influencers, YouTubers, and online publishers.
+Content creators require efficient tools for producing engaging written material.
+
+Typical use cases include:
+
+- Blog posts
+- Social media content
+- Newsletters
+- Creative writing
+- Video scripts
 
 ### Needs
 
-- Continuous idea generation
-- Content planning
-- High publishing frequency
-- Audience engagement
-
-### Challenges
-
-- Creative fatigue
-- Time pressure
-- Content consistency
-
-### Value Delivered
-
-AI-powered brainstorming and content generation help creators publish more consistently while maintaining quality.
+- Prompt templates
+- AI-assisted writing
+- Export options
+- Project organization
 
 ---
 
-# Technical Writers
+## Marketing Professionals
 
-Technical writers produce manuals, documentation, APIs, and software guides.
+Marketing teams generate content across multiple channels.
 
-### Needs
+Common tasks include:
 
-- Clear documentation
-- Consistency
-- Accuracy
-- Reusable templates
-
-### Challenges
-
-- Repetitive writing
-- Complex technical topics
-- Documentation maintenance
-
-### Value Delivered
-
-AI Creative Studio simplifies documentation creation while maintaining professional standards.
-
----
-
-# Marketing Teams
-
-Marketing professionals create advertisements, blogs, campaigns, newsletters, and promotional materials.
-
-### Needs
-
-- Fast campaign creation
-- Brand consistency
-- Multiple content formats
-- Creative copywriting
-
-### Challenges
-
-- Tight deadlines
-- High content demand
-- Multiple communication channels
-
-### Value Delivered
-
-The platform reduces production time while improving creativity and campaign efficiency.
-
----
-
-# Freelancers
-
-Freelance professionals often manage multiple clients and projects simultaneously.
-
-### Needs
-
-- Productivity
-- Organization
-- Fast delivery
-- Content quality
-
-### Challenges
-
-- Limited resources
-- Client deadlines
-- Project management
-
-### Value Delivered
-
-AI Creative Studio enables freelancers to deliver higher-quality work in less time.
-
----
-
-# Small Businesses
-
-Small businesses require affordable AI tools for communication and marketing.
-
-### Needs
-
-- Website content
+- Campaign copy
 - Product descriptions
-- Marketing materials
-- Internal documentation
+- Email marketing
+- Landing pages
+- SEO content
 
-### Challenges
+### Needs
 
-- Limited budgets
-- Small teams
-- Lack of dedicated writers
+- Consistent writing
+- Brand-focused prompts
+- Workflow efficiency
+- Content management
 
-### Value Delivered
+---
 
-The platform provides enterprise-quality writing assistance without requiring large investments.
+## Researchers
+
+Researchers benefit from AI-assisted organization and structured writing.
+
+Use cases include:
+
+- Literature reviews
+- Research summaries
+- Documentation
+- Reports
+
+### Needs
+
+- Structured documents
+- Version management
+- Research organization
+- Writing assistance
+
+---
+
+## Developers
+
+Software developers often require AI assistance for technical documentation.
+
+Typical activities include:
+
+- API documentation
+- Technical reports
+- README files
+- Project documentation
+
+### Needs
+
+- Markdown support
+- Technical writing
+- Documentation templates
+- Organized projects
+
+---
+
+## Educators
+
+Teachers and instructors create educational materials.
+
+Examples include:
+
+- Lesson plans
+- Exams
+- Presentations
+- Learning resources
+
+### Needs
+
+- Content organization
+- Educational templates
+- AI-assisted drafting
+- Export capabilities
 
 ---
 
 # Secondary Target Users
 
-Future platform expansion will support additional audiences.
+## Freelancers
 
-Examples include:
+Freelancers produce content for multiple clients while managing several projects simultaneously.
 
-- Enterprise organizations
-- Government agencies
-- Educational institutions
-- Non-profit organizations
-- Startup teams
-- Customer support teams
+---
+
+## Small Businesses
+
+Small businesses require affordable AI-powered tools for:
+
+- Marketing
+- Documentation
+- Internal communication
+- Customer content
+
+---
+
+## Startup Teams
+
+Startup teams use AI Creative Studio for:
+
+- Product documentation
+- Business proposals
+- Investor presentations
+- Marketing assets
+
+---
+
+# Future Enterprise Users
+
+Future enterprise adoption may include:
+
+- Corporate documentation
+- Internal knowledge management
+- Team collaboration
+- AI-assisted reporting
+- Enterprise content workflows
 
 ---
 
 # User Characteristics
 
-Typical users share the following characteristics:
+Typical users are expected to:
 
-- Regular content creation
-- Basic digital literacy
-- Interest in AI technologies
-- Productivity-focused mindset
-- Need for organized workflows
+- Work with digital documents regularly
+- Create written content frequently
+- Seek productivity improvements
+- Use AI responsibly
+- Value intuitive user interfaces
 
 ---
 
@@ -217,69 +195,56 @@ Typical users share the following characteristics:
 
 The platform is designed for global accessibility.
 
-Initial focus includes:
+Potential users include:
 
-- English-speaking users
-- Students worldwide
-- Remote professionals
-- Online businesses
-- International content creators
+- Students
+- Professionals
+- Organizations
+- Educational institutions
+- Businesses
 
-Future versions may support multilingual AI assistance.
-
----
-
-# User Goals
-
-Target users typically aim to:
-
-- Write faster
-- Improve writing quality
-- Generate creative ideas
-- Organize projects
-- Save time
-- Increase productivity
-- Produce professional content
+Worldwide adoption is supported through a web-based architecture.
 
 ---
 
-# User Pain Points
+# Accessibility Considerations
 
-Common problems include:
+The platform aims to support:
 
-- Writer's block
-- Repetitive writing
-- Time-consuming editing
-- Poor project organization
-- Limited AI integration
-- Expensive writing platforms
+- Responsive interfaces
+- Keyboard navigation
+- Accessible UI components
+- Clear visual hierarchy
+- Future localization
 
-AI Creative Studio directly addresses these challenges through an AI-first workflow.
+---
+
+# User Needs Summary
+
+| User Group | Primary Goal |
+|------------|--------------|
+| Students | Academic writing |
+| Content Creators | Creative content production |
+| Marketing Professionals | Marketing campaigns |
+| Researchers | Research documentation |
+| Developers | Technical documentation |
+| Educators | Educational materials |
+| Freelancers | Client content |
+| Small Businesses | Business communication |
+| Enterprise Teams | Organizational knowledge |
 
 ---
 
 # Alignment with IBM AI Builders Challenge
 
-The selected target users represent real-world audiences who can benefit from IBM Granite Foundation Models.
+The project targets practical, real-world users who benefit from enterprise AI technologies powered by IBM Granite Foundation Models.
 
-The project demonstrates how enterprise AI can solve practical productivity challenges across education, business, marketing, research, and digital content creation.
+By focusing on productivity, creativity, and scalable workflows, AI Creative Studio demonstrates meaningful AI adoption across multiple industries and user groups.
 
 ---
 
 # Conclusion
 
-AI Creative Studio serves a broad range of users while maintaining a clear focus on productivity, quality, and intelligent writing assistance.
+AI Creative Studio serves a broad audience united by a common need: creating high-quality written content more efficiently.
 
-By understanding the needs, goals, and challenges of its target audience, the platform establishes a strong foundation for future growth and continued AI-driven innovation.
-
----
-
-**AI Creative Studio**
-
-**Target Users**
-
-**IBM AI Builders Challenge 2026**
-
-**Powered by IBM Granite Foundation Models**
-
-**Version 1.0**
+Its flexible architecture and AI-first approach allow the platform to evolve from an individual productivity tool into a scalable enterprise content creation workspace.
