@@ -1,282 +1,241 @@
 # Business Model
 
----
-
-# Document Information
-
-| Item | Details |
-|------|----------|
-| Project | AI Creative Studio |
-| Challenge | IBM AI Builders Challenge 2026 |
-| Version | 1.0 |
-| Status | Final |
+> **Project:** AI Creative Studio  
+> **Challenge:** IBM AI Builders Challenge 2026  
+> **Version:** 1.0
 
 ---
 
 # Overview
 
-AI Creative Studio is an AI-powered productivity platform designed to help creators, developers, students, freelancers, startups, and organizations organize projects, generate AI-assisted content, manage prompts, and improve creative workflows.
+AI Creative Studio is designed as an AI-powered content creation platform with a scalable business model that supports individual users, educational institutions, startups, and enterprise organizations.
 
-The platform combines intelligent automation with a modern project management experience powered by IBM AI technologies.
-
----
-
-# Business Objective
-
-The primary objective is to increase user productivity by reducing repetitive work and enabling faster content creation through responsible AI.
-
-The platform is designed to evolve from a student project into a scalable Software-as-a-Service (SaaS) solution.
+Although the current implementation focuses on demonstrating AI capabilities and enterprise software architecture, the platform is designed with future commercial scalability in mind.
 
 ---
 
 # Business Model Canvas
 
-## Customer Segments
+The business model is based on the Business Model Canvas framework.
 
-Primary Customers
+---
+
+# Customer Segments
+
+Primary customer groups include:
 
 - Students
-- Developers
-- Designers
 - Content Creators
-- Freelancers
+- Developers
 - Researchers
+- Educators
+- Marketing Professionals
 
-Secondary Customers
+Future customer segments:
 
-- Universities
-- Startups
-- Agencies
 - Small Businesses
-- Enterprise Teams
+- Startup Teams
+- Enterprise Organizations
+- Government Institutions
 
 ---
 
-## Value Proposition
+# Value Proposition
 
-AI Creative Studio provides:
+The platform delivers:
 
-- AI-assisted project creation
-- Intelligent prompt management
-- Organized creative workflows
-- Template-based productivity
-- Secure project management
-- Modern responsive interface
-
-The platform reduces repetitive work while improving productivity and creativity.
+- AI-assisted content generation
+- Project organization
+- Prompt management
+- Intelligent writing workflows
+- Enterprise-ready architecture
+- Modern user experience
 
 ---
 
-## Customer Relationships
+# Channels
 
-The platform builds long-term relationships through:
+The platform may be distributed through:
 
-- Personalized AI assistance
-- Continuous feature improvements
-- User feedback
-- Educational resources
+- Web Application
+- IBM Cloud
+- GitHub
+- Educational Partnerships
+- Developer Communities
+
+Future channels:
+
+- Mobile Applications
+- SaaS Platform
+- Enterprise Portal
+- API Services
+
+---
+
+# Customer Relationships
+
+The platform aims to establish long-term relationships through:
+
+- Simple onboarding
+- AI-assisted workflows
+- Regular feature updates
 - Documentation
 - Community support
 
----
+Future enhancements:
 
-## Channels
-
-Users can access the platform through:
-
-- Web Application
-- GitHub Repository
-- Documentation Portal
-- Demo Videos
-- IBM AI Builders Challenge Platform
-
-Future channels
-
-- Mobile Application
-- Desktop Application
-- API Access
-
----
-
-## Revenue Streams (Future)
-
-Potential monetization models include:
-
-Free Plan
-
-- Limited AI usage
-- Basic templates
-- Limited storage
-
-Professional Plan
-
-- Unlimited AI requests
-- Advanced templates
 - Team collaboration
-- Priority support
+- Customer success portal
+- Enterprise support
+- Knowledge base
 
-Enterprise Plan
+---
 
-- Organization management
-- Analytics
-- API integrations
-- Security features
+# Revenue Streams
+
+Potential monetization strategies include:
+
+### Free Tier
+
+- Basic AI generation
+- Local project management
+- Limited templates
+
+---
+
+### Professional Plan (Planned)
+
+- Unlimited AI usage
+- Premium templates
+- Cloud synchronization
+- Advanced exports
+
+---
+
+### Team Plan (Planned)
+
+- Shared workspaces
+- Team collaboration
+- Role management
+- Shared templates
+
+---
+
+### Enterprise Plan (Planned)
+
+- Enterprise authentication
+- Private deployment
+- API integration
+- Analytics dashboard
 - Dedicated support
 
-Marketplace Revenue
-
-- Premium templates
-- Prompt collections
-- AI plugins
-- Workflow packages
-
 ---
 
-## Key Activities
+# Key Resources
 
-The platform continuously focuses on:
+The platform depends on:
 
-- AI integration
-- Software development
-- UX improvement
-- Feature development
-- Documentation
-- User research
-- Security improvements
-
----
-
-## Key Resources
-
-Core resources include:
-
-- IBM AI technologies
-- React frontend
-- TypeScript
-- Vite
-- GitHub
-- Documentation
-- Design System
+- IBM Granite Foundation Models
+- IBM watsonx.ai
+- React Frontend
+- Enterprise Documentation
+- AI Prompt Library
 - Development Team
 
 ---
 
-## Key Partners
+# Key Activities
 
-Current Partners
+Core activities include:
 
-- IBM
-- IBM SkillsBuild
-- IBM AI Builders Challenge
-
-Future Partners
-
-- Universities
-- Educational Organizations
-- AI Service Providers
-- Cloud Providers
-- Open Source Communities
+- AI integration
+- Software development
+- UI/UX improvements
+- Prompt engineering
+- Documentation
+- Quality assurance
 
 ---
 
-## Cost Structure
+# Key Partners
+
+Potential strategic partners:
+
+- IBM
+- Educational Institutions
+- Open Source Community
+- Cloud Providers
+- Developer Communities
+
+---
+
+# Cost Structure
 
 Major costs may include:
 
-- Cloud hosting
+- Cloud infrastructure
 - AI inference
 - Storage
-- Maintenance
 - Development
-- Security
+- Maintenance
 - Monitoring
 - Customer support
 
 ---
 
-# Competitive Advantage
-
-AI Creative Studio differentiates itself through:
-
-- AI-first workflow
-- Clean user experience
-- Professional documentation
-- Modular architecture
-- IBM AI integration
-- Enterprise scalability
-
----
-
 # Growth Strategy
 
-Phase 1
+Future growth opportunities include:
 
-Individual users
-
-↓
-
-Phase 2
-
-Teams and collaboration
-
-↓
-
-Phase 3
-
-Organizations
-
-↓
-
-Phase 4
-
-Enterprise platform
-
-↓
-
-Phase 5
-
-Global AI productivity ecosystem
+- SaaS platform
+- Enterprise licensing
+- API ecosystem
+- Marketplace
+- Team collaboration
+- Mobile applications
 
 ---
 
 # Scalability
 
-The architecture supports future expansion including:
+The architecture supports future expansion through:
 
-- Multi-user collaboration
-- Multi-language support
+- Modular frontend
 - Cloud deployment
-- AI Agents
-- API platform
-- Marketplace
+- Persistent databases
+- Authentication
+- Multi-user support
+- Enterprise infrastructure
 
 ---
 
-# Sustainability
+# Business Risks
 
-Long-term sustainability is achieved through:
+Potential challenges include:
 
-- Modular development
-- Continuous documentation
-- Community contributions
-- Responsible AI
-- Open architecture
+- AI service costs
+- Market competition
+- Cloud infrastructure expenses
+- User acquisition
+- Technology evolution
+
+Mitigation strategies:
+
+- Modular architecture
+- Efficient AI usage
+- Cloud scalability
+- Continuous product improvement
 
 ---
 
-# Success Indicators
+# Alignment with IBM AI Builders Challenge
 
-Business success will be measured by:
-
-- User growth
-- Active projects
-- AI usage
-- Customer satisfaction
-- Feature adoption
-- Platform reliability
+The business model demonstrates how IBM Granite Foundation Models can support scalable AI-powered applications with clear commercial potential while maintaining enterprise engineering standards.
 
 ---
 
 # Conclusion
 
-AI Creative Studio is designed as a scalable AI-powered productivity platform that combines intelligent automation with modern software engineering practices. Its business model supports long-term growth while delivering immediate value to users through responsible AI.
+AI Creative Studio has been designed with a sustainable and scalable business model that can evolve from an educational prototype into a commercial AI-powered SaaS platform.
+
+The combination of enterprise architecture, IBM AI technologies, and future cloud capabilities provides a strong foundation for long-term product growth.
