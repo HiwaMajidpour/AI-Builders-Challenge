@@ -1,326 +1,330 @@
 # User Personas
 
----
-
-# Document Information
-
-| Item | Details |
-|------|----------|
-| Project | AI Creative Studio |
-| Challenge | IBM AI Builders Challenge 2026 |
-| Version | 1.0 |
-| Status | Final |
+> **Project:** AI Creative Studio  
+> **Challenge:** IBM AI Builders Challenge 2026  
+> **Version:** 1.0  
+> **Status:** Business Documentation
 
 ---
 
-# Purpose
+# Introduction
 
-This document defines representative users of AI Creative Studio.
+User personas represent fictional yet realistic profiles of the primary users of AI Creative Studio. They help define user needs, behaviors, motivations, and challenges, ensuring that the platform is designed around real-world requirements.
 
-Each persona represents a major user segment and helps guide product design, feature prioritization, user experience, and AI integration.
-
----
-
-# Persona 1 — Sarah Johnson
-
-## Student
-
-### Profile
-
-- Age: 22
-- Occupation: Computer Science Student
-- Education: Bachelor's Degree
-- Location: University Campus
-- Technical Level: Intermediate
+The following personas are based on the target audiences identified during the product planning process.
 
 ---
 
-### Goals
+# Persona 1 — Student Writer
+
+## Profile
+
+| Attribute | Details |
+|-----------|----------|
+| Name | Emma Johnson |
+| Age | 21 |
+| Occupation | University Student |
+| Education | Bachelor's Degree |
+| Technical Skill | Intermediate |
+| AI Experience | Beginner |
+
+---
+
+## Goals
 
 - Complete assignments faster
-- Organize study materials
-- Generate project ideas
-- Improve productivity
-- Learn AI-assisted development
+- Improve academic writing
+- Generate ideas quickly
+- Reduce writing stress
 
 ---
 
-### Pain Points
+## Challenges
 
-- Too many disconnected tools
-- Difficulty organizing notes
-- Repetitive writing
-- Limited creative inspiration
+- Writer's block
+- Limited writing experience
+- Tight deadlines
+- Organizing assignments
 
 ---
 
-### Needs
+## Needs
 
-- AI writing assistant
+- AI writing assistance
+- Grammar improvement
+- Essay generation
+- Simple interface
+
+---
+
+## How AI Creative Studio Helps
+
+- Generates essay drafts
+- Suggests writing improvements
+- Organizes academic projects
+- Saves writing time
+
+---
+
+# Persona 2 — Technical Researcher
+
+## Profile
+
+| Attribute | Details |
+|-----------|----------|
+| Name | David Chen |
+| Age | 34 |
+| Occupation | Research Engineer |
+| Technical Skill | Advanced |
+| AI Experience | Intermediate |
+
+---
+
+## Goals
+
+- Produce technical documentation
+- Organize research
+- Improve report quality
+- Save editing time
+
+---
+
+## Challenges
+
+- Complex documentation
+- Large research projects
+- Technical accuracy
+- Maintaining consistency
+
+---
+
+## Needs
+
+- Structured writing
+- AI-assisted editing
 - Project organization
-- Prompt management
-- Smart templates
+- Reliable content generation
 
 ---
 
-### AI Usage
+## How AI Creative Studio Helps
 
-Uses AI for:
-
-- Research
-- Summaries
-- Brainstorming
-- Assignment planning
+- Generates structured documentation
+- Assists technical writing
+- Organizes research projects
+- Improves readability
 
 ---
 
-### Quote
+# Persona 3 — Content Creator
 
-"I want to spend more time learning instead of organizing files."
+## Profile
 
----
-
-### Success Criteria
-
-Sarah can complete academic work faster while keeping projects organized.
-
----
-
-# Persona 2 — Michael Chen
-
-## UI/UX Designer
-
-### Profile
-
-- Age: 29
-- Occupation: Product Designer
-- Experience: 6 Years
-- Technical Level: Advanced
+| Attribute | Details |
+|-----------|----------|
+| Name | Sophia Martinez |
+| Age | 29 |
+| Occupation | Content Creator |
+| Technical Skill | Intermediate |
+| AI Experience | Advanced |
 
 ---
 
-### Goals
+## Goals
 
-- Manage creative assets
-- Organize prompts
-- Save reusable templates
-- Improve workflow efficiency
-
----
-
-### Pain Points
-
-- Lost design ideas
-- Multiple disconnected software
-- Repetitive creative tasks
+- Publish consistently
+- Generate creative ideas
+- Increase audience engagement
+- Produce high-quality articles
 
 ---
 
-### Needs
+## Challenges
+
+- Creative fatigue
+- Content planning
+- Publishing deadlines
+- Maintaining originality
+
+---
+
+## Needs
 
 - AI brainstorming
-- Prompt history
-- Project dashboard
-- Template library
-
----
-
-### AI Usage
-
-Uses AI for
-
-- UI inspiration
-- Design concepts
 - Content generation
-- Creative exploration
+- Writing templates
+- Fast editing
 
 ---
 
-### Quote
+## How AI Creative Studio Helps
 
-"Creative work should feel creative—not administrative."
-
----
-
-### Success Criteria
-
-Michael reduces project setup time and improves creative consistency.
+- Generates blog ideas
+- Creates article drafts
+- Organizes content projects
+- Accelerates publishing workflow
 
 ---
 
-# Persona 3 — David Wilson
+# Persona 4 — Marketing Specialist
 
-## Software Developer
+## Profile
 
-### Profile
-
-- Age: 31
-- Occupation: Full Stack Developer
-- Experience: 8 Years
-- Technical Level: Expert
-
----
-
-### Goals
-
-- Build projects faster
-- Improve documentation
-- Manage development resources
-- Organize AI prompts
+| Attribute | Details |
+|-----------|----------|
+| Name | Michael Brown |
+| Age | 31 |
+| Occupation | Digital Marketing Manager |
+| Technical Skill | Intermediate |
+| AI Experience | Intermediate |
 
 ---
 
-### Pain Points
+## Goals
 
-- Context switching
-- Documentation overload
-- Managing multiple repositories
-
----
-
-### Needs
-
-- AI coding assistance
-- Documentation support
-- Project organization
-- Smart search
+- Create marketing campaigns
+- Produce engaging copy
+- Increase productivity
+- Maintain brand consistency
 
 ---
 
-### AI Usage
+## Challenges
 
-Uses AI for
-
-- Code generation
-- Refactoring
-- Documentation
-- Architecture ideas
+- High content demand
+- Tight schedules
+- Multiple campaigns
+- Team coordination
 
 ---
 
-### Quote
+## Needs
 
-"I want AI to remove repetitive work—not replace engineering."
-
----
-
-### Success Criteria
-
-David spends more time developing and less time documenting.
+- AI copywriting
+- Campaign organization
+- Reusable templates
+- Content optimization
 
 ---
 
-# Persona 4 — Emma Rodriguez
+## How AI Creative Studio Helps
 
-## Content Creator
-
-### Profile
-
-- Age: 27
-- Occupation: Digital Content Creator
-- Experience: 5 Years
-- Technical Level: Intermediate
+- Generates marketing copy
+- Organizes campaign content
+- Improves writing quality
+- Reduces production time
 
 ---
 
-### Goals
+# Persona 5 — Freelance Writer
 
-- Publish content consistently
-- Organize creative ideas
-- Save reusable workflows
-- Improve productivity
+## Profile
+
+| Attribute | Details |
+|-----------|----------|
+| Name | Olivia Wilson |
+| Age | 27 |
+| Occupation | Freelance Writer |
+| Technical Skill | Intermediate |
+| AI Experience | Beginner |
 
 ---
 
-### Pain Points
+## Goals
 
-- Creative blocks
+- Deliver projects faster
+- Improve client satisfaction
+- Increase productivity
+- Manage multiple clients
+
+---
+
+## Challenges
+
+- Multiple deadlines
 - Repetitive writing
-- Poor content organization
+- Project organization
+- Client revisions
 
 ---
 
-### Needs
+## Needs
 
 - AI writing assistant
-- Content planner
-- Prompt library
-- Asset management
+- Project management
+- Fast editing
+- Export capabilities
 
 ---
 
-### AI Usage
+## How AI Creative Studio Helps
 
-Uses AI for
-
-- Blog writing
-- Video scripting
-- Social media planning
-- Brainstorming
+- Generates first drafts
+- Organizes client projects
+- Speeds up revisions
+- Improves writing quality
 
 ---
 
-### Quote
+# Common User Characteristics
 
-"I want ideas instantly without losing my creative style."
+Across all personas, users typically:
 
----
-
-### Success Criteria
-
-Emma produces more content with less manual effort.
-
----
-
-# Persona Comparison
-
-| Persona | Main Goal | Biggest Challenge | AI Benefit |
-|----------|-----------|------------------|------------|
-| Sarah | Study Faster | Organization | Learning Assistance |
-| Michael | Better Design Workflow | Asset Management | Creative Support |
-| David | Faster Development | Documentation | Coding Assistance |
-| Emma | Content Production | Creative Blocks | AI Writing |
+- Create written content regularly
+- Value productivity
+- Seek AI-powered assistance
+- Prefer intuitive interfaces
+- Need organized workflows
+- Expect reliable performance
 
 ---
 
-# Shared User Needs
+# Persona Goals Summary
 
-Across all personas, users expect:
-
-- Fast idea generation
-- Easy project organization
-- AI-powered assistance
-- Minimal learning curve
-- Modern interface
-- Responsive design
-- Reliable performance
+| Persona | Primary Goal |
+|----------|--------------|
+| Student | Academic writing |
+| Researcher | Technical documentation |
+| Content Creator | Creative content generation |
+| Marketing Specialist | Campaign production |
+| Freelance Writer | Faster project delivery |
 
 ---
 
-# Design Implications
+# Product Design Implications
 
-These personas influence:
+The personas directly influence product decisions, including:
 
-- Dashboard layout
-- Navigation structure
-- AI assistant behavior
-- Template system
-- Prompt management
-- Accessibility features
-- Mobile responsiveness
+- User interface simplicity
+- AI-assisted workflows
+- Project organization
+- Template management
+- Prompt engineering
+- Dashboard design
+- Future collaboration features
 
 ---
 
-# Product Strategy Alignment
+# Alignment with IBM AI Builders Challenge
 
-The personas validate that AI Creative Studio addresses the needs of students, professionals, developers, and creators through a unified AI-powered productivity platform.
+These personas demonstrate practical, real-world applications of IBM Granite Foundation Models across education, research, business, marketing, and digital content creation.
 
-Each feature is designed to solve a real user problem rather than demonstrating AI technology alone.
+The platform showcases how enterprise AI can improve productivity while maintaining a user-centered design philosophy.
 
 ---
 
 # Conclusion
 
-Understanding users is the foundation of building meaningful AI products.
+The user personas provide a clear understanding of the individuals who will benefit from AI Creative Studio. By designing features around their goals, behaviors, and challenges, the platform delivers a more meaningful, efficient, and scalable AI-powered writing experience.
 
-AI Creative Studio prioritizes user-centered design, intelligent assistance, and practical productivity improvements for a diverse range of creative professionals.
+---
+
+**AI Creative Studio**
+
+**User Personas**
+
+**IBM AI Builders Challenge 2026**
+
+**Powered by IBM Granite Foundation Models**
+
+**Version 1.0**
