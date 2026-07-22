@@ -1,261 +1,107 @@
 # Demo Guide
 
-> **Project:** AI Creative Studio
-> **Challenge:** IBM AI Builders Challenge 2026
-> **Version:** 1.0
+> **Project:** AI Creative Studio  
+> **Challenge:** IBM AI Builders Challenge 2026  
+> **Demo:** Product Walkthrough  
+> **Status:** Final Demo Guide
 
 ---
 
-# Overview
+## Overview
 
-This guide follows the official demonstration format of the **IBM AI Builders Challenge**.
+This guide describes the official product demonstration of **AI Creative Studio** for the IBM AI Builders Challenge 2026.
 
-The objective is to demonstrate the core functionality of AI Creative Studio, its IBM AI integration, and its enterprise architecture within the **maximum 3-minute demonstration limit**.
+The demonstration presents a concise end-to-end content creation workflow, showing how a user moves from the initial product experience to project creation, AI-assisted content generation, content refinement, and final workflow management.
 
----
-
-# Demonstration Objectives
-
-The demonstration should clearly showcase:
-
-- IBM Granite Foundation Models
-- IBM watsonx.ai integration
-- AI-powered content generation
-- Enterprise software architecture
-- Responsible AI principles
-- Future scalability
+The demonstration is designed to remain within the challenge's maximum three-minute demo requirement.
 
 ---
 
-# Demonstration Environment
+## 🎥 Demo Video
 
-Recommended environment
+Watch the final product demonstration:
 
-- Modern web browser
-- Stable internet connection
-- Deployed application (preferred)
-- Local development server (fallback)
+**[▶️ Watch the AI Creative Studio Demo on YouTube](https://youtu.be/fC_misIC4oA)**
+
+---
+
+## Demonstration Objectives
+
+The demonstration is designed to communicate:
+
+- The core problem addressed by AI Creative Studio
+- The user experience and application workflow
+- Project-based content creation
+- AI-assisted content generation
+- Content editing and refinement
+- Reusable templates
+- A structured and modular application architecture
+- The role of IBM AI technologies in the project's AI vision and engineering approach
 
 ---
 
 # Demonstration Flow
 
-## Step 1 — Project Introduction
+## Step 1 — Product Introduction
 
-**Duration:** 20 seconds
+**Approximate Duration:** 5–10 seconds
 
-Introduce:
+The demonstration begins with the AI Creative Studio brand introduction.
 
-- AI Creative Studio
-- IBM AI Builders Challenge
-- Enterprise AI application
-- IBM technologies used
+The presenter briefly introduces the project and establishes the product context for the IBM AI Builders Challenge 2026.
+
+### Key Message
+
+AI Creative Studio is an AI-powered content creation platform designed to help users move from an initial idea to structured, refined content through an integrated creative workflow.
 
 ---
 
-## Step 2 — User Interface
+## Step 2 — Landing Page
 
-**Duration:** 20 seconds
+**Approximate Duration:** 15–20 seconds
 
 Demonstrate:
 
-- Home page
-- Responsive design
-- Modern interface
-- Navigation
+- Product landing page
+- Main value proposition
+- Product interface
+- Key platform capabilities
 
-Mention
+### Key Message
 
-- React 19
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
+The landing experience introduces the platform and communicates its focus on AI-assisted creative content workflows.
 
 ---
 
-## Step 3 — AI Content Generation
+## Step 3 — Dashboard
 
-**Duration:** 70 seconds
+**Approximate Duration:** 15–20 seconds
 
-Demonstrate
+Demonstrate:
 
-1. Enter a prompt
+- Dashboard overview
+- Project activity
+- Recent projects
+- Key workspace information
 
-Example
+### Key Message
 
-```
-Generate a professional executive summary for an enterprise AI platform.
-```
-
-2. Submit the request
-
-3. Receive AI response
-
-4. Review generated content
-
-Explain
-
-- Prompt validation
-- IBM watsonx.ai
-- IBM Granite Foundation Models
+The dashboard provides a centralized workspace for managing content projects and accessing the platform's core capabilities.
 
 ---
 
-## Step 4 — Enterprise Architecture
+## Step 4 — Project Creation
 
-**Duration:** 35 seconds
+**Approximate Duration:** 15–20 seconds
 
-Present
+Demonstrate:
 
-- Layered Architecture
-- AI Workflow
-- Modular Components
+1. Open the project workspace
+2. Create a new project
+3. Enter a project title
+4. Confirm project creation
 
-Highlight
+### Example Project
 
-- Separation of Concerns
-- Scalable Design
-- Cloud Readiness
-
----
-
-## Step 5 — IBM Integration
-
-**Duration:** 20 seconds
-
-Explain
-
-Current implementation
-
-- IBM Granite Foundation Models
-- IBM watsonx.ai
-
-Mention
-
-Enterprise AI architecture built around IBM technologies.
-
----
-
-## Step 6 — Future Roadmap
-
-**Duration:** 15 seconds
-
-Briefly mention
-
-- Retrieval-Augmented Generation (Planned)
-- AI Agents (Planned)
-- IBM Cloud Deployment (Planned)
-
-Clarify
-
-These capabilities are documented as future architecture and are **not part of the current implementation**.
-
----
-
-# Demonstration Timeline
-
-| Step | Duration |
-|------|----------|
-| Project Introduction | 20 sec |
-| User Interface | 20 sec |
-| AI Content Generation | 70 sec |
-| Enterprise Architecture | 35 sec |
-| IBM Integration | 20 sec |
-| Future Roadmap | 15 sec |
-
-**Total Duration:** **180 seconds (3 minutes)**
-
----
-
-# Key Messages
-
-During the presentation, emphasize:
-
-- IBM Granite Foundation Models
-- IBM watsonx.ai integration
-- AI-first software architecture
-- Enterprise engineering practices
-- Responsible AI
-- Modular application design
-- Cloud-ready architecture
-
----
-
-# Suggested Prompt
-
-```
-Generate a professional executive summary for an enterprise AI platform.
-```
-
-Expected output
-
-- Well-structured content
-- Professional language
-- Business-oriented writing
-- Clear formatting
-
----
-
-# Possible Judge Questions
-
-### Why IBM Granite?
-
-IBM Granite Foundation Models provide enterprise-focused AI capabilities aligned with responsible AI principles, scalability, and professional content generation.
-
----
-
-### Why React?
-
-React enables a modular component architecture that improves maintainability, scalability, and future enterprise expansion.
-
----
-
-### Why Local Storage?
-
-The current implementation intentionally uses Local Storage to simplify deployment while preparing the architecture for future PostgreSQL and IBM Cloud Databases integration.
-
----
-
-### Why isn't authentication implemented?
-
-Authentication has been intentionally documented as a planned feature. The architecture already supports future JWT Authentication and IBM IAM integration.
-
----
-
-# Demonstration Tips
-
-Before recording
-
-- Verify internet connectivity
-- Prepare a sample prompt
-- Clear previous outputs
-- Test the complete workflow
-
-During the demonstration
-
-- Focus on IBM technologies
-- Keep explanations concise
-- Highlight implemented features
-- Clearly distinguish planned capabilities
-- Stay within the 3-minute limit
-
----
-
-# Success Criteria
-
-A successful demonstration should clearly communicate:
-
-- Practical IBM AI integration
-- AI-powered workflow
-- Enterprise architecture
-- Responsible AI practices
-- Future scalability
-- Professional software engineering
-
----
-
-# Conclusion
-
-This demonstration has been designed specifically for the IBM AI Builders Challenge.
-
-Within three minutes, it presents AI Creative Studio as an enterprise-oriented AI application powered by IBM Granite Foundation Models and IBM watsonx.ai, while highlighting its modular architecture, responsible AI approach, and readiness for future cloud-native evolution.
+```text
+Summer Eco Campaign
