@@ -1,48 +1,67 @@
 # IBM Granite Integration
 
-> **Project:** AI Creative Studio
-> **Challenge:** IBM AI Builders Challenge 2026
+> **Project:** AI Creative Studio  
+> **Challenge:** IBM AI Builders Challenge 2026  
 > **Version:** 1.0
 
 ---
 
 # Overview
 
-AI Creative Studio integrates IBM Granite Foundation Models through IBM watsonx.ai to provide intelligent content generation capabilities.
+AI Creative Studio was originally designed to integrate IBM Granite Foundation Models through IBM watsonx.ai as part of the IBM AI Builders Challenge 2026.
 
-The integration has been designed using enterprise software engineering principles to ensure scalability, maintainability, and future cloud deployment.
+During development, the initial AI integration was implemented using IBM Granite. After the available IBM trial credits were exhausted, the inference layer was migrated to Google Gemini to allow continued development, testing, and demonstration.
+
+The application's architecture, AI workflow, and service layer remain provider-independent, making it straightforward to reconnect IBM Granite or another enterprise AI model in future deployments.
 
 ---
 
 # Integration Goals
 
-The IBM Granite integration focuses on:
+The AI integration focuses on:
 
 - AI-assisted content generation
-- Prompt optimization
+- Structured prompt engineering
 - Reliable response generation
 - Enterprise AI architecture
-- Scalable AI services
-- Future cloud readiness
+- Modular AI service design
+- Cloud-ready deployment
 
 ---
 
-# Why IBM Granite?
+# IBM Granite During Development
 
-IBM Granite Foundation Models were selected because they provide:
+IBM Granite Foundation Models were selected for the original implementation because they provide:
 
 - Enterprise-grade AI
 - Responsible AI principles
 - High-quality language understanding
-- Scalable deployment
-- IBM Cloud ecosystem integration
+- Secure enterprise integration
+- IBM Cloud ecosystem compatibility
 - Professional AI governance
+
+The project architecture was designed around these capabilities.
+
+---
+
+# Current AI Provider
+
+The current implementation uses **Google Gemini** as the AI inference provider after the IBM Granite trial credits became unavailable.
+
+This change affects only the inference backend.
+
+The following remain unchanged:
+
+- Application architecture
+- AI workflow
+- Prompt engineering strategy
+- Service layer abstraction
+- User experience
+- Enterprise design principles
 
 ---
 
 # Current Architecture
-
-The current implementation follows a frontend-first architecture.
 
 ```
 User
@@ -53,15 +72,11 @@ React Interface
 
 ↓
 
-AI Service
+AI Service Layer
 
 ↓
 
-IBM watsonx.ai API
-
-↓
-
-IBM Granite Foundation Model
+Google Gemini API
 
 ↓
 
@@ -72,6 +87,8 @@ Generated Response
 React Application
 ```
 
+The AI Service Layer abstracts the model provider, allowing future replacement with IBM Granite without significant architectural changes.
+
 ---
 
 # Request Flow
@@ -80,37 +97,39 @@ The AI request lifecycle consists of the following steps:
 
 1. User enters a prompt.
 2. Prompt validation is performed.
-3. The request is sent to the AI service.
-4. IBM watsonx.ai receives the request.
-5. Granite processes the prompt.
-6. Generated content is returned.
-7. The application displays the response.
-8. The response is stored in local state.
+3. The request is prepared.
+4. The AI provider receives the request.
+5. The model generates content.
+6. The response is processed.
+7. The application displays the generated content.
+8. The result is stored in local state.
 
 ---
 
 # AI Service Layer
 
-The AI Service is responsible for:
+The AI Service Layer is responsible for:
 
 - Prompt preparation
 - API communication
 - Error handling
 - Response processing
-- Retry logic
+- Future provider abstraction
 - Future caching support
+
+This design allows switching between AI providers with minimal application changes.
 
 ---
 
-# Granite Responsibilities
+# AI Model Responsibilities
 
-IBM Granite is responsible for:
+Regardless of the underlying provider, the AI model is responsible for:
 
 - Natural language understanding
-- Content generation
+- Creative content generation
 - Instruction following
 - Context-aware responses
-- Language generation
+- Text generation
 
 ---
 
@@ -129,11 +148,11 @@ Prompt Formatting
 
 ↓
 
-IBM watsonx.ai
+AI Service Layer
 
 ↓
 
-Granite Processing
+AI Provider
 
 ↓
 
@@ -162,33 +181,34 @@ Current capabilities include:
 
 ---
 
-# Future Integration
+# Future IBM Integration
 
-Future versions will include:
+The modular architecture allows future integration with:
 
+- IBM Granite Foundation Models
+- IBM watsonx.ai
 - Streaming responses
-- Context memory
 - Multi-turn conversations
 - Prompt history
 - Response caching
-- Multi-model support
+- Multi-model orchestration
 
 ---
 
 # Security Considerations
 
-The AI integration follows secure design principles.
-
 Current implementation:
 
 - Input validation
+- Prompt validation
 - Client-side sanitization
 - Error handling
 
-Future implementation:
+Future enterprise implementation:
 
 - Secure API Gateway
 - JWT Authentication
+- IBM IAM
 - Rate limiting
 - Secret management
 - Audit logging
@@ -209,12 +229,13 @@ The platform is designed to optimize:
 
 # Scalability
 
-The integration supports future expansion through:
+The architecture supports future expansion through:
 
+- IBM watsonx.ai integration
+- IBM Granite Foundation Models
+- Multiple AI providers
 - Cloud deployment
 - Distributed AI services
-- Multiple AI providers
-- Queue-based processing
 - Enterprise infrastructure
 
 ---
@@ -231,28 +252,30 @@ The AI service manages:
 
 ---
 
-# IBM Best Practices
+# Responsible AI
 
-The implementation follows IBM AI principles by emphasizing:
+The project follows responsible AI principles by emphasizing:
 
-- Responsible AI
-- Explainability
-- Scalability
-- Security
-- Enterprise architecture
+- Human-in-the-loop workflows
+- Prompt validation
+- Transparent AI assistance
+- Secure application architecture
+- Provider-independent AI design
 
 ---
 
 # IBM AI Builders Challenge Alignment
 
-This integration demonstrates the practical use of IBM Granite Foundation Models within a modern React application.
+AI Creative Studio was originally developed around IBM Granite during the IBM AI Builders Challenge.
 
-The architecture highlights how enterprise AI services can be integrated into real-world productivity software while maintaining modularity and future cloud readiness.
+Although the current implementation uses Google Gemini due to the expiration of IBM trial credits, the overall architecture, AI workflow, and engineering approach remain aligned with the enterprise AI design principles presented throughout this repository.
+
+The provider-independent AI Service Layer enables IBM Granite to be reintroduced with minimal architectural changes.
 
 ---
 
 # Conclusion
 
-IBM Granite serves as the intelligence layer of AI Creative Studio.
+AI Creative Studio demonstrates an enterprise-oriented AI architecture that separates application logic from the underlying AI provider.
 
-By combining enterprise architecture with IBM Foundation Models, the platform provides a scalable and maintainable foundation for AI-assisted content generation and future enterprise expansion.
+This modular design allowed development to continue with Google Gemini after IBM Granite trial credits expired while preserving the project's enterprise architecture, responsible AI workflow, and readiness for future IBM watsonx.ai integration.

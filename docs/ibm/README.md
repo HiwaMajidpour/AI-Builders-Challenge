@@ -1,18 +1,18 @@
 # IBM AI Documentation
 
-> **Project:** AI Creative Studio
-> **Challenge:** IBM AI Builders Challenge 2026
+> **Project:** AI Creative Studio  
+> **Challenge:** IBM AI Builders Challenge 2026  
 > **Version:** 1.0
 
 ---
 
 # Overview
 
-This directory contains IBM-specific technical documentation for AI Creative Studio.
+This directory contains IBM-specific documentation for AI Creative Studio.
 
-The purpose of this documentation is to demonstrate how IBM Granite Foundation Models and IBM watsonx.ai are integrated into the project while following enterprise software engineering practices.
+The project was originally developed for the IBM AI Builders Challenge using IBM Granite Foundation Models through IBM watsonx.ai. During development, the available IBM trial credits were exhausted, so the AI inference layer was migrated to Google Gemini to allow continued development and demonstration.
 
-Although the current implementation focuses on frontend architecture and AI-assisted content generation, the platform has been designed to support future IBM Cloud deployment and enterprise AI capabilities.
+Although the current implementation uses Google Gemini, the application's enterprise architecture, AI workflow, prompt engineering strategy, and responsible AI approach remain aligned with the objectives of the IBM AI Builders Challenge.
 
 ---
 
@@ -20,14 +20,14 @@ Although the current implementation focuses on frontend architecture and AI-assi
 
 This documentation demonstrates:
 
-- IBM Granite integration
-- IBM watsonx.ai architecture
+- Enterprise AI architecture
+- AI service abstraction
 - Prompt engineering strategy
 - AI model evaluation
 - Responsible AI principles
-- Enterprise AI architecture
-- IBM AI best practices
-- Future IBM Cloud readiness
+- Modular AI integration
+- IBM AI challenge alignment
+- Future IBM watsonx.ai compatibility
 
 ---
 
@@ -35,55 +35,85 @@ This documentation demonstrates:
 
 | Document | Description |
 |----------|-------------|
-| IBM-Granite-Integration | Granite integration architecture |
-| watsonx-Architecture | IBM watsonx.ai workflow |
+| IBM-Granite-Integration | Original IBM Granite integration design and migration notes |
+| watsonx-Architecture | Enterprise AI architecture compatible with IBM watsonx.ai |
 | Prompt-Engineering | Prompt engineering strategy |
-| AI-Model-Evaluation | AI quality evaluation |
+| AI-Model-Evaluation | AI quality evaluation methodology |
 | IBM-AI-Compliance | Responsible AI practices |
-| Granite-Use-Cases | Granite usage scenarios |
-| IBM-Challenge-Alignment | Alignment with challenge goals |
+| Granite-Use-Cases | Intended IBM Granite use cases |
+| IBM-Challenge-Alignment | Alignment with challenge objectives |
 | AI-Ethics | Ethical AI considerations |
-| Future-IBM-Roadmap | IBM technology roadmap |
+| Future-IBM-Roadmap | Planned IBM ecosystem integration |
 
 ---
 
-# IBM Technologies
+# AI Technologies
 
-Current technologies include:
+### Original Challenge Implementation
 
 - IBM Granite Foundation Models
 - IBM watsonx.ai
 
-Future technologies include:
+### Current Implementation
 
+- Google Gemini API
+
+### Planned Enterprise Integration
+
+- IBM watsonx.ai
 - IBM Cloud
 - IBM Cloud Databases
 - IBM Object Storage
-- IBM Cloud Identity
-- IBM Monitoring
-- IBM Event Streams
+- IBM IAM
+- IBM Cloud Monitoring
 
 ---
 
 # Enterprise AI Principles
 
-The project follows:
+AI Creative Studio follows enterprise AI engineering principles including:
 
 - AI-first architecture
 - Human-centered AI
 - Responsible AI
-- Scalable AI integration
 - Modular AI services
-- Enterprise documentation
+- Scalable application design
+- Provider-independent AI integration
 
 ---
 
-# IBM AI Builders Challenge
+# IBM AI Builders Challenge Alignment
 
-This documentation demonstrates how AI Creative Studio applies IBM technologies to build an enterprise-ready AI-powered productivity platform with a focus on scalability, maintainability, and responsible AI adoption.
+AI Creative Studio was developed as part of the IBM AI Builders Challenge 2026.
+
+The project was initially implemented using IBM Granite Foundation Models. After the available IBM trial credits were exhausted, Google Gemini was adopted as the inference provider to continue development and product demonstration.
+
+This migration did not change the application's architecture or AI workflow. The project continues to demonstrate:
+
+- Enterprise software engineering
+- Responsible AI practices
+- Modular AI integration
+- Prompt engineering
+- Scalable application architecture
+
+---
+
+# Future IBM Roadmap
+
+The application's AI service layer is intentionally modular, allowing future migration back to IBM technologies, including:
+
+- IBM Granite Foundation Models
+- IBM watsonx.ai
+- IBM Cloud deployment
+- IBM IAM
+- IBM Cloud Databases
+- Retrieval-Augmented Generation (RAG)
+- AI Agents
 
 ---
 
 # Conclusion
 
-The IBM documentation complements the technical architecture by providing a detailed view of AI integration, enterprise readiness, and future cloud deployment aligned with IBM best practices.
+This documentation describes the IBM-oriented architecture and engineering approach used throughout AI Creative Studio.
+
+While the current implementation uses Google Gemini due to the expiration of IBM trial credits, the project remains aligned with the goals of the IBM AI Builders Challenge and is architected to support future integration with IBM watsonx.ai and the broader IBM Cloud ecosystem.

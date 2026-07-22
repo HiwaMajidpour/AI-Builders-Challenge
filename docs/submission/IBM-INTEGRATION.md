@@ -8,65 +8,85 @@
 
 # Overview
 
-AI Creative Studio has been designed around the IBM AI ecosystem, with IBM Granite Foundation Models serving as the primary AI engine through IBM watsonx.ai.
+AI Creative Studio was developed for the IBM AI Builders Challenge 2026 and designed around an enterprise AI architecture inspired by the IBM AI ecosystem.
 
-The architecture has been intentionally prepared for future expansion across additional IBM Cloud services while maintaining a modular and enterprise-oriented design.
+The project was initially implemented using IBM Granite Foundation Models through IBM watsonx.ai during development. After the available IBM trial credits were exhausted, the current implementation was migrated to Google Gemini while preserving the same AI workflow, prompt engineering strategy, and enterprise application architecture.
+
+The modular AI integration layer enables future migration back to IBM AI services with minimal architectural changes.
 
 ---
 
-# Current IBM Technologies
-
-The current implementation integrates the following IBM technologies.
+# AI Technology Status
 
 | Technology | Purpose | Status |
 |------------|----------|--------|
-| IBM Granite Foundation Models | AI text generation | ✅ Implemented |
-| IBM watsonx.ai | AI inference platform | ✅ Implemented |
+| Google Gemini API | Current AI inference provider | ✅ Current |
+| IBM Granite Foundation Models | Original challenge implementation | ✅ Initial Development |
+| IBM watsonx.ai | Original AI platform | ✅ Initial Development |
+| IBM Cloud Services | Enterprise roadmap | 🟡 Planned |
 
 ---
 
 # IBM Granite Foundation Models
 
-IBM Granite serves as the core intelligence layer of the application.
+IBM Granite Foundation Models were selected as the original AI platform for this project during the IBM AI Builders Challenge.
 
-Responsibilities
+They were used to support:
 
 - Natural language generation
-- Content creation
-- Technical writing
+- Creative content generation
 - Business writing
-- Documentation assistance
+- Technical writing
+- Prompt engineering experiments
 
-Benefits
-
-- Enterprise-focused AI
-- High-quality responses
-- Responsible AI
-- Reliable inference
+The project architecture was designed around enterprise AI engineering principles introduced through IBM Granite.
 
 ---
 
 # IBM watsonx.ai
 
-IBM watsonx.ai provides the AI inference platform used by the application.
+IBM watsonx.ai served as the original inference platform during the early stages of development.
 
-Responsibilities
+Its role included:
 
 - Prompt processing
 - Model inference
-- Response generation
 - AI service integration
+- Enterprise AI experimentation
 
-Benefits
-
-- Managed AI platform
-- Enterprise scalability
-- Secure AI services
-- Model lifecycle management
+Although the current implementation uses Google Gemini, the architecture remains compatible with future IBM watsonx.ai integration.
 
 ---
 
 # Current AI Workflow
+
+```
+User
+
+↓
+
+React Application
+
+↓
+
+Prompt Validation
+
+↓
+
+Google Gemini API
+
+↓
+
+Generated Response
+
+↓
+
+User
+```
+
+---
+
+# Original Challenge Workflow
 
 ```
 User
@@ -98,22 +118,9 @@ User
 
 ---
 
-# Future IBM Cloud Integration
+# Enterprise AI Architecture
 
-The architecture is prepared for future IBM Cloud services.
-
-| IBM Service | Planned Purpose | Status |
-|-------------|-----------------|--------|
-| IBM Cloud | Application hosting | 🟡 Planned |
-| IBM Cloud Databases | Persistent storage | 🟡 Planned |
-| IBM IAM | Authentication | 🟡 Planned |
-| IBM Key Protect | Secret management | 🟡 Planned |
-| IBM Cloud Monitoring | Monitoring & Observability | 🟡 Planned |
-| IBM Cloud Object Storage | File storage | 🟡 Planned |
-
----
-
-# Planned Enterprise Architecture
+The AI layer has been designed as an abstraction layer separating the frontend application from the underlying AI provider.
 
 ```
 User
@@ -124,47 +131,60 @@ React Frontend
 
 ↓
 
-API Layer
+Application Layer
 
 ↓
 
-IBM IAM
+AI Service Layer
 
 ↓
 
-IBM watsonx.ai
+AI Provider
 
 ↓
 
-IBM Granite
-
-↓
-
-IBM Cloud Databases
-
-↓
-
-IBM Cloud Monitoring
+Generated Response
 ```
+
+This architecture allows different AI providers to be integrated without changing the application logic.
+
+---
+
+# Future IBM Cloud Integration
+
+The architecture is prepared for future IBM Cloud services.
+
+| IBM Service | Planned Purpose | Status |
+|-------------|-----------------|--------|
+| IBM watsonx.ai | AI inference platform | 🟡 Planned |
+| IBM Granite Foundation Models | AI models | 🟡 Planned |
+| IBM Cloud | Application hosting | 🟡 Planned |
+| IBM Cloud Databases | Persistent storage | 🟡 Planned |
+| IBM IAM | Authentication | 🟡 Planned |
+| IBM Key Protect | Secret management | 🟡 Planned |
+| IBM Cloud Monitoring | Monitoring & Observability | 🟡 Planned |
+| IBM Cloud Object Storage | File storage | 🟡 Planned |
 
 ---
 
 # Responsible AI
 
-The project aligns with responsible AI principles by incorporating:
+The project follows responsible AI engineering practices independent of the underlying AI provider.
 
-Current
+Current implementation
 
 - Prompt validation
 - Human review
 - Structured prompt engineering
+- Transparent AI workflow
 
-Future
+Future enhancements
 
-- AI security validation
 - Prompt injection detection
 - Hallucination mitigation
+- AI security validation
 - Audit logging
+- Enterprise governance
 
 ---
 
@@ -173,29 +193,33 @@ Future
 Dedicated documentation has been prepared for:
 
 - AI Architecture
+- Prompt Engineering
 - Prompt Optimization
 - Prompt Testing
 - AI Evaluation Metrics
 - AI Security
 - Planned RAG Architecture
 - Planned AI Agents
-- Planned Multi-Model Strategy
+- Planned Multi-model Strategy
+
+These engineering practices are designed to remain provider-independent.
 
 ---
 
 # IBM AI Builders Challenge Alignment
 
-The project demonstrates practical integration of IBM AI technologies while following enterprise software engineering principles.
+AI Creative Studio was developed for the IBM AI Builders Challenge and demonstrates:
 
-Key strengths include:
-
-- IBM Granite Foundation Models
-- IBM watsonx.ai integration
-- AI-first application design
-- Enterprise architecture
-- Responsible AI practices
+- Enterprise AI architecture
+- AI-first software engineering
+- Modular React architecture
+- Responsible AI principles
 - Comprehensive documentation
-- Cloud-ready roadmap
+- Future IBM Cloud compatibility
+
+The project originally used IBM Granite Foundation Models and IBM watsonx.ai during development.
+
+Following the expiration of IBM trial credits, Google Gemini became the current inference provider while preserving the application's architecture and AI workflow.
 
 ---
 
@@ -203,17 +227,32 @@ Key strengths include:
 
 | Area | Current | Planned |
 |------|---------|---------|
-| AI Models | IBM Granite | Granite Family |
-| AI Platform | watsonx.ai | Expanded IBM AI Services |
-| Authentication | Mock | IBM IAM |
+| AI Provider | Google Gemini | IBM watsonx.ai / Multi-model |
+| AI Models | Gemini | IBM Granite Family |
+| Authentication | Local | IBM IAM |
 | Storage | Local Storage | IBM Cloud Databases |
 | Deployment | Vercel | IBM Cloud |
 | Monitoring | Basic | IBM Cloud Monitoring |
 
 ---
 
+# AI Provider Transparency
+
+To maintain transparency for reviewers:
+
+- IBM Granite Foundation Models were used during the initial development of the project.
+- IBM watsonx.ai served as the original inference platform.
+- The current implementation uses Google Gemini because the available IBM trial credits were exhausted during development.
+- Only the AI inference provider changed.
+- The application architecture, workflow, prompt engineering strategy, and enterprise software design remain unchanged.
+- The project is architecturally prepared for future IBM watsonx.ai integration.
+
+---
+
 # Conclusion
 
-AI Creative Studio demonstrates the practical adoption of IBM Granite Foundation Models and IBM watsonx.ai within a modern React application.
+AI Creative Studio demonstrates enterprise AI application architecture, responsible AI engineering, and modular software design through a provider-independent AI integration layer.
 
-The current implementation provides a solid enterprise AI foundation, while the documented roadmap illustrates a clear migration path toward a fully cloud-native IBM ecosystem, including authentication, managed databases, monitoring, secure infrastructure, and advanced AI capabilities.
+The project was originally implemented using IBM Granite Foundation Models during the IBM AI Builders Challenge and now uses Google Gemini for AI inference after IBM trial credits were exhausted.
+
+Its modular architecture preserves compatibility with future IBM watsonx.ai integration and continued evolution within the IBM AI ecosystem.
